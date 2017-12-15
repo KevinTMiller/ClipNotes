@@ -87,7 +87,7 @@
         <!--Item 1-->
         <scene sceneID="f2A-fB-n5K">
             <objects>
-                <viewController id="Pq8-cN-CG8" sceneMemberID="viewController">
+                <viewController id="Pq8-cN-CG8" customClass="AudioRecordViewController" customModule="AVNotes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KeD-Ro-5jK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -98,7 +98,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vlX-Np-RZE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="569" y="1238"/>
+            <point key="canvasLocation" x="570" y="1313"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="lzV-fc-pNZ">

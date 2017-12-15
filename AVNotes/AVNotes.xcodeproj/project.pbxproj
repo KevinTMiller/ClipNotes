@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8713674F1FE420D200545AAA /* AudioVideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713674E1FE420D200545AAA /* AudioVideoRecorder.swift */; };
+		871367561FE427B400545AAA /* AVRecordingObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871367551FE427B400545AAA /* AVRecordingObject.swift */; };
+		871367581FE427FA00545AAA /* AVAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871367571FE427FA00545AAA /* AVAnnotation.swift */; };
 		872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A66FB1FD7035F00AD6B2C /* AppDelegate.swift */; };
 		872A67011FD7035F00AD6B2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 872A66FF1FD7035F00AD6B2C /* Main.storyboard */; };
 		872A67031FD7035F00AD6B2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 872A67021FD7035F00AD6B2C /* Assets.xcassets */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8713674E1FE420D200545AAA /* AudioVideoRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVideoRecorder.swift; sourceTree = "<group>"; };
+		871367551FE427B400545AAA /* AVRecordingObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVRecordingObject.swift; sourceTree = "<group>"; };
+		871367571FE427FA00545AAA /* AVAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVAnnotation.swift; sourceTree = "<group>"; };
 		872A66F81FD7035F00AD6B2C /* AVNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		872A66FB1FD7035F00AD6B2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		872A67001FD7035F00AD6B2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -41,6 +47,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		871367501FE426BD00545AAA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				8713674E1FE420D200545AAA /* AudioVideoRecorder.swift */,
+				871367551FE427B400545AAA /* AVRecordingObject.swift */,
+				871367571FE427FA00545AAA /* AVAnnotation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		872A66EF1FD7035F00AD6B2C = {
 			isa = PBXGroup;
 			children = (
@@ -60,7 +76,8 @@
 		872A66FA1FD7035F00AD6B2C /* AVNotes */ = {
 			isa = PBXGroup;
 			children = (
-				872A670E1FD7085600AD6B2C /* View Controllers */,
+				871367501FE426BD00545AAA /* Models */,
+				872A670E1FD7085600AD6B2C /* Controllers */,
 				872A66FB1FD7035F00AD6B2C /* AppDelegate.swift */,
 				872A66FF1FD7035F00AD6B2C /* Main.storyboard */,
 				872A67021FD7035F00AD6B2C /* Assets.xcassets */,
@@ -70,7 +87,7 @@
 			path = AVNotes;
 			sourceTree = "<group>";
 		};
-		872A670E1FD7085600AD6B2C /* View Controllers */ = {
+		872A670E1FD7085600AD6B2C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				872A670F1FD7088A00AD6B2C /* AudioRecordViewController.swift */,
@@ -78,7 +95,7 @@
 				872A67131FD708B500AD6B2C /* FileViewController.swift */,
 				872A67151FD708FB00AD6B2C /* LoginViewController.swift */,
 			);
-			path = "View Controllers";
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,9 +172,12 @@
 			files = (
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
+				8713674F1FE420D200545AAA /* AudioVideoRecorder.swift in Sources */,
 				872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */,
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
+				871367561FE427B400545AAA /* AVRecordingObject.swift in Sources */,
 				872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */,
+				871367581FE427FA00545AAA /* AVAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
