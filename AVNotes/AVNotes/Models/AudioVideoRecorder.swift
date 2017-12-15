@@ -9,5 +9,32 @@
 import UIKit
 
 class AudioVideoRecorder: NSObject {
-
+    
+    let sharedInstance = AudioVideoRecorder()
+    
+    // Public funcs
+    
+    func startRecordingAudio() {
+        
+    }
+    func stopRecordingAudio() {
+        
+    }
+    func startRecordingVideo() {
+        
+    }
+    func stopRecordingVideo() {
+        
+    }
+    
+    // MARK: Private
+    private func finishRecordingAudio() {
+        
+    }
+    private func finishRecordingVideo() {
+        
+    }
+    private func saveObject() {
+        
+    }
 }

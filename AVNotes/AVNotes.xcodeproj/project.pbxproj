@@ -57,6 +57,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		8713675B1FE435E300545AAA /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Custom Views";
+			sourceTree = "<group>";
+		};
 		872A66EF1FD7035F00AD6B2C = {
 			isa = PBXGroup;
 			children = (
@@ -76,6 +83,7 @@
 		872A66FA1FD7035F00AD6B2C /* AVNotes */ = {
 			isa = PBXGroup;
 			children = (
+				8713675B1FE435E300545AAA /* Custom Views */,
 				871367501FE426BD00545AAA /* Models */,
 				872A670E1FD7085600AD6B2C /* Controllers */,
 				872A66FB1FD7035F00AD6B2C /* AppDelegate.swift */,

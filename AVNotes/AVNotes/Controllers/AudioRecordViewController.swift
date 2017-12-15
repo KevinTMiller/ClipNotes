@@ -10,26 +10,46 @@ import UIKit
 
 class AudioRecordViewController: UIViewController {
 
+    @IBOutlet weak var waveformView: UIView!
+    @IBOutlet weak var tempWaveformLabel: UILabel!
+    @IBOutlet weak var stopWatchLabel: UILabel!
+    @IBOutlet weak var recordingTitleLabel: UILabel!
+    @IBOutlet weak var recordingDateLabel: UILabel!
+    @IBOutlet weak var annotationTableView: UITableView!
+    
+    
+    @IBAction func playButtonPressed(_ sender: UIButton) {
+    }
+    @IBAction func recordButtonPressed(_ sender: UIButton) {
+    }
+    @IBAction func addButtonPressed(_ sender: UIButton) {
+    }
+    
+    // MARK: Model control
+    
+    func startRecording() {
+        
+    }
+    
+    func stopRecording() {
+        
+    }
+    
+    func addAnnotation(at timestamp: Double) {
+        
+    }
+    
+    func getCurrentTimeStamp() -> Double {
+    
+        return 0.0
+    }
+    
+    // MARK: Lifecycle functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
