@@ -11,13 +11,9 @@ import UIKit
 // This object contains the a path to the recording, some metadata about the recording
 // and an array of annotation objects
 
-struct AVRecordingObject {
-
+struct AnnotatedRecording {
+    var title: String
     let recordingPath: URL
-    
-    // TODO: Change value type from Any to something else
-    // when you know what the metadata is going to be
-    var metaData: Dictionary< String , Any>
-    var annotations: [AVAnnotation]?
+    var annotations: [AVNAnnotation]?
     
 }

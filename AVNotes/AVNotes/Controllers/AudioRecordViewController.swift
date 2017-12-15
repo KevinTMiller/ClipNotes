@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import AVKit
 
-class AudioRecordViewController: UIViewController {
+let cellIdentifier = "annotationCell"
+
+class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
 
     @IBOutlet weak var waveformView: UIView!
     @IBOutlet weak var tempWaveformLabel: UILabel!
@@ -21,22 +25,33 @@ class AudioRecordViewController: UIViewController {
     @IBAction func playButtonPressed(_ sender: UIButton) {
     }
     @IBAction func recordButtonPressed(_ sender: UIButton) {
+        startRecording()
     }
     @IBAction func addButtonPressed(_ sender: UIButton) {
+        addAnnotation()
     }
+    
+    // MARK: Private Vars
+    
+    private var audiorecorder = AudioVideoRecorder.sharedInstance
+    private var recordingmanager = AVNManager.sharedInstance
     
     // MARK: Model control
     
-    func startRecording() {
+    private func startRecording() {
+        audiorecorder.startRecordingAudio()
+    }
+    
+    private func stopRecording() {
+        audiorecorder.stopRecordingAudio()
         
     }
     
-    func stopRecording() {
-        
-    }
-    
-    func addAnnotation(at timestamp: Double) {
-        
+    private func addAnnotation() {
+
+        // TODO: Function to get input string from user without interrupting
+        // TODO: Add timestamp to arguments of add Annotation method
+        audiorecorder.addAnnotation("String from user goes here")
     }
     
     func getCurrentTimeStamp() -> Double {
@@ -51,5 +66,21 @@ class AudioRecordViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    
+    // MARK: Tableview Delegate / DataSource
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        // TODO: Hook this up to the currentRecording Object on the AVNManager
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // TODO: Hook this up to the currentRecording Object on the AVNManager
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
+        return cell
+    }
+    
 }
