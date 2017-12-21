@@ -1,5 +1,5 @@
 //
-//  AVAnnotation.swift
+//  AVNAnnotation.swift
 //  AVNotes
 //
 //  Created by Kevin Miller on 12/15/17.
@@ -9,7 +9,7 @@
 
 // This is the annotation object that should contain a string and a timestamp of where it is in the recoding. Should be a struct?
 
-struct AVAnnotation {
-    let timeStamp: Double
-    var annotation: String
+struct AVNAnnotation : Timestampable {
+    let timeStamp: Double?
+    var noteText: String
 }
