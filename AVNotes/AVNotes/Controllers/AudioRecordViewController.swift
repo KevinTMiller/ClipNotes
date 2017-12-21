@@ -22,12 +22,12 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var annotationTableView: UITableView!
     
     
-    @IBAction func playButtonPressed(_ sender: UIButton) {
+    @IBAction func playButtonDidTouch(_ sender: UIButton) {
     }
-    @IBAction func recordButtonPressed(_ sender: UIButton) {
+    @IBAction func recordButtonDidTouch(_ sender: UIButton) {
         startRecording()
     }
-    @IBAction func addButtonPressed(_ sender: UIButton) {
+    @IBAction func addButtonDidTouch(_ sender: UIButton) {
         addAnnotation()
     }
     
@@ -64,7 +64,6 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
     
     

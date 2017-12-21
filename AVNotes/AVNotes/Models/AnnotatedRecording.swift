@@ -11,7 +11,8 @@ import UIKit
 // This object contains the a path to the recording, some metadata about the recording
 // and an array of annotation objects
 
-struct AnnotatedRecording {
+struct AnnotatedRecording: Timestampable {
+    var timeStamp: Double?
     var title: String
     let recordingPath: URL
     var annotations: [AVNAnnotation]?

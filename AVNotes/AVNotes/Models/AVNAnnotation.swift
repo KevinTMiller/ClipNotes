@@ -9,7 +9,7 @@
 
 // This is the annotation object that should contain a string and a timestamp of where it is in the recoding. Should be a struct?
 
-struct AVNAnnotation {
-    let timeStamp: Double
-    var annotation: String
+struct AVNAnnotation : Timestampable {
+    let timeStamp: Double?
+    var noteText: String
 }

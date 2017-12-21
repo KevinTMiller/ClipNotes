@@ -19,6 +19,7 @@
 		872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */; };
 		872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67131FD708B500AD6B2C /* FileViewController.swift */; };
 		872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67151FD708FB00AD6B2C /* LoginViewController.swift */; };
+		87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61931FEC79AA00AB7B19 /* Timestampable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
 		872A67131FD708B500AD6B2C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		872A67151FD708FB00AD6B2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		87EA61931FEC79AA00AB7B19 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 		872A66FA1FD7035F00AD6B2C /* AVNotes */ = {
 			isa = PBXGroup;
 			children = (
+				87EA61951FEC79B100AB7B19 /* Protocols */,
 				8713675B1FE435E300545AAA /* Custom Views */,
 				871367501FE426BD00545AAA /* Models */,
 				872A670E1FD7085600AD6B2C /* Controllers */,
@@ -107,6 +110,14 @@
 				872A67151FD708FB00AD6B2C /* LoginViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		87EA61951FEC79B100AB7B19 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				87EA61931FEC79AA00AB7B19 /* Timestampable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,6 +194,7 @@
 			files = (
 				871367601FE4558D00545AAA /* AVNManager.swift in Sources */,
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
+				87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */,
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
 				8713674F1FE420D200545AAA /* AudioVideoRecorder.swift in Sources */,
 				872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */,
