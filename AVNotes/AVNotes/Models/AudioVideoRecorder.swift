@@ -9,20 +9,23 @@
 import UIKit
 import AVKit
 
-class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate {
+
+class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     static let sharedInstance = AudioVideoRecorder()
     
     // MARK: Public vars
-    
-    var isRecording: Bool {
+
+    public var isRecording: Bool {
+        guard let audioRecorder = audioRecorder else {return false}
         return audioRecorder.isRecording
     }
-   
+
+    
     // MARK: Private vars
     
     private var currentRecording: AnnotatedRecording?
-    private let recordingSession = AVAudioSession.sharedInstance()
+    private let audioSession = AVAudioSession.sharedInstance()
     private let recordingManager = AVNManager.sharedInstance
     private let audioSettings = [
         AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
@@ -30,10 +33,15 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate {
         AVNumberOfChannelsKey : 1,
         AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue
     ]
-    private var audioRecorder = AVAudioRecorder() {
+    private var audioRecorder: AVAudioRecorder? {
         didSet {
-            setUpRecordingSession()
-            audioRecorder.delegate = self
+            audioRecorder?.delegate = self
+        }
+    }
+    private var audioPlayer: AVAudioPlayer? {
+        didSet {
+            audioPlayer?.delegate = self
+            audioPlayer?.setVolume(1.0, fadeDuration: 0.0)
         }
     }
     
@@ -48,40 +56,69 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate {
 
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: audioSettings)
-            audioRecorder.record()
-            print("Recording: \(audioRecorder.isRecording)")
+            audioRecorder?.record()
+            print("Recording: \(audioRecorder!.isRecording)")
         } catch  {
             finishRecordingAudio(success: false, path: nil, name: nil)
         }
         createAnnotatedRecording(path: audioFilePath, name: filename)
     }
+    
     func addAnnotation(_: String) {
         
     }
-
     
     func stopRecordingAudio() {
-        audioRecorder.stop()
+        audioRecorder?.stop()
+        audioRecorder = nil
     }
+    
     func pauseRecordingAudio(){
-        audioRecorder.pause()
+        audioRecorder?.pause()
     }
+    
     func startRecordingVideo() {
         
     }
+    
     func stopRecordingVideo() {
         
     }
-
+    
+    func playAudio(file: AnnotatedRecording) {
+        try? audioSession.setCategory(AVAudioSessionCategoryPlayback)
+        audioPlayer = try? AVAudioPlayer(contentsOf: file.recordingPath, fileTypeHint: "m4a" )
+        audioPlayer?.play()
+    }
+    
+    func playVideo() {
+        
+    }
+    
+    func stopPlayingAudio() {
+        audioPlayer?.stop()
+        audioPlayer = nil
+    }
+    
+    func stopPlayingVideo() {
+        
+    }
+    // MARK: Private funcs
+    
+    private func autoGenerateFileName() -> String {
+        
+        let filename = ""
+        return filename
+    }
     
     private func setUpAudioRecorder() {
         
     }
-    private func setUpRecordingSession() {
+    func setUpRecordingSession() {
         do {
-            try recordingSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
-            try recordingSession.setActive(true)
-            recordingSession.requestRecordPermission({ (allowed) in
+            try audioSession.setCategory(AVAudioSessionCategoryRecord)
+            try audioSession.setActive(true)
+            audioSession.requestRecordPermission({ (allowed) in
                 if allowed {
                     print("Audio recording session allowed")
                 } else {
@@ -94,36 +131,43 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate {
             // TODO: insert error message here to user
             print("Error setting up recording session: \(error)")
         }
-        
     }
     
     private func finishRecordingAudio(success: Bool, path: URL?, name: String?) {
-        audioRecorder.stop()
+        audioRecorder?.stop()
         
         if success {
-            AVNManager.sharedInstance.recordingArray.append(currentRecording!)
+            saveRecording(currentRecording!)
             currentRecording = nil
         }
         // TODO: add fail case where recording is interruped after starting
-        
 
-        print("Recording: \(audioRecorder.isRecording)")
+        print("Recording: \(audioRecorder?.isRecording)")
 
     }
     private func finishRecordingVideo() {
         
     }
+    // Convenience init method getting long. Consider another init
     private func createAnnotatedRecording(path: URL, name: String) {
-        recordingManager.currentRecording = AnnotatedRecording(title: name,
-                                              recordingPath: path,
-                                              annotations: nil)
+        currentRecording = AnnotatedRecording(timeStamp: nil,
+                                                               title: name,
+                                                               recordingPath: path,
+                                                               annotations: nil)
+        
     }
     private func saveRecording(_: AnnotatedRecording) {
+        recordingManager.recordingArray.append(currentRecording!)
         
     }
     private func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
+    }
+    
+    // MARK: delegate funcs
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        finishRecordingAudio(success: flag, path: recorder.url, name: nil)
     }
 }

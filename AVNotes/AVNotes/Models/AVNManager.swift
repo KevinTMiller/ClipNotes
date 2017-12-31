@@ -7,13 +7,26 @@
 //
 
 import UIKit
+import Foundation
 
 class AVNManager: NSObject {
+    
     
     static let sharedInstance = AVNManager()
 
     // Public Vars
     var currentRecording: AnnotatedRecording?
-    var recordingArray = [AnnotatedRecording]()
+    var recordingArray = [AnnotatedRecording]() {
+        didSet {
+            notifyUpdate()
+        }
+    }
+    
+    private func notifyUpdate() {
+        NotificationCenter.default.post(name: .tableViewNeedsUpdate, object: nil)
+    }
 
+}
+extension Notification.Name {
+    public static let tableViewNeedsUpdate = Notification.Name(rawValue: "tableViewNeedsUpdate")
 }

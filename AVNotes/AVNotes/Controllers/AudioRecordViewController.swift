@@ -23,6 +23,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     @IBAction func playButtonDidTouch(_ sender: UIButton) {
+        stopRecording()
     }
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
         startRecording()
@@ -33,17 +34,20 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Private Vars
     
-    private var audiorecorder = AudioVideoRecorder.sharedInstance
-    private var recordingmanager = AVNManager.sharedInstance
+    private var mediaManager = AudioVideoRecorder.sharedInstance
+    private var fileManager = AVNManager.sharedInstance
+    private var isRecording: Bool {
+        return mediaManager.isRecording
+    }
     
     // MARK: Model control
     
     private func startRecording() {
-        audiorecorder.startRecordingAudio()
+        mediaManager.startRecordingAudio()
     }
     
     private func stopRecording() {
-        audiorecorder.stopRecordingAudio()
+        mediaManager.stopRecordingAudio()
         
     }
     
@@ -51,7 +55,10 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
 
         // TODO: Function to get input string from user without interrupting
         // TODO: Add timestamp to arguments of add Annotation method
-        audiorecorder.addAnnotation("String from user goes here")
+        mediaManager.addAnnotation("String from user goes here")
+    }
+   @objc private func updateTableView() {
+        annotationTableView.reloadData()
     }
     
     func getCurrentTimeStamp() -> Double {
@@ -63,23 +70,30 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        annotationTableView.delegate = self
+        annotationTableView.dataSource = self
+        mediaManager.setUpRecordingSession()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .tableViewNeedsUpdate, object: nil)
     }
     
     
     // MARK: Tableview Delegate / DataSource
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        // TODO: Hook this up to the currentRecording Object on the AVNManager
-        return 5
+        return fileManager.recordingArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // TODO: Hook this up to the currentRecording Object on the AVNManager
-        
+        let recording = fileManager.recordingArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
+        cell.textLabel?.text = recording.recordingPath.lastPathComponent
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recording = fileManager.recordingArray[indexPath.row]
+        mediaManager.playAudio(file: recording)
     }
     
 }
