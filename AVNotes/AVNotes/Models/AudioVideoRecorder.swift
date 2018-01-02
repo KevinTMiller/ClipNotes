@@ -51,7 +51,7 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         
         // Should probably store recording number in UserDefaults
         
-        let filename = "NewRecording.m4a"
+        let filename = String.uniqueFileName(suffix: "m4a")
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(filename)
 
         do {

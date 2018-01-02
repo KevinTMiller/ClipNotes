@@ -20,6 +20,8 @@
 		872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67131FD708B500AD6B2C /* FileViewController.swift */; };
 		872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67151FD708FB00AD6B2C /* LoginViewController.swift */; };
 		87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61931FEC79AA00AB7B19 /* Timestampable.swift */; };
+		87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */; };
+		87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		872A67131FD708B500AD6B2C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		872A67151FD708FB00AD6B2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		87EA61931FEC79AA00AB7B19 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
+		87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifcationName+Constants.swift"; sourceTree = "<group>"; };
+		87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueFileName.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 		872A66FA1FD7035F00AD6B2C /* AVNotes */ = {
 			isa = PBXGroup;
 			children = (
+				87EA619B1FFABD6300AB7B19 /* Helpers */,
 				87EA61951FEC79B100AB7B19 /* Protocols */,
 				8713675B1FE435E300545AAA /* Custom Views */,
 				871367501FE426BD00545AAA /* Models */,
@@ -118,6 +123,15 @@
 				87EA61931FEC79AA00AB7B19 /* Timestampable.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		87EA619B1FFABD6300AB7B19 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */,
+				87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */,
 				871367601FE4558D00545AAA /* AVNManager.swift in Sources */,
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
 				87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */,
@@ -201,6 +216,7 @@
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
 				871367561FE427B400545AAA /* AnnotatedRecording.swift in Sources */,
 				872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */,
+				87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */,
 				871367581FE427FA00545AAA /* AVNAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

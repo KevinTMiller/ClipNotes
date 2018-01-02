@@ -27,6 +27,4 @@ class AVNManager: NSObject {
     }
 
 }
-extension Notification.Name {
-    public static let tableViewNeedsUpdate = Notification.Name(rawValue: "tableViewNeedsUpdate")
-}
+
