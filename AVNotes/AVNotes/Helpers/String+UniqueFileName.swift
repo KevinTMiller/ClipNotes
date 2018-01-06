@@ -12,7 +12,7 @@ extension String {
     static func uniqueFileName(suffix: String?) -> String {
         var string = UUID().uuidString
         if let suffix = suffix {
-            string.append(suffix)
+            string.append(".\(suffix)")
         }
         return string
     }

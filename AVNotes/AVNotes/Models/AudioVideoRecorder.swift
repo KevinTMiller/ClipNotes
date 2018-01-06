@@ -20,6 +20,10 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         guard let audioRecorder = audioRecorder else {return false}
         return audioRecorder.isRecording
     }
+    public var isPlaying: Bool {
+        guard let audioPlayer = audioPlayer else {return false}
+        return audioPlayer.isPlaying
+    }
 
     
     // MARK: Private vars
@@ -44,7 +48,7 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
             audioPlayer?.setVolume(1.0, fadeDuration: 0.0)
         }
     }
-    
+    private var defaults = UserDefaults.standard
     // MARK: Public funcs
     
     func startRecordingAudio() {
@@ -57,7 +61,7 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: audioSettings)
             audioRecorder?.record()
-            print("Recording: \(audioRecorder!.isRecording)")
+            print("Recording: \(isRecording)")
         } catch  {
             finishRecordingAudio(success: false, path: nil, name: nil)
         }
@@ -65,12 +69,11 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
     }
     
     func addAnnotation(_: String) {
-        
+        // TODO: create an annotation in the current recording at the current timestamp
     }
     
     func stopRecordingAudio() {
         audioRecorder?.stop()
-        audioRecorder = nil
     }
     
     func pauseRecordingAudio(){
@@ -78,30 +81,38 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
     }
     
     func startRecordingVideo() {
-        
+        // TODO: start recording video
     }
     
     func stopRecordingVideo() {
-        
+        // TODO: stop recording video
     }
     
     func playAudio(file: AnnotatedRecording) {
-        try? audioSession.setCategory(AVAudioSessionCategoryPlayback)
-        audioPlayer = try? AVAudioPlayer(contentsOf: file.recordingPath, fileTypeHint: "m4a" )
+        /* Documents directory path changes frequently. Always get a fresh path and then append the filename to create the URL to play*/
+        audioPlayer?.stop()
+        audioPlayer?.prepareToPlay() // Prevents audio player repeating last file
+        let audioFilePath = getDocumentsDirectory().appendingPathComponent(file.fileName)
+        do {
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
+            audioPlayer = try AVAudioPlayer(contentsOf: audioFilePath, fileTypeHint: "m4a" )
+        } catch let error {
+            print(error)
+        }
         audioPlayer?.play()
+        print("Playing: \(isPlaying)")
     }
     
     func playVideo() {
-        
+        // TODO: Playback video in the view of the VideoRecordVC
     }
     
     func stopPlayingAudio() {
         audioPlayer?.stop()
-        audioPlayer = nil
     }
     
     func stopPlayingVideo() {
-        
+        // TODO: Stop playing the video
     }
     // MARK: Private funcs
     
@@ -110,9 +121,9 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         let filename = ""
         return filename
     }
-    
+    // Do I need this function?
     private func setUpAudioRecorder() {
-        
+        // TODO: set up recording session
     }
     func setUpRecordingSession() {
         do {
@@ -142,19 +153,21 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         }
         // TODO: add fail case where recording is interruped after starting
 
-        print("Recording: \(audioRecorder?.isRecording)")
-
     }
     private func finishRecordingVideo() {
         
     }
     // Convenience init method getting long. Consider another init
     private func createAnnotatedRecording(path: URL, name: String) {
-        currentRecording = AnnotatedRecording(timeStamp: nil,
-                                                               title: name,
-                                                               recordingPath: path,
-                                                               annotations: nil)
+
+        let lastRecording = defaults.value(forKey: "lastRecording") as? Int ?? 1
+        let userTitle = "Recording \(lastRecording)"
+        defaults.set(lastRecording + 1, forKey: "lastRecording")
         
+        currentRecording = AnnotatedRecording(timeStamp: nil,
+                                              userTitle: userTitle,
+                                              fileName: name,
+                                              annotations: nil)
     }
     private func saveRecording(_: AnnotatedRecording) {
         recordingManager.recordingArray.append(currentRecording!)
@@ -169,5 +182,8 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
     // MARK: delegate funcs
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         finishRecordingAudio(success: flag, path: recorder.url, name: nil)
+    }
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        
     }
 }

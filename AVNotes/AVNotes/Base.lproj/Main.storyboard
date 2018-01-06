@@ -212,6 +212,10 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="Pq8-cN-CG8" id="egG-r1-8vq"/>
+                                            <outlet property="delegate" destination="Pq8-cN-CG8" id="MwO-0a-BOJ"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <constraints>

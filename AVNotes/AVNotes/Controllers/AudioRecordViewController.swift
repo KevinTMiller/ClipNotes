@@ -12,8 +12,8 @@ import AVKit
 let cellIdentifier = "annotationCell"
 
 class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-
+    
+    
     @IBOutlet weak var waveformView: UIView!
     @IBOutlet weak var tempWaveformLabel: UILabel!
     @IBOutlet weak var stopWatchLabel: UILabel!
@@ -34,8 +34,8 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Private Vars
     
-    private var mediaManager = AudioVideoRecorder.sharedInstance
-    private var fileManager = AVNManager.sharedInstance
+    private let mediaManager = AudioVideoRecorder.sharedInstance
+    private let fileManager = AVNManager.sharedInstance
     private var isRecording: Bool {
         return mediaManager.isRecording
     }
@@ -43,6 +43,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     // MARK: Model control
     
     private func startRecording() {
+        mediaManager.stopRecordingAudio()
         mediaManager.startRecordingAudio()
     }
     
@@ -52,17 +53,18 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func addAnnotation() {
-
+        
         // TODO: Function to get input string from user without interrupting
         // TODO: Add timestamp to arguments of add Annotation method
         mediaManager.addAnnotation("String from user goes here")
     }
-   @objc private func updateTableView() {
+    
+    @objc private func updateTableView() {
         annotationTableView.reloadData()
     }
     
     func getCurrentTimeStamp() -> Double {
-    
+        
         return 0.0
     }
     
@@ -70,10 +72,8 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        annotationTableView.delegate = self
-        annotationTableView.dataSource = self
         mediaManager.setUpRecordingSession()
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .tableViewNeedsUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .annotationsDidUpdate, object: nil)
     }
     
     
@@ -83,15 +83,18 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         return fileManager.recordingArray.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // TODO: Hook this up to the currentRecording Object on the AVNManager
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
+        UITableViewCell {
+        guard indexPath.row < fileManager.recordingArray.count else {fatalError("Index row exceeds array bounds")}
         let recording = fileManager.recordingArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
-        cell.textLabel?.text = recording.recordingPath.lastPathComponent
+        cell.textLabel?.text = recording.userTitle
+        cell.detailTextLabel?.text = recording.fileName
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row < fileManager.recordingArray.count else {fatalError("Index row exceeds array bounds")}
         let recording = fileManager.recordingArray[indexPath.row]
         mediaManager.playAudio(file: recording)
     }

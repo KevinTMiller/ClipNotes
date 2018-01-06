@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Foundation
 
 class AVNManager: NSObject {
     
@@ -23,7 +22,11 @@ class AVNManager: NSObject {
     }
     
     private func notifyUpdate() {
-        NotificationCenter.default.post(name: .tableViewNeedsUpdate, object: nil)
+        NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
+    }
+    
+    private func loadFiles() {
+        // TODO: method to load files from disk
     }
 
 }
