@@ -9,10 +9,10 @@
 import UIKit
 import AVKit
 
-let cellIdentifier = "annotationCell"
+
 
 class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
+    private let cellIdentifier = "annotationCell"
     
     @IBOutlet weak var waveformView: UIView!
     @IBOutlet weak var tempWaveformLabel: UILabel!
