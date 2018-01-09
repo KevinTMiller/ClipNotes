@@ -16,7 +16,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Private Vars
     
     private let fileManager = AVNManager.sharedInstance
-    private let mediaManager = AudioVideoRecorder.sharedInstance
+    private let mediaManager = AudioPlayerRecorder.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()

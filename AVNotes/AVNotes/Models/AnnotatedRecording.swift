@@ -11,11 +11,16 @@ import UIKit
 // This object contains the a path to the recording, some metadata about the recording
 // and an array of annotation objects
 
+enum MediaType: Int, Codable {
+    case audio
+    case video
+}
+
 struct AnnotatedRecording: Timestampable, Codable {
    
     var timeStamp: Double?
     var userTitle: String?
     var fileName: String
     var annotations: [AVNAnnotation]?
-    
+    var mediaType: MediaType
 }

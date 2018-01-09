@@ -10,7 +10,6 @@ import UIKit
 
 class AVNManager: NSObject {
     
-    
     static let sharedInstance = AVNManager()
 
     // Public Vars

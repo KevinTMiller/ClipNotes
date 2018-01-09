@@ -34,7 +34,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: Private Vars
     
-    private let mediaManager = AudioVideoRecorder.sharedInstance
+    private let mediaManager = AudioPlayerRecorder.sharedInstance
     private let fileManager = AVNManager.sharedInstance
     private var isRecording: Bool {
         return mediaManager.isRecording

@@ -1,5 +1,5 @@
 //
-//  AudioVideoRecorder.swift
+//  AudioPlayerRecorder.swift
 //  AVNotes
 //
 //  Created by Kevin Miller on 12/15/17.
@@ -10,9 +10,9 @@ import UIKit
 import AVKit
 
 
-class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
-    static let sharedInstance = AudioVideoRecorder()
+    static let sharedInstance = AudioPlayerRecorder()
     
     // MARK: Public vars
 
@@ -80,13 +80,6 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         audioRecorder?.pause()
     }
     
-    func startRecordingVideo() {
-        // TODO: start recording video
-    }
-    
-    func stopRecordingVideo() {
-        // TODO: stop recording video
-    }
     
     func playAudio(file: AnnotatedRecording) {
         /* Documents directory path changes frequently. Always get a fresh path and then append the filename to create the URL to play*/
@@ -103,28 +96,11 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         print("Playing: \(isPlaying)")
     }
     
-    func playVideo() {
-        // TODO: Playback video in the view of the VideoRecordVC
-    }
     
     func stopPlayingAudio() {
         audioPlayer?.stop()
     }
     
-    func stopPlayingVideo() {
-        // TODO: Stop playing the video
-    }
-    // MARK: Private funcs
-    
-    private func autoGenerateFileName() -> String {
-        
-        let filename = ""
-        return filename
-    }
-    // Do I need this function?
-    private func setUpAudioRecorder() {
-        // TODO: set up recording session
-    }
     func setUpRecordingSession() {
         do {
             try audioSession.setCategory(AVAudioSessionCategoryRecord)
@@ -154,9 +130,6 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         // TODO: add fail case where recording is interruped after starting
 
     }
-    private func finishRecordingVideo() {
-        
-    }
     // Convenience init method getting long. Consider another init
     private func createAnnotatedRecording(path: URL, name: String) {
 
@@ -167,7 +140,8 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         currentRecording = AnnotatedRecording(timeStamp: nil,
                                               userTitle: userTitle,
                                               fileName: name,
-                                              annotations: nil)
+                                              annotations: nil,
+                                              mediaType: .audio)
     }
     private func saveRecording(_: AnnotatedRecording) {
         recordingManager.recordingArray.append(currentRecording!)
@@ -179,7 +153,7 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         return documentsDirectory
     }
     
-    // MARK: delegate funcs
+    // MARK: Delegate funcs
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         finishRecordingAudio(success: flag, path: recorder.url, name: nil)
     }
@@ -187,3 +161,6 @@ class AudioVideoRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDele
         
     }
 }
+
+
+

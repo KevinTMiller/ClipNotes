@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8713674F1FE420D200545AAA /* AudioVideoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713674E1FE420D200545AAA /* AudioVideoRecorder.swift */; };
+		8713674F1FE420D200545AAA /* AudioPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713674E1FE420D200545AAA /* AudioPlayerRecorder.swift */; };
 		871367561FE427B400545AAA /* AnnotatedRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871367551FE427B400545AAA /* AnnotatedRecording.swift */; };
 		871367581FE427FA00545AAA /* AVNAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871367571FE427FA00545AAA /* AVNAnnotation.swift */; };
 		871367601FE4558D00545AAA /* AVNManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713675F1FE4558D00545AAA /* AVNManager.swift */; };
@@ -19,13 +19,14 @@
 		872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */; };
 		872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67131FD708B500AD6B2C /* FileViewController.swift */; };
 		872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67151FD708FB00AD6B2C /* LoginViewController.swift */; };
+		87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */; };
 		87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61931FEC79AA00AB7B19 /* Timestampable.swift */; };
 		87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */; };
 		87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8713674E1FE420D200545AAA /* AudioVideoRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioVideoRecorder.swift; sourceTree = "<group>"; };
+		8713674E1FE420D200545AAA /* AudioPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerRecorder.swift; sourceTree = "<group>"; };
 		871367551FE427B400545AAA /* AnnotatedRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatedRecording.swift; sourceTree = "<group>"; };
 		871367571FE427FA00545AAA /* AVNAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVNAnnotation.swift; sourceTree = "<group>"; };
 		8713675F1FE4558D00545AAA /* AVNManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVNManager.swift; sourceTree = "<group>"; };
@@ -39,6 +40,7 @@
 		872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
 		872A67131FD708B500AD6B2C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		872A67151FD708FB00AD6B2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRecorder.swift; sourceTree = "<group>"; };
 		87EA61931FEC79AA00AB7B19 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifcationName+Constants.swift"; sourceTree = "<group>"; };
 		87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueFileName.swift"; sourceTree = "<group>"; };
@@ -58,10 +60,11 @@
 		871367501FE426BD00545AAA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8713674E1FE420D200545AAA /* AudioVideoRecorder.swift */,
+				8713674E1FE420D200545AAA /* AudioPlayerRecorder.swift */,
 				871367551FE427B400545AAA /* AnnotatedRecording.swift */,
 				871367571FE427FA00545AAA /* AVNAnnotation.swift */,
 				8713675F1FE4558D00545AAA /* AVNManager.swift */,
+				87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -211,9 +214,10 @@
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
 				87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */,
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
-				8713674F1FE420D200545AAA /* AudioVideoRecorder.swift in Sources */,
+				8713674F1FE420D200545AAA /* AudioPlayerRecorder.swift in Sources */,
 				872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */,
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
+				87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */,
 				871367561FE427B400545AAA /* AnnotatedRecording.swift in Sources */,
 				872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */,
 				87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */,
