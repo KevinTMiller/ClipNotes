@@ -2,10 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>AV Bookmarks would like to access your photo library</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>AV Bookmarks would like to access your photo library</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>This app needs to use the microphone to record audio</string>
+	<string>AV Bookmarks would like to use your camera to record audio</string>
 	<key>NSCameraUsageDescription</key>
-	<string>This app needs access to the camera to record video</string>
+	<string>AV Bookmarks would like to use your camera to record video</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

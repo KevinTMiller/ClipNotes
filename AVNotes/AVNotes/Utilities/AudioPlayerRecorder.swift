@@ -51,6 +51,9 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     private var defaults = UserDefaults.standard
     // MARK: Public funcs
     
+    /* Starts recording audio by getting a unique filename and the current documents directory
+    // then creating a instance of the AVAudioRecord with the current path and settings. */
+    
     func startRecordingAudio() {
         
         // Should probably store recording number in UserDefaults
@@ -68,6 +71,8 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         createAnnotatedRecording(path: audioFilePath, name: filename)
     }
     
+    //TODO: create a method to switch out audio sessions
+    
     func addAnnotation(_: String) {
         // TODO: create an annotation in the current recording at the current timestamp
     }
@@ -80,9 +85,11 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         audioRecorder?.pause()
     }
     
+    /* Documents directory path changes frequently. Always get a fresh path and then append the filename
+    // to create the URL to play */
     
     func playAudio(file: AnnotatedRecording) {
-        /* Documents directory path changes frequently. Always get a fresh path and then append the filename to create the URL to play*/
+
         audioPlayer?.stop()
         audioPlayer?.prepareToPlay() // Prevents audio player repeating last file
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(file.fileName)
@@ -101,6 +108,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         audioPlayer?.stop()
     }
     
+    // TODO: Put this in the init method
     func setUpRecordingSession() {
         do {
             try audioSession.setCategory(AVAudioSessionCategoryRecord)
@@ -154,12 +162,11 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     }
     
     // MARK: Delegate funcs
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         finishRecordingAudio(success: flag, path: recorder.url, name: nil)
     }
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        
-    }
+
 }
 
 

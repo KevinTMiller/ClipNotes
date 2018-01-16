@@ -20,6 +20,9 @@
 		872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67131FD708B500AD6B2C /* FileViewController.swift */; };
 		872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67151FD708FB00AD6B2C /* LoginViewController.swift */; };
 		87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */; };
+		87AF75E420054748005E9A58 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E320054748005E9A58 /* UIViewController+Alert.swift */; };
+		87DD29882008375F00726961 /* VideoOverlayControls.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87DD29872008375F00726961 /* VideoOverlayControls.xib */; };
+		87DD298A2008378700726961 /* VideoOverlayControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DD29892008378700726961 /* VideoOverlayControls.swift */; };
 		87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61931FEC79AA00AB7B19 /* Timestampable.swift */; };
 		87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */; };
 		87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */; };
@@ -41,6 +44,9 @@
 		872A67131FD708B500AD6B2C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		872A67151FD708FB00AD6B2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRecorder.swift; sourceTree = "<group>"; };
+		87AF75E320054748005E9A58 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		87DD29872008375F00726961 /* VideoOverlayControls.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoOverlayControls.xib; sourceTree = "<group>"; };
+		87DD29892008378700726961 /* VideoOverlayControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoOverlayControls.swift; sourceTree = "<group>"; };
 		87EA61931FEC79AA00AB7B19 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifcationName+Constants.swift"; sourceTree = "<group>"; };
 		87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueFileName.swift"; sourceTree = "<group>"; };
@@ -57,21 +63,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		871367501FE426BD00545AAA /* Models */ = {
+		871367501FE426BD00545AAA /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				8713674E1FE420D200545AAA /* AudioPlayerRecorder.swift */,
+				87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */,
 				871367551FE427B400545AAA /* AnnotatedRecording.swift */,
 				871367571FE427FA00545AAA /* AVNAnnotation.swift */,
 				8713675F1FE4558D00545AAA /* AVNManager.swift */,
-				87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */,
 			);
-			path = Models;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		8713675B1FE435E300545AAA /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
+				87DD29872008375F00726961 /* VideoOverlayControls.xib */,
+				87DD29892008378700726961 /* VideoOverlayControls.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -98,7 +106,7 @@
 				87EA619B1FFABD6300AB7B19 /* Helpers */,
 				87EA61951FEC79B100AB7B19 /* Protocols */,
 				8713675B1FE435E300545AAA /* Custom Views */,
-				871367501FE426BD00545AAA /* Models */,
+				871367501FE426BD00545AAA /* Utilities */,
 				872A670E1FD7085600AD6B2C /* Controllers */,
 				872A66FB1FD7035F00AD6B2C /* AppDelegate.swift */,
 				872A66FF1FD7035F00AD6B2C /* Main.storyboard */,
@@ -133,6 +141,7 @@
 			children = (
 				87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */,
 				87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */,
+				87AF75E320054748005E9A58 /* UIViewController+Alert.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -198,6 +207,7 @@
 			files = (
 				872A67061FD7035F00AD6B2C /* LaunchScreen.storyboard in Resources */,
 				872A67031FD7035F00AD6B2C /* Assets.xcassets in Resources */,
+				87DD29882008375F00726961 /* VideoOverlayControls.xib in Resources */,
 				872A67011FD7035F00AD6B2C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +225,7 @@
 				87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */,
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
 				8713674F1FE420D200545AAA /* AudioPlayerRecorder.swift in Sources */,
+				87DD298A2008378700726961 /* VideoOverlayControls.swift in Sources */,
 				872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */,
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
 				87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */,
@@ -222,6 +233,7 @@
 				872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */,
 				87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */,
 				871367581FE427FA00545AAA /* AVNAnnotation.swift in Sources */,
+				87AF75E420054748005E9A58 /* UIViewController+Alert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
