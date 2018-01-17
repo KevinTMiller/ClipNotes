@@ -19,6 +19,7 @@
 		872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */; };
 		872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67131FD708B500AD6B2C /* FileViewController.swift */; };
 		872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67151FD708FB00AD6B2C /* LoginViewController.swift */; };
+		873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */; };
 		87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */; };
 		87AF75E420054748005E9A58 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E320054748005E9A58 /* UIViewController+Alert.swift */; };
 		87DD29882008375F00726961 /* VideoOverlayControls.xib in Resources */ = {isa = PBXBuildFile; fileRef = 87DD29872008375F00726961 /* VideoOverlayControls.xib */; };
@@ -43,6 +44,7 @@
 		872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
 		872A67131FD708B500AD6B2C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		872A67151FD708FB00AD6B2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StringFromTimeInterval.swift"; sourceTree = "<group>"; };
 		87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRecorder.swift; sourceTree = "<group>"; };
 		87AF75E320054748005E9A58 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		87DD29872008375F00726961 /* VideoOverlayControls.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VideoOverlayControls.xib; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */,
 				87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */,
 				87AF75E320054748005E9A58 /* UIViewController+Alert.swift */,
+				873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
 				8713674F1FE420D200545AAA /* AudioPlayerRecorder.swift in Sources */,
 				87DD298A2008378700726961 /* VideoOverlayControls.swift in Sources */,
+				873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */,
 				872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */,
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
 				87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */,

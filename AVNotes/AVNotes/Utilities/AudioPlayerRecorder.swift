@@ -24,7 +24,12 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         guard let audioPlayer = audioPlayer else {return false}
         return audioPlayer.isPlaying
     }
+    public var currentTime: String? {
+        guard let audioRecorder = audioRecorder else {return nil}
+        return String.stringFrom(timeInterval: audioRecorder.currentTime)
+    }
 
+    
     
     // MARK: Private vars
     
@@ -49,6 +54,17 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         }
     }
     private var defaults = UserDefaults.standard
+    
+    private var stopwatchFormatter: DateComponentsFormatter! {
+        didSet {
+            stopwatchFormatter.unitsStyle = .positional
+            stopwatchFormatter.allowedUnits = [.hour, .minute, .second, .nanosecond]
+            stopwatchFormatter.zeroFormattingBehavior = .pad
+            stopwatchFormatter.collapsesLargestUnit = false
+            stopwatchFormatter.maximumUnitCount = 4
+            stopwatchFormatter.allowsFractionalUnits = true
+        }
+    }
     // MARK: Public funcs
     
     /* Starts recording audio by getting a unique filename and the current documents directory
@@ -60,7 +76,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         
         let filename = String.uniqueFileName(suffix: "m4a")
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(filename)
-
+        
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: audioSettings)
             audioRecorder?.record()

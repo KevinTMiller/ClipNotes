@@ -26,7 +26,11 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         stopRecording()
     }
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
-        startRecording()
+        if isRecording {
+            stopRecording()
+        } else {
+            startRecording()
+        }
     }
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
         addAnnotation()
@@ -39,17 +43,22 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private var isRecording: Bool {
         return mediaManager.isRecording
     }
+    private var timer: Timer?
+    
     
     // MARK: Model control
     
     private func startRecording() {
         mediaManager.stopRecordingAudio()
         mediaManager.startRecordingAudio()
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
     }
     
     private func stopRecording() {
         mediaManager.stopRecordingAudio()
-        
+        timer?.invalidate()
+        timer = nil
+        updateTimerLabel()
     }
     
     private func addAnnotation() {
@@ -57,6 +66,13 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         // TODO: Function to get input string from user without interrupting
         // TODO: Add timestamp to arguments of add Annotation method
         mediaManager.addAnnotation("String from user goes here")
+    }
+    @objc private func updateTimerLabel() {
+        if let currentTime = mediaManager.currentTime {
+            stopWatchLabel.text = currentTime
+        } else {
+            stopWatchLabel.text = "00:00:00.00"
+        }
     }
     
     @objc private func updateTableView() {

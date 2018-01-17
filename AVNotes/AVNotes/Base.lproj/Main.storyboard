@@ -9,6 +9,11 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Menlo.ttc">
+            <string>Menlo-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Video Record View Controller-->
         <scene sceneID="UfP-5t-OCK">
@@ -251,9 +256,9 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="z0s-ZA-EdL">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="106.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="00:00.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCL-Nc-05E">
-                                                                <rect key="frame" x="124" y="0.0" width="127" height="65.5"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCL-Nc-05E">
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="65.5"/>
+                                                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="25"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -271,6 +276,9 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="jCL-Nc-05E" firstAttribute="width" secondItem="z0s-ZA-EdL" secondAttribute="width" id="8mu-Ij-cTQ"/>
+                                                        </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="dfV-uu-8FY">
                                                         <rect key="frame" x="0.0" y="109.5" width="375" height="106.5"/>
@@ -280,14 +288,15 @@
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gjf-aF-BKM">
                                                                         <rect key="frame" x="0.0" y="29" width="125" height="48"/>
-                                                                        <state key="normal" image="ic_play_circle_outline_48pt"/>
+                                                                        <state key="normal" image="ic_stop_48pt"/>
                                                                         <connections>
                                                                             <action selector="playButtonDidTouch:" destination="Pq8-cN-CG8" eventType="touchUpInside" id="04O-ph-Wmy"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUq-A3-Yqr">
-                                                                        <rect key="frame" x="125" y="23" width="125" height="60"/>
-                                                                        <state key="normal" image="radio-button-on"/>
+                                                                        <rect key="frame" x="125" y="29" width="125" height="48"/>
+                                                                        <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                        <state key="normal" image="ic_fiber_manual_record_48pt-1"/>
                                                                         <connections>
                                                                             <action selector="recordButtonDidTouch:" destination="Pq8-cN-CG8" eventType="touchUpInside" id="alP-fP-WWV"/>
                                                                         </connections>
@@ -418,9 +427,10 @@
     </scenes>
     <resources>
         <image name="ic_add_circle_outline_48pt" width="48" height="48"/>
+        <image name="ic_fiber_manual_record_48pt-1" width="48" height="48"/>
         <image name="ic_folder_36pt" width="36" height="36"/>
         <image name="ic_mic_36pt" width="36" height="36"/>
-        <image name="ic_play_circle_outline_48pt" width="48" height="48"/>
+        <image name="ic_stop_48pt" width="48" height="48"/>
         <image name="ic_videocam_36pt" width="36" height="36"/>
         <image name="radio-button-on" width="60" height="60"/>
     </resources>
