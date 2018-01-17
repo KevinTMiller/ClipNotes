@@ -33,7 +33,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
-        addAnnotation()
+        showBookmarkAlert()
     }
     
     // MARK: Private Vars
@@ -61,22 +61,24 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         updateTimerLabel()
     }
     
-    private func addAnnotation() {
+    private func showBookmarkAlert() {
         // TODO: Am I mixing model and controller here?
-        
-        // TODO capture timestamp of when was pressed
+        // TODO: perhaps create some var in the mediaManager that is [String: Any]
+        // for all the metadata?
         if let currentRecording = mediaManager.currentRecording,
-            let timeStamp = mediaManager.currentTime {
+            let timeString = mediaManager.currentTimeString {
             let bookmarkNumber = String(currentRecording.annotations?.count ?? 1)
-            let title = "Bookmark \(bookmarkNumber) (\(timeStamp))"
-            self.presentBookmarkDialog(title: title, message: "Enter bookmark text")
+            let title = "Bookmark \(bookmarkNumber) (\(timeString))"
+            self.presentBookmarkDialog(title: title, message: "Enterbookmark", completion: { (text) in
+                print(text)
+            })
         } else {
-            AlertManager.presentAlert(with: "Error", message: "Start recording to add a bookmark")
+            self.presentAlert(title: "Error", message: "Start recording to add a bookmark")
         }
         
     }
     @objc private func updateTimerLabel() {
-        if let currentTime = mediaManager.currentTime {
+        if let currentTime = mediaManager.currentTimeString {
             stopWatchLabel.text = currentTime
         } else {
             stopWatchLabel.text = "00:00:00.00"
@@ -85,11 +87,6 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     @objc private func updateTableView() {
         annotationTableView.reloadData()
-    }
-    
-    func getCurrentTimeStamp() -> Double {
-        
-        return 0.0
     }
     
     // MARK: Lifecycle functions

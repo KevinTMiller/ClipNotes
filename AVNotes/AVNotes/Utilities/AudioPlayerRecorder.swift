@@ -24,16 +24,18 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         guard let audioPlayer = audioPlayer else {return false}
         return audioPlayer.isPlaying
     }
-    public var currentTime: String? {
+    public var currentTimeString: String? {
         guard let audioRecorder = audioRecorder else {return nil}
         return String.stringFrom(timeInterval: audioRecorder.currentTime)
     }
+    public var currentTimeInterval: TimeInterval? {
+        guard let audioRecorder = audioRecorder else {return nil}
+        return audioRecorder.currentTime
+    }
     public var currentRecording: AnnotatedRecording?
-    
     
     // MARK: Private vars
     
-
     private let audioSession = AVAudioSession.sharedInstance()
     private let recordingManager = AVNManager.sharedInstance
     private let audioSettings = [
@@ -89,7 +91,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     //TODO: create a method to switch out audio sessions
     
-    func addAnnotation(_: String) {
+    func addAnnotation(text: String, timestamp: TimeInterval) {
         // TODO: create an annotation in the current recording at the current timestamp
     }
     

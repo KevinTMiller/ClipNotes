@@ -10,10 +10,13 @@ import UIKit
 
 extension UIViewController {
     
-    func presentBookmarkDialog(title: String, message: String){
+    func presentBookmarkDialog(title: String, message: String, completion: @escaping (String) -> ()){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (_) in
-            // TODO: Handle OK action
+        let okAction = UIAlertAction(title: "OK", style: .default) { (alert) in
+            if let textField = alertController.textFields?[0],
+                let text = textField.text {
+                completion(text)
+            }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertController.addAction(cancelAction)
@@ -23,8 +26,13 @@ extension UIViewController {
             textField.clearsOnInsertion = true
             textField.autocorrectionType = .default
         }
-        self.present(alertController, animated: true) {
-            
-        }
+        self.present(alertController, animated: true)
+    }
+    
+    func presentAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
 }
