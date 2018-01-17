@@ -1,14 +1,14 @@
 //
-//  VideoOverlayControls.swift
+//  WaveFormDrawingImageView.swift
 //  AVNotes
 //
-//  Created by Kevin Miller on 1/11/18.
+//  Created by Kevin Miller on 1/17/18.
 //  Copyright © 2018 Kevin Miller. All rights reserved.
 //
 
 import UIKit
 
-class VideoOverlayControls: UIView {
+class WaveFormDrawingImageView: UIImageView {
 
     /*
     // Only override draw() if you perform custom drawing.

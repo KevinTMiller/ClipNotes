@@ -28,12 +28,12 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         guard let audioRecorder = audioRecorder else {return nil}
         return String.stringFrom(timeInterval: audioRecorder.currentTime)
     }
-
+    public var currentRecording: AnnotatedRecording?
     
     
     // MARK: Private vars
     
-    private var currentRecording: AnnotatedRecording?
+
     private let audioSession = AVAudioSession.sharedInstance()
     private let recordingManager = AVNManager.sharedInstance
     private let audioSettings = [

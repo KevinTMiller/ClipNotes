@@ -62,10 +62,18 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func addAnnotation() {
+        // TODO: Am I mixing model and controller here?
         
-        // TODO: Function to get input string from user without interrupting
-        // TODO: Add timestamp to arguments of add Annotation method
-        mediaManager.addAnnotation("String from user goes here")
+        // TODO capture timestamp of when was pressed
+        if let currentRecording = mediaManager.currentRecording,
+            let timeStamp = mediaManager.currentTime {
+            let bookmarkNumber = String(currentRecording.annotations?.count ?? 1)
+            let title = "Bookmark \(bookmarkNumber) (\(timeStamp))"
+            self.presentBookmarkDialog(title: title, message: "Enter bookmark text")
+        } else {
+            AlertManager.presentAlert(with: "Error", message: "Start recording to add a bookmark")
+        }
+        
     }
     @objc private func updateTimerLabel() {
         if let currentTime = mediaManager.currentTime {
