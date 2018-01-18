@@ -21,10 +21,10 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var recordingDateLabel: UILabel!
     @IBOutlet weak var annotationTableView: UITableView!
     
-    
     @IBAction func playButtonDidTouch(_ sender: UIButton) {
         stopRecording()
     }
+    
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
         if isRecording {
             stopRecording()
@@ -32,6 +32,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             startRecording()
         }
     }
+    
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
         showBookmarkAlert()
     }
@@ -44,7 +45,6 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         return mediaManager.isRecording
     }
     private var timer: Timer?
-    
     
     // MARK: Model control
     
@@ -66,17 +66,19 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         // TODO: perhaps create some var in the mediaManager that is [String: Any]
         // for all the metadata?
         if let currentRecording = mediaManager.currentRecording,
-            let timeString = mediaManager.currentTimeString {
+            let timeString = mediaManager.currentTimeString,
+            let timeStamp = mediaManager.currentTimeInterval {
             let bookmarkNumber = String(currentRecording.annotations?.count ?? 1)
             let title = "Bookmark \(bookmarkNumber) (\(timeString))"
             self.presentBookmarkDialog(title: title, message: "Enterbookmark", completion: { (text) in
                 print(text)
+                self.mediaManager.addAnnotation(title: title, text: text, timestamp: timeStamp)
             })
         } else {
             self.presentAlert(title: "Error", message: "Start recording to add a bookmark")
         }
-        
     }
+    
     @objc private func updateTimerLabel() {
         if let currentTime = mediaManager.currentTimeString {
             stopWatchLabel.text = currentTime
@@ -99,25 +101,28 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     
     // MARK: Tableview Delegate / DataSource
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Bookmarks"
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fileManager.recordingArray.count
+        return mediaManager.currentRecording?.annotations?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
-        guard indexPath.row < fileManager.recordingArray.count else {fatalError("Index row exceeds array bounds")}
-        let recording = fileManager.recordingArray[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
-        cell.textLabel?.text = recording.userTitle
-        cell.detailTextLabel?.text = recording.fileName
-        return cell
+            guard indexPath.row < (mediaManager.currentRecording?.annotations?.count)! else {fatalError("Index row exceeds array bounds")}
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
+            if let bookmark = mediaManager.currentRecording?.annotations?[indexPath.row] {
+                cell.textLabel?.text = bookmark.title ?? "No title"
+                cell.detailTextLabel?.text = bookmark.noteText
+            }
+            return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row < fileManager.recordingArray.count else {fatalError("Index row exceeds array bounds")}
-        let recording = fileManager.recordingArray[indexPath.row]
-        mediaManager.playAudio(file: recording)
+       
     }
     
 }

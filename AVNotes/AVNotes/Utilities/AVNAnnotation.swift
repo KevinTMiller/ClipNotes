@@ -8,6 +8,8 @@
 
 
 struct AVNAnnotation : Timestampable , Codable {
+    var title: String?
     var timeStamp: Double?
+    // TODO: refactor noteText to use String?
     var noteText: String
 }

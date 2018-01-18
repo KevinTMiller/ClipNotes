@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 
+//TODO: Refactor class name to AudioManager
 
 class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
@@ -91,8 +92,13 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     //TODO: create a method to switch out audio sessions
     
-    func addAnnotation(text: String, timestamp: TimeInterval) {
-        // TODO: create an annotation in the current recording at the current timestamp
+    func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
+        let timeStampDouble = Double(timestamp)
+        let bookmark = AVNAnnotation(title: title, timeStamp: timeStampDouble, noteText: text)
+        currentRecording?.annotations?.append(bookmark)
+        // TODO: This is probably not great to have this notification here
+        // try to find some way to add it to the model?
+        NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
     }
     
     func stopRecordingAudio() {
@@ -166,7 +172,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         currentRecording = AnnotatedRecording(timeStamp: nil,
                                               userTitle: userTitle,
                                               fileName: name,
-                                              annotations: nil,
+                                              annotations: [],
                                               mediaType: .audio)
     }
     private func saveRecording(_: AnnotatedRecording) {
