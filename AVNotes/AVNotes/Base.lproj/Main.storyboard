@@ -290,7 +290,7 @@
                                                                         <rect key="frame" x="0.0" y="29" width="125" height="48"/>
                                                                         <state key="normal" image="ic_stop_48pt"/>
                                                                         <connections>
-                                                                            <action selector="playButtonDidTouch:" destination="Pq8-cN-CG8" eventType="touchUpInside" id="04O-ph-Wmy"/>
+                                                                            <action selector="stopButtonDidTouch:" destination="Pq8-cN-CG8" eventType="touchUpInside" id="04O-ph-Wmy"/>
                                                                         </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CUq-A3-Yqr">

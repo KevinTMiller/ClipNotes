@@ -21,17 +21,21 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var recordingDateLabel: UILabel!
     @IBOutlet weak var annotationTableView: UITableView!
     
-    @IBAction func playButtonDidTouch(_ sender: UIButton) {
+    @IBAction func stopButtonDidTouch(_ sender: UIButton) {
         stopRecording()
     }
     
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
-        if isRecording {
-            stopRecording()
-        } else {
+        switch mediaManager.currentState {
+        case .recording:
+            pauseRecording()
+        case .recordingPaused:
+            resumeRecording()
+        default:
             startRecording()
         }
     }
+    
     
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
         showBookmarkAlert()
@@ -45,12 +49,12 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         return mediaManager.isRecording
     }
     private var timer: Timer?
-    
+    private var isPaused = false
     // MARK: Model control
     
     private func startRecording() {
-        mediaManager.stopRecordingAudio()
         mediaManager.startRecordingAudio()
+        updateTableView()
         timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
     }
     
@@ -58,8 +62,14 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         mediaManager.stopRecordingAudio()
         timer?.invalidate()
         timer = nil
-        updateTimerLabel()
     }
+    private func pauseRecording() {
+        mediaManager.togglePause(on: true)
+    }
+    private func resumeRecording(){
+        mediaManager.togglePause(on: false)
+    }
+
     
     private func showBookmarkAlert() {
         // TODO: Am I mixing model and controller here?
@@ -68,7 +78,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         if let currentRecording = mediaManager.currentRecording,
             let timeString = mediaManager.currentTimeString,
             let timeStamp = mediaManager.currentTimeInterval {
-            let bookmarkNumber = String(currentRecording.annotations?.count ?? 1)
+            let bookmarkNumber = String((currentRecording.annotations?.count ?? 0) + 1)
             let title = "Bookmark \(bookmarkNumber) (\(timeString))"
             self.presentBookmarkDialog(title: title, message: "Enterbookmark", completion: { (text) in
                 print(text)
