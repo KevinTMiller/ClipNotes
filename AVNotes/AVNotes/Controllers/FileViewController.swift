@@ -12,6 +12,7 @@ import UIKit
 class FileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     
+    @IBOutlet weak var fileTableView: UITableView!
     private let cellIdentifier = "fileViewCell"
     // MARK: Private Vars
     
@@ -20,6 +21,19 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .annotationsDidUpdate, object: nil)
+    }
+    
+    // MARK: Segue prep
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? FileDetailViewController,
+            let indexPath = fileTableView.indexPathForSelectedRow {
+            destination.recording = fileManager.recordingArray[indexPath.row]
+        }
+    }
+    // MARK: Private funcs
+    @objc private func updateTableView() {
+        fileTableView.reloadData()
     }
     
     // MARK: Tableview Delegate / Datasource

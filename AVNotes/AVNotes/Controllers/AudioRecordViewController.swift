@@ -63,14 +63,15 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         timer?.invalidate()
         timer = nil
     }
+    
     private func pauseRecording() {
         mediaManager.togglePause(on: true)
     }
+    
     private func resumeRecording(){
         mediaManager.togglePause(on: false)
     }
 
-    
     private func showBookmarkAlert() {
         // TODO: Am I mixing model and controller here?
         // TODO: perhaps create some var in the mediaManager that is [String: Any]

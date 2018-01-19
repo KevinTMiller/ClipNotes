@@ -24,6 +24,7 @@
 		873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */; };
 		873F5075200FA8A30059F720 /* WaveFormDrawingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */; };
 		87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */; };
+		87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B48FA0201257C60056F894 /* FileDetailViewController.swift */; };
 		87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61931FEC79AA00AB7B19 /* Timestampable.swift */; };
 		87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */; };
 		87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */; };
@@ -49,6 +50,7 @@
 		873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StringFromTimeInterval.swift"; sourceTree = "<group>"; };
 		873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormDrawingImageView.swift; sourceTree = "<group>"; };
 		87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRecorder.swift; sourceTree = "<group>"; };
+		87B48FA0201257C60056F894 /* FileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
 		87EA61931FEC79AA00AB7B19 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifcationName+Constants.swift"; sourceTree = "<group>"; };
 		87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueFileName.swift"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */,
 				872A67131FD708B500AD6B2C /* FileViewController.swift */,
 				872A67151FD708FB00AD6B2C /* LoginViewController.swift */,
+				87B48FA0201257C60056F894 /* FileDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				871367561FE427B400545AAA /* AnnotatedRecording.swift in Sources */,
 				8733DEC9200FE633005B8315 /* UIViewController+Alerts.swift in Sources */,
 				872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */,
+				87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */,
 				87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */,
 				871367581FE427FA00545AAA /* AVNAnnotation.swift in Sources */,
 			);
