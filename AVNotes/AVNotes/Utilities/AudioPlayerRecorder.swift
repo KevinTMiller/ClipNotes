@@ -163,6 +163,10 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         currentState = .playingStopped
     }
     
+    func skipTo(timeInterval: TimeInterval){
+        audioPlayer?.currentTime = timeInterval
+    }
+    
     // TODO: Put this in the init method
     func setUpRecordingSession() {
         do {
@@ -223,6 +227,14 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         finishRecordingAudio(success: flag, path: recorder.url, name: nil)
+    }
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if flag {
+            currentState = .finishedSuccessfully
+        } else {
+            currentState = .finishedWithError
+        }
+        NotificationCenter.default.post(name: .audioPlayerDidFinish, object: nil)
     }
 
 }

@@ -6,5 +6,6 @@ import Foundation
 // Use to create custom notifications
 extension Notification.Name {
     public static let annotationsDidUpdate = Notification.Name(rawValue: "annotationsDidUpdate")
+    public static let audioPlayerDidFinish = Notification.Name(rawValue: "audioPlayerDidFinish")
 }
 
