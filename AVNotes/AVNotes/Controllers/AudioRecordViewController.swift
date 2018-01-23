@@ -11,8 +11,11 @@ import AVKit
 
 
 
+
 class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     private let cellIdentifier = "annotationCell"
+    let interval = 0.01
     
     @IBOutlet weak var waveformView: UIView!
     @IBOutlet weak var tempWaveformLabel: UILabel!
@@ -55,7 +58,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private func startRecording() {
         mediaManager.startRecordingAudio()
         updateTableView()
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
     }
     
     private func stopRecording() {
@@ -91,11 +94,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @objc private func updateTimerLabel() {
-        if let currentTime = mediaManager.currentTimeString {
-            stopWatchLabel.text = currentTime
-        } else {
-            stopWatchLabel.text = "00:00:00.00"
-        }
+        stopWatchLabel.text = mediaManager.currentTimeString ?? "00:00.00"
     }
     
     @objc private func updateTableView() {

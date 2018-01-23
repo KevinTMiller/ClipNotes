@@ -97,10 +97,11 @@ class VideoRecordViewController: UIViewController {
         
     }
     override func viewDidLoad() {
-        launchVideoCamera()
-         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .annotationsDidUpdate, object: nil)
         super.viewDidLoad()
-
+        launchVideoCamera()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .annotationsDidUpdate, object: nil)
+        
+        
     }
     @objc private func updateTableView() {
         videoTableView.reloadData()

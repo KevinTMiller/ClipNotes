@@ -24,7 +24,8 @@ enum CurrentState {
 class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     static let sharedInstance = AudioPlayerRecorder()
-    
+    let fileSuffix = "m4a"
+    let lastRecordingKey = "lastRecording"
     // MARK: Public vars
     
     public var currentState: CurrentState = .fresh
@@ -89,7 +90,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         
         // Should probably store recording number in UserDefaults
         currentRecording = nil
-        let filename = String.uniqueFileName(suffix: "m4a")
+        let filename = String.uniqueFileName(suffix: fileSuffix)
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(filename)
         
         do {
@@ -139,7 +140,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(file.fileName)
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-            audioPlayer = try AVAudioPlayer(contentsOf: audioFilePath, fileTypeHint: "m4a" )
+            audioPlayer = try AVAudioPlayer(contentsOf: audioFilePath, fileTypeHint: fileSuffix )
         } catch let error {
             print(error)
         }
@@ -201,9 +202,9 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     // Convenience init method getting long. Consider another init
     private func createAnnotatedRecording(path: URL, name: String) {
 
-        let lastRecording = defaults.value(forKey: "lastRecording") as? Int ?? 1
+        let lastRecording = defaults.value(forKey: lastRecordingKey) as? Int ?? 1
         let userTitle = "Recording \(lastRecording)"
-        defaults.set(lastRecording + 1, forKey: "lastRecording")
+        defaults.set(lastRecording + 1, forKey: lastRecordingKey)
         
         currentRecording = AnnotatedRecording(timeStamp: nil,
                                               userTitle: userTitle,
