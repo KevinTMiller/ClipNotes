@@ -9,11 +9,14 @@
 import UIKit
 import AVKit
 
-let cellIdentifier = "annotationCell"
+
+
 
 class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-
+    
+    private let cellIdentifier = "annotationCell"
+    let interval = 0.01
+    
     @IBOutlet weak var waveformView: UIView!
     @IBOutlet weak var tempWaveformLabel: UILabel!
     @IBOutlet weak var stopWatchLabel: UILabel!
@@ -21,65 +24,115 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var recordingDateLabel: UILabel!
     @IBOutlet weak var annotationTableView: UITableView!
     
+    @IBAction func stopButtonDidTouch(_ sender: UIButton) {
+        stopRecording()
+    }
     
-    @IBAction func playButtonDidTouch(_ sender: UIButton) {
-    }
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
-        startRecording()
+        switch mediaManager.currentState {
+        case .recording:
+            pauseRecording()
+        case .recordingPaused:
+            resumeRecording()
+        default:
+            startRecording()
+        }
     }
+    
+    
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
-        addAnnotation()
+        showBookmarkAlert()
     }
     
     // MARK: Private Vars
     
-    private var audiorecorder = AudioVideoRecorder.sharedInstance
-    private var recordingmanager = AVNManager.sharedInstance
-    
+    private let mediaManager = AudioPlayerRecorder.sharedInstance
+    private let fileManager = AVNManager.sharedInstance
+    private var isRecording: Bool {
+        return mediaManager.isRecording
+    }
+    private var timer: Timer?
+    private var isPaused = false
     // MARK: Model control
     
     private func startRecording() {
-        audiorecorder.startRecordingAudio()
+        mediaManager.startRecordingAudio()
+        updateTableView()
+        timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
     }
     
     private func stopRecording() {
-        audiorecorder.stopRecordingAudio()
-        
+        mediaManager.stopRecordingAudio()
+        timer?.invalidate()
+        timer = nil
     }
     
-    private func addAnnotation() {
+    private func pauseRecording() {
+        mediaManager.togglePause(on: true)
+    }
+    
+    private func resumeRecording(){
+        mediaManager.togglePause(on: false)
+    }
 
-        // TODO: Function to get input string from user without interrupting
-        // TODO: Add timestamp to arguments of add Annotation method
-        audiorecorder.addAnnotation("String from user goes here")
+    private func showBookmarkAlert() {
+        // TODO: Am I mixing model and controller here?
+        // TODO: perhaps create some var in the mediaManager that is [String: Any]
+        // for all the metadata?
+        if let currentRecording = mediaManager.currentRecording,
+            let timeString = mediaManager.currentTimeString,
+            let timeStamp = mediaManager.currentTimeInterval {
+            let bookmarkNumber = String((currentRecording.annotations?.count ?? 0) + 1)
+            let title = "Bookmark \(bookmarkNumber) (\(timeString))"
+            self.presentBookmarkDialog(title: title, message: "Enterbookmark", completion: { (text) in
+                print(text)
+                self.mediaManager.addAnnotation(title: title, text: text, timestamp: timeStamp)
+            })
+        } else {
+            self.presentAlert(title: "Error", message: "Start recording to add a bookmark")
+        }
     }
     
-    func getCurrentTimeStamp() -> Double {
+    @objc private func updateTimerLabel() {
+        stopWatchLabel.text = mediaManager.currentTimeString ?? "00:00.00"
+    }
     
-        return 0.0
+    @objc private func updateTableView() {
+        annotationTableView.reloadData()
     }
     
     // MARK: Lifecycle functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        mediaManager.setUpRecordingSession()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .annotationsDidUpdate, object: nil)
     }
     
     
     // MARK: Tableview Delegate / DataSource
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        // TODO: Hook this up to the currentRecording Object on the AVNManager
-        return 5
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Bookmarks"
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // TODO: Hook this up to the currentRecording Object on the AVNManager
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
-        return cell
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return mediaManager.currentRecording?.annotations?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
+        UITableViewCell {
+            guard indexPath.row < (mediaManager.currentRecording?.annotations?.count)! else {fatalError("Index row exceeds array bounds")}
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
+            if let bookmark = mediaManager.currentRecording?.annotations?[indexPath.row] {
+                cell.textLabel?.text = bookmark.title ?? "No title"
+                cell.detailTextLabel?.text = bookmark.noteText
+            }
+            return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+       
     }
     
 }

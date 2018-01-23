@@ -7,5 +7,5 @@
 //
 
 protocol Timestampable {
-    var timeStamp: double
+    var timeStamp: Double? {get set}
 }
