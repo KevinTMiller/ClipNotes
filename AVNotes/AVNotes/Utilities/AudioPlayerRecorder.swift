@@ -10,15 +10,18 @@ import AVKit
 import UIKit
 
 //TODO: Refactor class name to AudioManager
+
 enum CurrentState {
     case finishedSuccessfully
     case finishedWithError
     case fresh
-    case playing
-    case playingPaused
-    case playingStopped
-    case recording
-    case recordingPaused
+    case running
+    case paused
+    case stopped
+}
+enum CurrentMode {
+    case record
+    case play
 }
 
 class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDelegate {
@@ -26,27 +29,56 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     static let sharedInstance = AudioPlayerRecorder()
     let fileSuffix = "m4a"
     let lastRecordingKey = "lastRecording"
+    
     // MARK: Public vars
     
     public var currentState: CurrentState = .fresh
+    public var currentMode: CurrentMode = .record
+    
+    // TODO: Check if you need isRecording and isPlaying since you now have
+    // the currentState var
+    
+    // TODO: find a better way to post playRecordDidStart and playRecordDidStop notifications
     
     public var isRecording: Bool {
         guard let audioRecorder = audioRecorder else {return false}
         return audioRecorder.isRecording
     }
+    
     public var isPlaying: Bool {
         guard let audioPlayer = audioPlayer else {return false}
         return audioPlayer.isPlaying
     }
+    
     public var currentTimeString: String? {
-        guard let audioRecorder = audioRecorder else {return nil}
-        return String.stringFrom(timeInterval: audioRecorder.currentTime)
+        switch currentMode {
+        case .record:
+            guard let audioRecorder = audioRecorder else {return nil}
+            return String.stringFrom(timeInterval: audioRecorder.currentTime)
+        case .play:
+            guard let audioPlayer = audioPlayer else {return nil}
+            return String.stringFrom(timeInterval: audioPlayer.currentTime)
+        }
     }
+    
     public var currentTimeInterval: TimeInterval? {
-        guard let audioRecorder = audioRecorder else {return nil}
-        return audioRecorder.currentTime
+        switch currentMode {
+        case .record:
+            guard let audioRecorder = audioRecorder else {return nil}
+            return audioRecorder.currentTime
+        case .play:
+            guard let audioPlayer = audioPlayer else {return nil}
+            return audioPlayer.currentTime
+        }
     }
-    public var currentRecording: AnnotatedRecording?
+    
+    public var currentRecording: AnnotatedRecording? {
+        didSet {
+            NotificationCenter.default.post(name: .currentRecordingDidChange, object: nil)
+        }
+    }
+    
+    private var blankRecording: AnnotatedRecording?
     
     // MARK: Private vars
     
@@ -54,7 +86,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     private let recordingManager = AVNManager.sharedInstance
     private let audioSettings = [
         AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
-        AVSampleRateKey : 12000,
+        AVSampleRateKey : 44100,
         AVNumberOfChannelsKey : 1,
         AVEncoderAudioQualityKey : AVAudioQuality.high.rawValue
     ]
@@ -71,16 +103,6 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     }
     private var defaults = UserDefaults.standard
     
-    private var stopwatchFormatter: DateComponentsFormatter! {
-        didSet {
-            stopwatchFormatter.unitsStyle = .positional
-            stopwatchFormatter.allowedUnits = [.hour, .minute, .second, .nanosecond]
-            stopwatchFormatter.zeroFormattingBehavior = .pad
-            stopwatchFormatter.collapsesLargestUnit = false
-            stopwatchFormatter.maximumUnitCount = 4
-            stopwatchFormatter.allowsFractionalUnits = true
-        }
-    }
     // MARK: Public funcs
     
     /* Starts recording audio by getting a unique filename and the current documents directory
@@ -88,56 +110,62 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     func startRecordingAudio() {
         
-        // Should probably store recording number in UserDefaults
-        currentRecording = nil
-        let filename = String.uniqueFileName(suffix: fileSuffix)
-        let audioFilePath = getDocumentsDirectory().appendingPathComponent(filename)
+        if currentRecording == nil {
+            currentRecording = createAnnotatedRecording()
+        }
+
+        let filename = currentRecording?.fileName
+        let audioFilePath = getDocumentsDirectory().appendingPathComponent(filename!)
         
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: audioSettings)
             audioRecorder?.record()
-            currentState = .recording
+            currentMode = .record
+            currentState = .running
+            NotificationCenter.default.post(name: .playRecordDidStart, object: nil)
             print("Recording: \(isRecording)")
         } catch  {
             finishRecordingAudio(success: false, path: nil, name: nil)
             currentState = .finishedWithError
         }
-        createAnnotatedRecording(path: audioFilePath, name: filename)
     }
-    
-    //TODO: create a method to switch out audio sessions
     
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
         let timeStampDouble = Double(timestamp)
-        let bookmark = AVNAnnotation(title: title, timeStamp: timeStampDouble, noteText: text)
+        let bookmark = AVNAnnotation(title: title, timestamp: timeStampDouble, noteText: text)
         currentRecording?.annotations?.append(bookmark)
-        // TODO: This is probably not great to have this notification here
-        // try to find some way to add it to the model?
         NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
     }
     
     func stopRecordingAudio() {
         audioRecorder?.stop()
-        currentState = .finishedSuccessfully
+        // Audio recorder's delegate function didFinishRecording is called and finishes
+        // the recording
     }
     
-    func togglePause(on: Bool){
-        if on {
+    func togglePause(pause: Bool){
+        if pause {
             audioRecorder?.pause()
-            currentState = .recordingPaused
+            currentState = .paused
         } else {
             audioRecorder?.record()
-            currentState = .recording
+            currentState = .running
         }
+    }
+    func switchToRecord() {
+        currentRecording = blankRecording
+    }
+    
+    private func setNewRecording() {
+        blankRecording = createAnnotatedRecording()
     }
     
     /* Documents directory path changes frequently. Always get a fresh path and then append the filename to create the URL to play */
     
-    func playAudio(file: AnnotatedRecording) {
-        
+    func playAudio() {
         audioPlayer?.stop()
         audioPlayer?.prepareToPlay() // Prevents audio player repeating last file
-        let audioFilePath = getDocumentsDirectory().appendingPathComponent(file.fileName)
+        let audioFilePath = getDocumentsDirectory().appendingPathComponent(currentRecording!.fileName)
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
             audioPlayer = try AVAudioPlayer(contentsOf: audioFilePath, fileTypeHint: fileSuffix )
@@ -145,23 +173,26 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             print(error)
         }
         audioPlayer?.play()
-        currentState = .playing
+        currentMode = .play
+        currentState = .running
+        NotificationCenter.default.post(name: .playRecordDidStart, object: nil)
         print("Playing: \(isPlaying)")
     }
     
     func pauseAudio() {
         audioPlayer?.pause()
-        currentState = .playingPaused
+        currentState = .paused
     }
     
     func resumeAudio() {
         audioPlayer?.play()
-        currentState = .playing
+        currentState = .running
+        NotificationCenter.default.post(name: .playRecordDidStart, object: nil)
     }
     
     func stopPlayingAudio() {
         audioPlayer?.stop()
-        currentState = .playingStopped
+        currentState = .stopped
     }
     
     func skipTo(timeInterval: TimeInterval){
@@ -169,6 +200,9 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     }
     
     // TODO: Put this in the init method
+    // TODO: To continue recording audio when your app transitions to the background
+    // (for example, when the screen locks), add the audio value to the UIBackgroundModes
+    // key in your information property list file.
     func setUpRecordingSession() {
         do {
             try audioSession.setCategory(AVAudioSessionCategoryRecord)
@@ -186,36 +220,51 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             // TODO: insert error message here to user
             print("Error setting up recording session: \(error)")
         }
+        setNewRecording()
     }
     
     private func finishRecordingAudio(success: Bool, path: URL?, name: String?) {
-        audioRecorder?.stop()
-        
         if success {
-            saveRecording(currentRecording!)
+            saveRecording(recording: currentRecording!)
             currentState = .finishedSuccessfully
         } else {
             currentState = .finishedWithError
         }
-        
+        setNewRecording()
     }
-    // Convenience init method getting long. Consider another init
-    private func createAnnotatedRecording(path: URL, name: String) {
-
+ 
+    // Create an Annotated recording object and set it to the currentRecording property
+    // When recording is done, will save to the array in the data manager
+    
+    private func createAnnotatedRecording() -> AnnotatedRecording {
+        
+        let filename = String.uniqueFileName(suffix: fileSuffix)
         let lastRecording = defaults.value(forKey: lastRecordingKey) as? Int ?? 1
         let userTitle = "Recording \(lastRecording)"
-        defaults.set(lastRecording + 1, forKey: lastRecordingKey)
-        
-        currentRecording = AnnotatedRecording(timeStamp: nil,
-                                              userTitle: userTitle,
-                                              fileName: name,
-                                              annotations: [],
-                                              mediaType: .audio)
+
+        return AnnotatedRecording(duration: 0.0, userTitle: userTitle, fileName: filename, mediaType: .audio)
     }
     
-    private func saveRecording(_: AnnotatedRecording) {
+    private func saveRecording(recording: AnnotatedRecording) {
+        currentRecording?.duration = getDuration(recording: recording)
         recordingManager.recordingArray.append(currentRecording!)
-        
+        recordingManager.saveFiles()
+        let lastRecording = defaults.value(forKey: lastRecordingKey) as? Int ?? 1
+        defaults.set(lastRecording + 1, forKey: lastRecordingKey)
+        currentRecording = createAnnotatedRecording()
+    }
+    
+    // .currentTime on AVAudioRecorder returns 0 when stopped.  Must turn the path into
+    // an AVasset and then get the duration that way. The other option is to get the current
+    // time right before the recording stops, but that could be problematic if the recording
+    // stops due to an interruption
+    
+    private func getDuration(recording: AnnotatedRecording) -> Double {
+        let path = getDocumentsDirectory()
+        let url = path.appendingPathComponent(recording.fileName)
+        let asset = AVURLAsset(url: url)
+        let duration = asset.duration
+        return duration.seconds
     }
     
     private func getDocumentsDirectory() -> URL {
@@ -228,6 +277,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         finishRecordingAudio(success: flag, path: recorder.url, name: nil)
+        NotificationCenter.default.post(name: .playRecordDidStop, object: nil)
     }
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
@@ -236,6 +286,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             currentState = .finishedWithError
         }
         NotificationCenter.default.post(name: .audioPlayerDidFinish, object: nil)
+        NotificationCenter.default.post(name: .playRecordDidStop, object: nil)
     }
 
 }

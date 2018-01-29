@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Disk
 
 class AVNManager: NSObject {
     
@@ -24,9 +25,23 @@ class AVNManager: NSObject {
         NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
     }
     
-    private func loadFiles() {
-        // TODO: method to load files from disk
+    func loadFiles() {
+        do {
+            try recordingArray = Disk.retrieve("recordings.json", from: .documents, as: [AnnotatedRecording].self)
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
-
+    
+    func saveFiles() {
+       
+        DispatchQueue.global(qos: .userInitiated).async {
+            do {
+                try Disk.save(self.recordingArray, to: .documents, as: "recordings.json")
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        }
+    }
 }
 

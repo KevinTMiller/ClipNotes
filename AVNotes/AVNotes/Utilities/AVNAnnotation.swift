@@ -5,11 +5,19 @@
 //  Created by Kevin Miller on 12/15/17.
 //  Copyright © 2017 Kevin Miller. All rights reserved.
 //
+import Foundation
 
-
-struct AVNAnnotation : Timestampable , Codable {
-    var title: String?
-    var timeStamp: Double?
+struct AVNAnnotation : Codable {
+    var title: String
+    var timeStamp: Double
     // TODO: refactor noteText to use String?
     var noteText: String
+    var dateStamp: Date
+    
+    init(title: String, timestamp: Double, noteText: String) {
+        self.title = title
+        self.timeStamp = timestamp
+        self.noteText = noteText
+        self.dateStamp = Date.init()
+    }
 }

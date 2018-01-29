@@ -7,5 +7,8 @@ import Foundation
 extension Notification.Name {
     public static let annotationsDidUpdate = Notification.Name(rawValue: "annotationsDidUpdate")
     public static let audioPlayerDidFinish = Notification.Name(rawValue: "audioPlayerDidFinish")
+    public static let currentRecordingDidChange = Notification.Name(rawValue: "currentRecordingDidChange")
+    public static let playRecordDidStart = Notification.Name(rawValue: "playRecordDidStart")
+    public static let playRecordDidStop = Notification.Name(rawValue: "playRecordDidStop")
 }
 

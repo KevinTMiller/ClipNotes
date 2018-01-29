@@ -17,8 +17,12 @@ extension String {
         let minutes = (time / 60) % 60
         let hours = (time / 3600)
         
-        let doesThisWork = "Let this fucking git nonsense work"
-        
+        if time < 60 {
+            return String(format: "%0.2d.%0.2d", seconds, millisec)
+        }
+        if time < 3600 {
+            return String(format: "%0.2d:%0.2d.%0.2d", minutes, seconds, millisec)
+        }
         return String(format: "%0.2d:%0.2d:%0.2d.%0.2d", hours, minutes, seconds, millisec)
     }
 }

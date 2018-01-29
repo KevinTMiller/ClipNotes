@@ -20,17 +20,17 @@ class FileDetailViewController: UIViewController{
     }
     @IBAction func playPauseDidTouch(_ sender: Any) {
         switch audioManager.currentState {
-        case .playing:
+        case .running:
             playPauseButton.setTitle("Resume", for: .normal)
             audioManager.pauseAudio()
             break
-        case .playingPaused:
+        case .paused:
             playPauseButton.setTitle("Pause", for: .normal)
             audioManager.resumeAudio()
             break
         default:
             playPauseButton.setTitle("Pause", for: .normal)
-            audioManager.playAudio(file: recording)
+            audioManager.playAudio()
         }
     }
     @IBAction func addBookmarkDidTouch(_ sender: UIButton) {
@@ -59,13 +59,13 @@ extension FileDetailViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let bookmark = recording.annotations![indexPath.row]
-        if audioManager.currentState == .playing ||
-            audioManager.currentState == .playingPaused ||
-            audioManager.currentState == .playingStopped {
-            audioManager.skipTo(timeInterval: bookmark.timeStamp!)
+        if audioManager.currentState == .running ||
+            audioManager.currentState == .paused ||
+            audioManager.currentState == .stopped {
+            audioManager.skipTo(timeInterval: bookmark.timeStamp)
         } else {
-            audioManager.playAudio(file: recording)
-            audioManager.skipTo(timeInterval: bookmark.timeStamp!)
+            audioManager.playAudio()
+            audioManager.skipTo(timeInterval: bookmark.timeStamp)
         }
     }
 }

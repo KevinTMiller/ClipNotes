@@ -16,11 +16,22 @@ enum MediaType: Int, Codable {
     case video
 }
 
-struct AnnotatedRecording: Timestampable, Codable {
-   
-    var timeStamp: Double?
-    var userTitle: String?
+struct AnnotatedRecording: Codable {
+    var duration: Double
+    var userTitle: String
     var fileName: String
     var annotations: [AVNAnnotation]?
     var mediaType: MediaType
+    let date: Date
+    
+    init(duration: Double, userTitle: String, fileName: String, mediaType: MediaType) {
+        self.duration = duration
+        self.userTitle = userTitle
+        self.fileName = fileName
+        self.mediaType = mediaType
+        self.annotations = []
+        self.date = Date.init()
+    }
 }
+
+

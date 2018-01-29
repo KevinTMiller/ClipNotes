@@ -114,15 +114,16 @@ class VideoRecordViewController: UIViewController {
             message = "Video failed to save"
         }
     
+        // Commented out to silence complier warning, can remove if not needed later
     // TODO: put this in its own func
-    let lastVideo = defaults.value(forKey: "lastVideo") as? Int ?? 1
-    let userTitle = "Video \(lastVideo)"
-    let recording = AnnotatedRecording(timeStamp: nil,
-                                       userTitle: userTitle,
-                                       fileName: videoPath,
-                                       annotations: nil,
-                                       mediaType: .video)
-    manager.recordingArray.append(recording)
+//    let lastVideo = defaults.value(forKey: "lastVideo") as? Int ?? 1
+//    let userTitle = "Video \(lastVideo)"
+//    let recording = AnnotatedRecording(timeStamp: nil,
+//                                       userTitle: userTitle,
+//                                       fileName: videoPath,
+//                                       annotations: nil,
+//                                       mediaType: .video)
+//    manager.recordingArray.append(recording)
     
     
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
