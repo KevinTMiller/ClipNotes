@@ -17,8 +17,9 @@ enum Mode {
 
 class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var isInitialFirstViewing = true
+    private var isInitialFirstViewing = true
     
+
     @IBOutlet weak var spacerHeightConstraint: NSLayoutConstraint!
     @IBOutlet var recordStackLeading: NSLayoutConstraint!
     @IBOutlet var recordStackTrailing: NSLayoutConstraint!
@@ -92,15 +93,10 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             }
 
         }
+        gradientView.changeGradient()
     }
     
-    
-    @IBAction func refreshDidTouch(_ sender: UIBarButtonItem) {
-        moveGradientPoints()
-        swapViews()
-    }
     @IBAction func doneButtonDidTouch(_ sender: UIButton) {
-        
         switch mediaManager.currentMode {
         case .play:
             stopPlaying()
@@ -131,6 +127,13 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     
+    @IBAction func skipBackDidTouch(_ sender: Any) {
+        mediaManager.skipFixedTime(time: -10.0)
+    }
+    @IBAction func skipForwardDidTouch(_ sender: UIButton) {
+        mediaManager.skipFixedTime(time: 10.0)
+    }
+    
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
         if mediaManager.currentMode == .record {
             switch mediaManager.currentState {
@@ -142,7 +145,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
                 print("change to pause button image")
             default:
                 startRecording()
-                print("change to pause button image")
+                sender.setImage(UIImage(named:"ic_pause_circle_outline_48pt"), for: .normal)
             }
         }
         // Might want to have an edit button like apple does before allowing insertion of recordings
@@ -159,12 +162,14 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
     }
+    @IBAction func addDidTouch(_ sender: Any) {
+        mediaManager.switchToRecord()
+        switchToRecordView(true)
+    }
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
         showBookmarkAlert()
     }
     
-
-   
     // MARK: Model control
     
     private func saveAndDismiss() {
@@ -183,9 +188,15 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func stopRecording() {
-        mediaManager.stopRecordingAudio()
+        pauseRecording()
         stopTimer()
-        performSegue(withIdentifier: "toFileView", sender: self)
+        self.presentBookmarkDialog(title: "Save", message: "Enter a title for this recording") { (name) in
+            if name != "" {
+                self.mediaManager.currentRecording?.userTitle = name
+            }
+            self.mediaManager.stopRecordingAudio()
+            self.performSegue(withIdentifier: "toFileView", sender: self)
+        }
     }
     
     private func pauseRecording() {
@@ -237,27 +248,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         updateTableView()
         }
     }
-    // MARK: Gradient funcs
-    private func createGradientLayer() {
-        // color locations
-        // gradient direction
-        let loc2 = NSNumber(value: drand48())
 
-        let purple = UIColor(red:0.44, green:0.47, blue:0.82, alpha:1.0).cgColor
-        let darkPurple = UIColor(red:0.29, green:0.35, blue:0.80, alpha:1.0).cgColor
-        let superDarkPurple = UIColor(red:0.11, green:0.17, blue:0.70, alpha:1.0).cgColor
-        gradientLayer = CAGradientLayer()
-        gradientLayer.frame = gradientView.bounds
-        gradientLayer.colors = [purple, darkPurple, superDarkPurple]
-        gradientLayer.locations = [0.0, 0.5, 1.0]
-        gradientView.layer.addSublayer(gradientLayer)
-        print("locations:  \(loc2) ")
-    }
-    
-    private func moveGradientPoints() {
-        gradientView.changeGradient()
-    }
-    
     private func swapViews() {
         switchToRecordView(isShowingRecordingView)
         UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
@@ -283,12 +274,10 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
     
-   
     // MARK: Tableview Delegate / DataSource
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Bookmarks"
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mediaManager.currentRecording?.annotations?.count ?? 0

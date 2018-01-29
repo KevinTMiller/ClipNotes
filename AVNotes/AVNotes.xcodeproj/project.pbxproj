@@ -28,6 +28,7 @@
 		87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B48FA0201257C60056F894 /* FileDetailViewController.swift */; };
 		87DEA01C201AACAC0081C188 /* ClearBarNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */; };
 		87DEA020201BD2EA0081C188 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01F201BD2EA0081C188 /* GradientView.swift */; };
+		87DEA022201F9A5A0081C188 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA021201F9A5A0081C188 /* Constants.swift */; };
 		87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61931FEC79AA00AB7B19 /* Timestampable.swift */; };
 		87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */; };
 		87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */; };
@@ -58,6 +59,7 @@
 		87B48FA0201257C60056F894 /* FileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
 		87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBarNavViewController.swift; sourceTree = "<group>"; };
 		87DEA01F201BD2EA0081C188 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		87DEA021201F9A5A0081C188 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		87EA61931FEC79AA00AB7B19 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifcationName+Constants.swift"; sourceTree = "<group>"; };
 		87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueFileName.swift"; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				871367571FE427FA00545AAA /* AVNAnnotation.swift */,
 				8713675F1FE4558D00545AAA /* AVNManager.swift */,
 				8733DEC2200FCA2E005B8315 /* AlertManager.swift */,
+				87DEA021201F9A5A0081C188 /* Constants.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				873F5075200FA8A30059F720 /* WaveFormDrawingImageView.swift in Sources */,
+				87DEA022201F9A5A0081C188 /* Constants.swift in Sources */,
 				87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */,
 				871367601FE4558D00545AAA /* AVNManager.swift in Sources */,
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,

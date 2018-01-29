@@ -27,8 +27,6 @@ enum CurrentMode {
 class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     
     static let sharedInstance = AudioPlayerRecorder()
-    let fileSuffix = "m4a"
-    let lastRecordingKey = "lastRecording"
     
     // MARK: Public vars
     
@@ -110,10 +108,6 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     func startRecordingAudio() {
         
-        if currentRecording == nil {
-            currentRecording = createAnnotatedRecording()
-        }
-
         let filename = currentRecording?.fileName
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(filename!)
         
@@ -153,9 +147,13 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         }
     }
     func switchToRecord() {
-        currentRecording = blankRecording
+        currentRecording = createAnnotatedRecording()
+        currentMode = .record
     }
-    
+    func switchToPlay(file: AnnotatedRecording) {
+        currentRecording = file
+        currentMode = .play
+    }
     private func setNewRecording() {
         blankRecording = createAnnotatedRecording()
     }
@@ -168,7 +166,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(currentRecording!.fileName)
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
-            audioPlayer = try AVAudioPlayer(contentsOf: audioFilePath, fileTypeHint: fileSuffix )
+            audioPlayer = try AVAudioPlayer(contentsOf: audioFilePath, fileTypeHint: Constants.m4aSuffix )
         } catch let error {
             print(error)
         }
@@ -199,6 +197,12 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         audioPlayer?.currentTime = timeInterval
     }
     
+    func skipFixedTime(time: Double) {
+        if let audioPlayer = audioPlayer {
+        audioPlayer.currentTime = audioPlayer.currentTime + time
+        }
+    }
+    
     // TODO: Put this in the init method
     // TODO: To continue recording audio when your app transitions to the background
     // (for example, when the screen locks), add the audio value to the UIBackgroundModes
@@ -220,7 +224,10 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             // TODO: insert error message here to user
             print("Error setting up recording session: \(error)")
         }
-        setNewRecording()
+        if currentRecording == nil {
+            currentRecording = createAnnotatedRecording()
+        }
+
     }
     
     private func finishRecordingAudio(success: Bool, path: URL?, name: String?) {
@@ -238,9 +245,9 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     private func createAnnotatedRecording() -> AnnotatedRecording {
         
-        let filename = String.uniqueFileName(suffix: fileSuffix)
-        let lastRecording = defaults.value(forKey: lastRecordingKey) as? Int ?? 1
-        let userTitle = "Recording \(lastRecording)"
+        let filename = String.uniqueFileName(suffix: Constants.m4aSuffix)
+        let lastRecording = defaults.value(forKey: Constants.lastRecordingKey) as? Int ?? 1
+        let userTitle = "New Recording \(lastRecording)"
 
         return AnnotatedRecording(duration: 0.0, userTitle: userTitle, fileName: filename, mediaType: .audio)
     }
@@ -249,8 +256,8 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         currentRecording?.duration = getDuration(recording: recording)
         recordingManager.recordingArray.append(currentRecording!)
         recordingManager.saveFiles()
-        let lastRecording = defaults.value(forKey: lastRecordingKey) as? Int ?? 1
-        defaults.set(lastRecording + 1, forKey: lastRecordingKey)
+        let lastRecording = defaults.value(forKey: Constants.lastRecordingKey) as? Int ?? 1
+        defaults.set(lastRecording + 1, forKey: Constants.lastRecordingKey)
         currentRecording = createAnnotatedRecording()
     }
     

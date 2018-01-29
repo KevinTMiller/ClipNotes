@@ -28,6 +28,12 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .annotationsDidUpdate, object: nil)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        view.layer.cornerRadius = 20
+
+    }
+
     
     // MARK: Segue prep
     
@@ -43,8 +49,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: Tableview Delegate / Datasource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mediaManager.currentRecording = fileManager.recordingArray[indexPath.row]
-        mediaManager.currentMode = .play
+        mediaManager.switchToPlay(file: fileManager.recordingArray[indexPath.row])
         dismiss(animated: true, completion: nil)
     }
     
