@@ -20,6 +20,7 @@ struct AnnotatedRecording: Codable {
     var duration: Double
     var userTitle: String
     var fileName: String
+    var folderName: String
     var annotations: [AVNAnnotation]?
     var mediaType: MediaType
     let date: Date
@@ -31,6 +32,7 @@ struct AnnotatedRecording: Codable {
         self.mediaType = mediaType
         self.annotations = []
         self.date = Date.init()
+        self.folderName = ""
     }
 }
 

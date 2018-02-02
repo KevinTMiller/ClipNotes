@@ -7,15 +7,32 @@
 //
 
 import UIKit
+import AVFoundation
+import Accelerate
 
+struct ReadFile {
+    var arrayFloatValues: [Float] = []
+    var points: [CGPoint] = []
+}
 class WaveFormDrawingImageView: UIImageView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    var audioManager = AudioPlayerRecorder.sharedInstance
+    var asset: AVAsset?
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        if let currentRecording = audioManager.currentRecording {
+            asset = AVAsset(url: getDocumentsDirectory().appendingPathComponent(currentRecording.fileName))
+        }
     }
-    */
-
+    override func draw(_ rect: CGRect) {
+        
+    }
+    
+    private func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        return documentsDirectory
+    }
 }

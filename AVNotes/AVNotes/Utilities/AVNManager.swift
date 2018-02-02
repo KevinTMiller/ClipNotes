@@ -14,6 +14,7 @@ class AVNManager: NSObject {
     static let sharedInstance = AVNManager()
 
     // Public Vars
+    var folderList = [String]()
     var currentRecording: AnnotatedRecording?
     var recordingArray = [AnnotatedRecording]() {
         didSet {

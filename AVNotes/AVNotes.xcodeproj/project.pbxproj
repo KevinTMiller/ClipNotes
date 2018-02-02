@@ -23,7 +23,10 @@
 		8733DEC9200FE633005B8315 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733DEC8200FE633005B8315 /* UIViewController+Alerts.swift */; };
 		873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */; };
 		873F5075200FA8A30059F720 /* WaveFormDrawingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */; };
+		874EE92A2024D0D000B752A9 /* String+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EE9292024D0D000B752A9 /* String+Constants.swift */; };
 		876428CC2018179800968634 /* FileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876428CB2018179800968634 /* FileViewCell.swift */; };
+		8792185E2022676100CA19AF /* CurvedTransparencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792185D2022676100CA19AF /* CurvedTransparencyView.swift */; };
+		8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792186020227A6B00CA19AF /* BorderDrawingView.swift */; };
 		87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */; };
 		87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B48FA0201257C60056F894 /* FileDetailViewController.swift */; };
 		87DEA01C201AACAC0081C188 /* ClearBarNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */; };
@@ -54,7 +57,10 @@
 		8733DEC8200FE633005B8315 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StringFromTimeInterval.swift"; sourceTree = "<group>"; };
 		873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormDrawingImageView.swift; sourceTree = "<group>"; };
+		874EE9292024D0D000B752A9 /* String+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Constants.swift"; sourceTree = "<group>"; };
 		876428CB2018179800968634 /* FileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewCell.swift; sourceTree = "<group>"; };
+		8792185D2022676100CA19AF /* CurvedTransparencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedTransparencyView.swift; sourceTree = "<group>"; };
+		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
 		87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRecorder.swift; sourceTree = "<group>"; };
 		87B48FA0201257C60056F894 /* FileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
 		87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBarNavViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +69,8 @@
 		87EA61931FEC79AA00AB7B19 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifcationName+Constants.swift"; sourceTree = "<group>"; };
 		87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueFileName.swift"; sourceTree = "<group>"; };
+		87FAD5CD20221639008721A4 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../AudioKit/AudioKit/Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
+		87FAD5CE20221639008721A4 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../AudioKit/AudioKit/Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
 		BBC73F0CD257D7E7A5F9C6E6 /* Pods_AVNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AVNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7B5C4B250C55C4A7F495028 /* Pods-AVNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes.release.xcconfig"; sourceTree = "<group>"; };
 		DE96C40759591B81C1772654 /* Pods-AVNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVNotes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes.debug.xcconfig"; sourceTree = "<group>"; };
@@ -83,6 +91,8 @@
 		5D630EE5BBF87E468FC183A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				87FAD5CE20221639008721A4 /* AudioKit.framework */,
+				87FAD5CD20221639008721A4 /* AudioKitUI.framework */,
 				BBC73F0CD257D7E7A5F9C6E6 /* Pods_AVNotes.framework */,
 			);
 			name = Frameworks;
@@ -108,6 +118,8 @@
 				873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */,
 				876428CB2018179800968634 /* FileViewCell.swift */,
 				87DEA01F201BD2EA0081C188 /* GradientView.swift */,
+				8792185D2022676100CA19AF /* CurvedTransparencyView.swift */,
+				8792186020227A6B00CA19AF /* BorderDrawingView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -175,6 +187,7 @@
 				87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */,
 				87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */,
 				873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */,
+				874EE9292024D0D000B752A9 /* String+Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -299,10 +312,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes-frameworks.sh",
+				"${PODS_ROOT}/AudioKit/iOS/AudioKit.framework",
+				"${PODS_ROOT}/AudioKit/iOS/AudioKitUI.framework",
 				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioKitUI.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Disk.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +337,7 @@
 				873F5075200FA8A30059F720 /* WaveFormDrawingImageView.swift in Sources */,
 				87DEA022201F9A5A0081C188 /* Constants.swift in Sources */,
 				87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */,
+				8792185E2022676100CA19AF /* CurvedTransparencyView.swift in Sources */,
 				871367601FE4558D00545AAA /* AVNManager.swift in Sources */,
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
 				87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */,
@@ -330,6 +348,7 @@
 				8733DEC3200FCA2E005B8315 /* AlertManager.swift in Sources */,
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
 				87DEA020201BD2EA0081C188 /* GradientView.swift in Sources */,
+				874EE92A2024D0D000B752A9 /* String+Constants.swift in Sources */,
 				87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */,
 				871367561FE427B400545AAA /* AnnotatedRecording.swift in Sources */,
 				8733DEC9200FE633005B8315 /* UIViewController+Alerts.swift in Sources */,
@@ -339,6 +358,7 @@
 				87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */,
 				87DEA01C201AACAC0081C188 /* ClearBarNavViewController.swift in Sources */,
 				871367581FE427FA00545AAA /* AVNAnnotation.swift in Sources */,
+				8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

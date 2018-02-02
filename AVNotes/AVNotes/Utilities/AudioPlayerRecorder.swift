@@ -8,6 +8,8 @@
 
 import AVKit
 import UIKit
+import AudioKit
+import AudioKitUI
 
 //TODO: Refactor class name to AudioManager
 
@@ -32,6 +34,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     public var currentState: CurrentState = .fresh
     public var currentMode: CurrentMode = .record
+    public var plot: AKNodeOutputPlot?
     
     // TODO: Check if you need isRecording and isPlaying since you now have
     // the currentState var
@@ -100,7 +103,35 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         }
     }
     private var defaults = UserDefaults.standard
+
+    // MARK: AudioKit vars
+    public var mic: AKMicrophone?
+    private var tracker: AKFrequencyTracker!
+    private var silence: AKBooster!
+    private var player: AKAudioPlayer?
     
+    // MARK: AudioKit funcs
+    func setUpAKAudio() {
+        AKSettings.audioInputEnabled = true
+        mic = AKMicrophone()
+        tracker = AKFrequencyTracker(mic)
+        silence = AKBooster(tracker, gain: 0.0)
+        AudioKit.output = silence
+    }
+    func getPlotFromCurrentRecording() -> EZAudioPlot? {
+        if let currentRecording = currentRecording {
+            let audioFile = EZAudioFile(url: getDocumentsDirectory().appendingPathComponent(currentRecording.fileName))
+            guard let data = audioFile?.getWaveformData() else {return nil}
+            let plot = EZAudioPlot()
+            plot.plotType = .buffer
+            plot.shouldFill = true
+            plot.shouldMirror = true
+            plot.color = UIColor.red
+            plot.updateBuffer(data.buffers[0], withBufferSize: 200)
+            return plot
+        }
+        return nil
+    }
     // MARK: Public funcs
     
     /* Starts recording audio by getting a unique filename and the current documents directory
@@ -117,12 +148,15 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             currentMode = .record
             currentState = .running
             NotificationCenter.default.post(name: .playRecordDidStart, object: nil)
+            setUpAKAudio()
             print("Recording: \(isRecording)")
         } catch  {
             finishRecordingAudio(success: false, path: nil, name: nil)
             currentState = .finishedWithError
         }
+        
     }
+   
     
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
         let timeStampDouble = Double(timestamp)
@@ -180,6 +214,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     func pauseAudio() {
         audioPlayer?.pause()
         currentState = .paused
+
     }
     
     func resumeAudio() {

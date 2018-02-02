@@ -54,6 +54,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return fileManager.recordingArray.count
     }
     

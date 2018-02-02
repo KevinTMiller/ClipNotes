@@ -8,18 +8,21 @@
 
 import UIKit
 import AVKit
+import AudioKit
+import AudioKitUI
 
 enum Mode {
     case playback
     case record
 }
 
-
 class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var isInitialFirstViewing = true
     
 
+    @IBOutlet weak var controlShadowView: UIView!
+    @IBOutlet weak var audioPlotGL: EZAudioPlotGL!
     @IBOutlet weak var spacerHeightConstraint: NSLayoutConstraint!
     @IBOutlet var recordStackLeading: NSLayoutConstraint!
     @IBOutlet var recordStackTrailing: NSLayoutConstraint!
@@ -28,12 +31,12 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private let cellIdentifier = "annotationCell"
     let interval = 0.01
     
+    @IBOutlet weak var summaryView: EZAudioPlotGL!
     @IBOutlet weak var recordStackView: UIStackView!
     @IBOutlet weak var playStackView: UIStackView!
     @IBOutlet weak var gradientView: GradientView!
     @IBOutlet weak var controlView: UIView!
-    @IBOutlet weak var waveformView: UIView!
-    @IBOutlet weak var tempWaveformLabel: UILabel!
+    @IBOutlet weak var waveformView: BorderDrawingView!
     @IBOutlet weak var stopWatchLabel: UILabel!
     @IBOutlet weak var recordingTitleLabel: UILabel!
     @IBOutlet weak var recordingDateLabel: UILabel!
@@ -48,15 +51,17 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private var timer: Timer?
     private var gradientLayer: CAGradientLayer!
     private var isShowingRecordingView = true
+    private var plot: AKNodeOutputPlot?
     
     // MARK: Lifecycle functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        controlView.layer.shadowColor = UIColor.black.cgColor
-        controlView.layer.shadowOpacity = 0.1
-        controlView.layer.shadowRadius = 10
-        controlView.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
+        controlShadowView.layer.shadowColor = UIColor.black.cgColor
+        controlShadowView.layer.shadowOpacity = 0.1
+        controlShadowView.layer.shadowRadius = 10
+        controlShadowView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+        
         playStackLeading = playStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 5.0)
         playStackTrailing = playStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5.0)
         playStackView.trailingAnchor.constraint(equalTo: recordStackView.leadingAnchor, constant: -30.0).isActive = true
@@ -84,6 +89,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidAppear(animated)
         switch mediaManager.currentMode {
         case .play:
+            showSummaryWaveform()
             if isShowingRecordingView {
                 switchToRecordView(false)
             }
@@ -94,6 +100,10 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
 
         }
         gradientView.changeGradient()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        audioPlotGL.backgroundColor = .clear
     }
     
     @IBAction func doneButtonDidTouch(_ sender: UIButton) {
@@ -139,10 +149,10 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             switch mediaManager.currentState {
             case .running:
                 pauseRecording()
-                print("change back to record image")
+                sender.setImage(UIImage(named:"ic_fiber_manual_record_48pt"), for: .normal)
             case .paused:
                 resumeRecording()
-                print("change to pause button image")
+                sender.setImage(UIImage(named:"ic_pause_circle_outline_48pt"), for: .normal)
             default:
                 startRecording()
                 sender.setImage(UIImage(named:"ic_pause_circle_outline_48pt"), for: .normal)
@@ -171,14 +181,20 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: Model control
-    
+
     private func saveAndDismiss() {
         fileManager.saveFiles()
         dismiss(animated: true, completion: nil)
     }
     
     private func startRecording() {
+        
+        if let plot = plot {
+            plot.clear()
+        }
         mediaManager.startRecordingAudio()
+        AudioKit.start()
+        setUpAudioPlot()
         updateTableView()
         startTimer()
     }
@@ -196,15 +212,19 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             }
             self.mediaManager.stopRecordingAudio()
             self.performSegue(withIdentifier: "toFileView", sender: self)
+            
         }
     }
     
     private func pauseRecording() {
         mediaManager.togglePause(pause: true)
+        AudioKit.stop()
+
     }
     
     private func resumeRecording(){
         mediaManager.togglePause(pause: false)
+        AudioKit.start()
     }
 
     private func showBookmarkAlert() {
@@ -248,6 +268,31 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         updateTableView()
         }
     }
+    private func showSummaryWaveform() {
+        if let plot = mediaManager.getPlotFromCurrentRecording(),
+            let scrollPlot = mediaManager.getPlotFromCurrentRecording(){
+            scrollPlot.frame = audioPlotGL.bounds
+            plot.frame = summaryView.bounds
+            scrollPlot.plotType = .rolling
+            scrollPlot.setRollingHistoryLength(100)
+            summaryView.addSubview(plot)
+            audioPlotGL.addSubview(scrollPlot)
+        }
+    }
+    
+    private func setUpAudioPlot() {
+        if let mic = mediaManager.mic {
+            plot = AKNodeOutputPlot(mic, frame: audioPlotGL.bounds)
+            plot?.plotType = .rolling
+            plot?.shouldFill = true
+            plot?.shouldMirror = true
+            plot?.backgroundColor = .clear
+            plot?.color = .white
+            plot?.gain = 4
+            plot?.setRollingHistoryLength(200) // 200 Displays 5 before scrolling
+            audioPlotGL.addSubview(plot!)
+            }
+        }
 
     private func swapViews() {
         switchToRecordView(isShowingRecordingView)
@@ -278,13 +323,14 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Bookmarks"
     }
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        view.tintColor = .clear
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.font = UIFont.systemFont(ofSize: 16.0, weight: .light)
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return mediaManager.currentRecording?.annotations?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        view.backgroundColor = UIColor.clear
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
