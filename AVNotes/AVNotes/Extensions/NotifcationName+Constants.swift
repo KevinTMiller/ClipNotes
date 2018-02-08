@@ -10,5 +10,6 @@ extension Notification.Name {
     public static let currentRecordingDidChange = Notification.Name(rawValue: "currentRecordingDidChange")
     public static let playRecordDidStart = Notification.Name(rawValue: "playRecordDidStart")
     public static let playRecordDidStop = Notification.Name(rawValue: "playRecordDidStop")
+    public static let modelDidUpdate = Notification.Name(rawValue: "modelDidUpdate")
 }
 

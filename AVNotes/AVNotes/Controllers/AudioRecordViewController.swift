@@ -72,6 +72,8 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         NotificationCenter.default.addObserver(self, selector: #selector(startTimer), name: .playRecordDidStart, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(stopTimer), name: .playRecordDidStop, object: nil)
         updateUIInfo()
+        setUpAudioPlot()
+        AudioKit.stop()
     }
     
     override func viewWillLayoutSubviews() {
@@ -85,6 +87,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         switch mediaManager.currentMode {
@@ -97,15 +100,17 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             if !isShowingRecordingView {
                 switchToRecordView(true)
             }
-
         }
+        updateUIInfo()
         gradientView.changeGradient()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         audioPlotGL.backgroundColor = .clear
+        navigationController?.navigationBar.backgroundColor = .clear
     }
     
+    // MARK: IBActions
     @IBAction func doneButtonDidTouch(_ sender: UIButton) {
         switch mediaManager.currentMode {
         case .play:
@@ -189,17 +194,19 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     private func startRecording() {
         
-        if let plot = plot {
-            plot.clear()
-        }
         mediaManager.startRecordingAudio()
-        AudioKit.start()
         setUpAudioPlot()
+        AudioKit.start()
         updateTableView()
         startTimer()
     }
+    
     private func stopPlaying() {
         mediaManager.stopPlayingAudio()
+        
+        if let plot = plot {
+            plot.clear()
+        }
         performSegue(withIdentifier: "toFileView", sender: self)
     }
     
@@ -211,8 +218,8 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
                 self.mediaManager.currentRecording?.userTitle = name
             }
             self.mediaManager.stopRecordingAudio()
+            self.plot?.clear()
             self.performSegue(withIdentifier: "toFileView", sender: self)
-            
         }
     }
     
@@ -244,9 +251,11 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             self.presentAlert(title: "Error", message: "Start recording or playback to add a bookmark")
         }
     }
+    
     @objc private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
     }
+    
     @objc private func stopTimer() {
         timer?.invalidate()
         timer = nil
@@ -268,6 +277,8 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         updateTableView()
         }
     }
+    // AudioKit funcs
+    
     private func showSummaryWaveform() {
         if let plot = mediaManager.getPlotFromCurrentRecording(),
             let scrollPlot = mediaManager.getPlotFromCurrentRecording(){
@@ -281,15 +292,19 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func setUpAudioPlot() {
+        
+        
         if let mic = mediaManager.mic {
-            plot = AKNodeOutputPlot(mic, frame: audioPlotGL.bounds)
+            if plot == nil {
+                plot = AKNodeOutputPlot(mic, frame: audioPlotGL.bounds)
+            }
             plot?.plotType = .rolling
             plot?.shouldFill = true
             plot?.shouldMirror = true
             plot?.backgroundColor = .clear
             plot?.color = .white
-            plot?.gain = 4
-            plot?.setRollingHistoryLength(200) // 200 Displays 5 before scrolling
+            plot?.gain = 3
+            plot?.setRollingHistoryLength(200) // 200 Displays 5 sec before scrolling
             audioPlotGL.addSubview(plot!)
             }
         }
@@ -323,6 +338,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Bookmarks"
     }
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = .clear
         let header = view as! UITableViewHeaderFooterView

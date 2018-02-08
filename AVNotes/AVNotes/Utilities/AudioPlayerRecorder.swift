@@ -76,6 +76,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     public var currentRecording: AnnotatedRecording? {
         didSet {
             NotificationCenter.default.post(name: .currentRecordingDidChange, object: nil)
+            print("Current recording: \(currentRecording!.userTitle)")
         }
     }
     
@@ -118,6 +119,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         silence = AKBooster(tracker, gain: 0.0)
         AudioKit.output = silence
     }
+    
     func getPlotFromCurrentRecording() -> EZAudioPlot? {
         if let currentRecording = currentRecording {
             let audioFile = EZAudioFile(url: getDocumentsDirectory().appendingPathComponent(currentRecording.fileName))
@@ -132,6 +134,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         }
         return nil
     }
+    
     // MARK: Public funcs
     
     /* Starts recording audio by getting a unique filename and the current documents directory
@@ -148,15 +151,13 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             currentMode = .record
             currentState = .running
             NotificationCenter.default.post(name: .playRecordDidStart, object: nil)
-            setUpAKAudio()
+//            setUpAKAudio()
             print("Recording: \(isRecording)")
         } catch  {
             finishRecordingAudio(success: false, path: nil, name: nil)
             currentState = .finishedWithError
         }
-        
     }
-   
     
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
         let timeStampDouble = Double(timestamp)
@@ -180,14 +181,17 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             currentState = .running
         }
     }
+    
     func switchToRecord() {
         currentRecording = createAnnotatedRecording()
         currentMode = .record
     }
+    
     func switchToPlay(file: AnnotatedRecording) {
         currentRecording = file
         currentMode = .play
     }
+    
     private func setNewRecording() {
         blankRecording = createAnnotatedRecording()
     }
@@ -214,7 +218,6 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     func pauseAudio() {
         audioPlayer?.pause()
         currentState = .paused
-
     }
     
     func resumeAudio() {
@@ -246,6 +249,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         do {
             try audioSession.setCategory(AVAudioSessionCategoryRecord)
             try audioSession.setActive(true)
+            setUpAKAudio()
             audioSession.requestRecordPermission({ (allowed) in
                 if allowed {
                     print("Audio recording session allowed")
@@ -321,6 +325,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         finishRecordingAudio(success: flag, path: recorder.url, name: nil)
         NotificationCenter.default.post(name: .playRecordDidStop, object: nil)
     }
+    
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
             currentState = .finishedSuccessfully

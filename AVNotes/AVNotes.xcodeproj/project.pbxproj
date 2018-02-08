@@ -23,7 +23,7 @@
 		8733DEC9200FE633005B8315 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733DEC8200FE633005B8315 /* UIViewController+Alerts.swift */; };
 		873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */; };
 		873F5075200FA8A30059F720 /* WaveFormDrawingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */; };
-		874EE92A2024D0D000B752A9 /* String+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EE9292024D0D000B752A9 /* String+Constants.swift */; };
+		874EE92C2024E8C500B752A9 /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */; };
 		876428CC2018179800968634 /* FileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876428CB2018179800968634 /* FileViewCell.swift */; };
 		8792185E2022676100CA19AF /* CurvedTransparencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792185D2022676100CA19AF /* CurvedTransparencyView.swift */; };
 		8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792186020227A6B00CA19AF /* BorderDrawingView.swift */; };
@@ -57,7 +57,7 @@
 		8733DEC8200FE633005B8315 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StringFromTimeInterval.swift"; sourceTree = "<group>"; };
 		873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormDrawingImageView.swift; sourceTree = "<group>"; };
-		874EE9292024D0D000B752A9 /* String+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Constants.swift"; sourceTree = "<group>"; };
+		874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
 		876428CB2018179800968634 /* FileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewCell.swift; sourceTree = "<group>"; };
 		8792185D2022676100CA19AF /* CurvedTransparencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedTransparencyView.swift; sourceTree = "<group>"; };
 		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
@@ -120,6 +120,7 @@
 				87DEA01F201BD2EA0081C188 /* GradientView.swift */,
 				8792185D2022676100CA19AF /* CurvedTransparencyView.swift */,
 				8792186020227A6B00CA19AF /* BorderDrawingView.swift */,
+				874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -187,7 +188,6 @@
 				87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */,
 				87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */,
 				873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */,
-				874EE9292024D0D000B752A9 /* String+Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -348,9 +348,9 @@
 				8733DEC3200FCA2E005B8315 /* AlertManager.swift in Sources */,
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
 				87DEA020201BD2EA0081C188 /* GradientView.swift in Sources */,
-				874EE92A2024D0D000B752A9 /* String+Constants.swift in Sources */,
 				87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */,
 				871367561FE427B400545AAA /* AnnotatedRecording.swift in Sources */,
+				874EE92C2024E8C500B752A9 /* FolderTableViewCell.swift in Sources */,
 				8733DEC9200FE633005B8315 /* UIViewController+Alerts.swift in Sources */,
 				872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */,
 				87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */,

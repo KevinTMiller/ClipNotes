@@ -12,7 +12,7 @@ import UIKit
 class VideoPlayerRecorder: NSObject {
     
     static let sharedInstance = VideoPlayerRecorder()
-    
+
     // Mark: Private funcs
     private func startVideoCamera() {
         

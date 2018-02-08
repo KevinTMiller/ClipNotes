@@ -22,5 +22,12 @@ class FileViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    func populateSelfFrom(recording: AnnotatedRecording) {
+        self.titleLabel.text = recording.userTitle
+        self.durationLabel.text = String.stringFrom(timeInterval: recording.duration)
+        self.bookmarkLabel.text = "\(recording.annotations?.count ?? 0) Bookmarks"
+        self.dateLabel.text = DateFormatter.localizedString(from: recording.date, dateStyle: .short, timeStyle: .none)
+    }
 
 }
