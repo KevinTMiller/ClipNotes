@@ -166,6 +166,11 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
     }
     
+    func editBookmark(indexPath: IndexPath, title: String, text: String) {
+        currentRecording?.annotations?[indexPath.row].noteText = text
+        currentRecording?.annotations?[indexPath.row].title = title
+    }
+    
     func stopRecordingAudio() {
         audioRecorder?.stop()
         // Audio recorder's delegate function didFinishRecording is called and finishes

@@ -39,6 +39,10 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .annotationsDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .modelDidUpdate, object: nil)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateTableView()
+    }
     
     // MARK: Segue prep
     
@@ -50,17 +54,16 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
             let indexPath = fileTableView.indexPath(for: folderCell),
             let folder = fileManager.filesAndFolders[indexPath.row] as? Folder {
             destination.folder = folder
-            destination.recordings = fileManager.recordingArray.filter({$0.folderID == folder.systemID})
         }
     }
-    
+
     // MARK: Private funcs
     @objc private func updateTableView() {
         fileTableView.reloadData()
     }
     
     // MARK: Tableview Delegate / Datasource
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selection = fileManager.filesAndFolders[indexPath.row]
 
@@ -102,7 +105,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         let itemToReplace = fileManager.filesAndFolders[destinationIndexPath.row]
         
         if let folder = itemToMove as? Folder {
-            if destinationIndexPath.row > fileManager.folderList.count {
+            if destinationIndexPath.row >= fileManager.folderList.count {
                 fileManager.folderList.remove(at: sourceIndexPath.row)
                 fileManager.folderList.insert(folder, at: fileManager.folderList.endIndex)
             } else {
@@ -126,9 +129,9 @@ extension FileViewController : UITableViewDragDelegate, UITableViewDropDelegate 
     func tableView(_ tableView: UITableView, dragSessionAllowsMoveOperation session: UIDragSession) -> Bool {
         return true
     }
-    
+    // When returning [], will still allow you to reorder
     func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        
+        if fileManager.filesAndFolders[indexPath.row] is Folder { return [] }
         return fileManager.dragItems(for: indexPath)
     }
     
@@ -179,6 +182,7 @@ extension FileViewController : UITableViewDragDelegate, UITableViewDropDelegate 
     }
     
     func tableView(_ tableView: UITableView, canHandle session: UIDropSession) -> Bool {
+        
         return fileManager.canHandle(session)
     }
 }

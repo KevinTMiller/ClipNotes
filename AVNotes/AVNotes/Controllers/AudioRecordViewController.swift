@@ -16,6 +16,9 @@ enum Mode {
     case record
 }
 
+let bookmarkModal = "bookmarkModal"
+let mainStoryboard = "Main"
+
 class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var isInitialFirstViewing = true
@@ -52,6 +55,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private var gradientLayer: CAGradientLayer!
     private var isShowingRecordingView = true
     private var plot: AKNodeOutputPlot?
+    private var modalTransitioningDelegate = CustomModalPresentationManager()
     
     // MARK: Lifecycle functions
     
@@ -182,7 +186,8 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         switchToRecordView(true)
     }
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
-        showBookmarkAlert()
+        
+        showBookmarkModal(type: .create, indexPath: nil)
     }
     
     // MARK: Model control
@@ -251,6 +256,19 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             self.presentAlert(title: "Error", message: "Start recording or playback to add a bookmark")
         }
     }
+    // MARK: UI Funcs
+    private func showBookmarkModal(type: BookmarkType, indexPath: IndexPath?) {
+        
+        let bookmarkVC = UIStoryboard(name: mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: bookmarkModal) as! BookmarkModalViewController
+        bookmarkVC.modalPresentationStyle = .custom
+        bookmarkVC.bookmarkType = type
+        bookmarkVC.transitioningDelegate = modalTransitioningDelegate
+        if let indexPath = indexPath {
+            bookmarkVC.currentBookmarkIndexPath = indexPath
+        }
+        present(bookmarkVC, animated: true, completion: nil)
+        
+    }
     
     @objc private func startTimer() {
         timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
@@ -292,7 +310,6 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     private func setUpAudioPlot() {
-        
         
         if let mic = mediaManager.mic {
             if plot == nil {
@@ -376,7 +393,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
                 }
             }
             if mediaManager.currentMode == .record {
-                print("pop up custom modal to edit or delete bookmark")
+                showBookmarkModal(type: .edit, indexPath: indexPath)
             }
         }
     }

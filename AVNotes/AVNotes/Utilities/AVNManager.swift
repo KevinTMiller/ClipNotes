@@ -13,8 +13,6 @@ import MobileCoreServices
 struct Folder: Codable  {
     var userTitle: String
     var systemID: String
-    var folderID: String?
-
 }
 
 class AVNManager: NSObject {
@@ -53,13 +51,10 @@ class AVNManager: NSObject {
         if let fileIndex = recordingArray.index(where: {$0.fileName == sourceItemID}) {
             recordingArray[fileIndex].folderID = toFolder
         }
-        if let folderIndex = folderList.index(where: {$0.systemID == sourceItemID}) {
-            folderList[folderIndex].folderID = toFolder
-        }
     }
     
     func addFolder(title: String) {
-        let folder = Folder(userTitle: title, systemID: String.uniqueFileName(suffix: nil), folderID: nil)
+        let folder = Folder(userTitle: title, systemID: String.uniqueFileName(suffix: nil))
         folderList.append(folder)
         saveFiles()
     }
@@ -76,18 +71,17 @@ class AVNManager: NSObject {
     // Mark: Drag and DeathDrop
     
     func canHandle(_ session: UIDropSession) -> Bool {
+       
         return session.canLoadObjects(ofClass: String.self)
     }
     
     func dragItems(for indexPath: IndexPath) -> [UIDragItem] {
         
-        var data: Data?
-        if let file = filesAndFolders[indexPath.row] as? AnnotatedRecording {
-            data = file.fileName.data(using: .utf8)
-        } else {
-            let folder = filesAndFolders[indexPath.row] as! Folder
-            data = folder.systemID.data(using: .utf8)
+        guard let file = filesAndFolders[indexPath.row] as? AnnotatedRecording else {
+            return []
         }
+        
+        let data = file.fileName.data(using: .utf8)
         
         let itemProvider = NSItemProvider()
         itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String,
