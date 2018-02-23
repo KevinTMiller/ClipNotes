@@ -23,6 +23,7 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
         case .edit:
             editBookmark()
         }
+        view.endEditing(true)
         dismiss(animated: true, completion: nil)
     }
     @IBAction func cancelButtonDidTouch(_ sender: UIButton) {

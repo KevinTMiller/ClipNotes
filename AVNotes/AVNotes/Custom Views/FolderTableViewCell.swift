@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FolderTableViewCell: UITableViewCell {
+class FolderTableViewCell: LongPressTableViewCell {
     
     @IBOutlet weak var folderTitleLabel: UILabel!
     @IBOutlet weak var fileCountLabel: UILabel!

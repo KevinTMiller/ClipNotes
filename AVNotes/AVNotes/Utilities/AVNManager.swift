@@ -53,6 +53,17 @@ class AVNManager: NSObject {
         }
     }
     
+    func editTitleOf(uniqueID: String, newTitle: String) {
+        
+        if let folderIndex = folderList.index(where: { $0.systemID == uniqueID }) {
+            folderList[folderIndex].userTitle = newTitle
+        }
+        if let recordingIndex = recordingArray.index(where: {$0.fileName == uniqueID}) {
+            recordingArray[recordingIndex].userTitle = newTitle
+        }
+        saveFiles()
+    }
+    
     func addFolder(title: String) {
         let folder = Folder(userTitle: title, systemID: String.uniqueFileName(suffix: nil))
         folderList.append(folder)

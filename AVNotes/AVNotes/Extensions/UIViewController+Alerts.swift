@@ -11,8 +11,11 @@ import AVKit
 
 extension UIViewController {
     
-    func presentBookmarkDialog(title: String, message: String, completion: @escaping (String) -> ()){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    func presentAlertWith(title: String, message: String, placeholder: String, completion: @escaping (String) -> ()){
+        let alertController = UIAlertController(title: title,
+                                                message: message,
+                                                preferredStyle: .alert)
+        
         let okAction = UIAlertAction(title: "OK", style: .default) { (alert) in
             if let textField = alertController.textFields?[0],
                 let text = textField.text {
@@ -20,13 +23,15 @@ extension UIViewController {
             }
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
         alertController.addAction(cancelAction)
         alertController.addAction(okAction)
         alertController.addTextField { (textField) in
-            textField.placeholder = "Enter bookmark text"
+            textField.placeholder = placeholder
             textField.clearsOnInsertion = true
             textField.autocorrectionType = .default
         }
+        
         self.present(alertController, animated: true)
     }
     

@@ -19,6 +19,7 @@
 		872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */; };
 		872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67131FD708B500AD6B2C /* FileViewController.swift */; };
 		872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67151FD708FB00AD6B2C /* LoginViewController.swift */; };
+		8730DB4F203749C5007068D9 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8730DB4E203749C5007068D9 /* BookmarkTableViewCell.swift */; };
 		8733DEC3200FCA2E005B8315 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733DEC2200FCA2E005B8315 /* AlertManager.swift */; };
 		8733DEC9200FE633005B8315 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733DEC8200FE633005B8315 /* UIViewController+Alerts.swift */; };
 		873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */; };
@@ -27,6 +28,7 @@
 		876428CC2018179800968634 /* FileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876428CB2018179800968634 /* FileViewCell.swift */; };
 		8792185E2022676100CA19AF /* CurvedTransparencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792185D2022676100CA19AF /* CurvedTransparencyView.swift */; };
 		8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792186020227A6B00CA19AF /* BorderDrawingView.swift */; };
+		879D7117203C850E007CD559 /* LongPressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D7116203C850E007CD559 /* LongPressTableViewCell.swift */; };
 		87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */; };
 		87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B48FA0201257C60056F894 /* FileDetailViewController.swift */; };
 		87DEA01C201AACAC0081C188 /* ClearBarNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */; };
@@ -56,6 +58,7 @@
 		872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
 		872A67131FD708B500AD6B2C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
 		872A67151FD708FB00AD6B2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8730DB4E203749C5007068D9 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
 		8733DEC2200FCA2E005B8315 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		8733DEC8200FE633005B8315 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StringFromTimeInterval.swift"; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 		876428CB2018179800968634 /* FileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewCell.swift; sourceTree = "<group>"; };
 		8792185D2022676100CA19AF /* CurvedTransparencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedTransparencyView.swift; sourceTree = "<group>"; };
 		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
+		879D7116203C850E007CD559 /* LongPressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressTableViewCell.swift; sourceTree = "<group>"; };
 		87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRecorder.swift; sourceTree = "<group>"; };
 		87B48FA0201257C60056F894 /* FileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
 		87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBarNavViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 				8792185D2022676100CA19AF /* CurvedTransparencyView.swift */,
 				8792186020227A6B00CA19AF /* BorderDrawingView.swift */,
 				874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */,
+				8730DB4E203749C5007068D9 /* BookmarkTableViewCell.swift */,
+				879D7116203C850E007CD559 /* LongPressTableViewCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -351,10 +357,12 @@
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
 				87E11D1B203201470064D767 /* BookmarkModalViewController.swift in Sources */,
 				87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */,
+				8730DB4F203749C5007068D9 /* BookmarkTableViewCell.swift in Sources */,
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
 				87E11D1F2035D79E0064D767 /* ModalPresentationController.swift in Sources */,
 				8713674F1FE420D200545AAA /* AudioPlayerRecorder.swift in Sources */,
 				873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */,
+				879D7117203C850E007CD559 /* LongPressTableViewCell.swift in Sources */,
 				872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */,
 				8733DEC3200FCA2E005B8315 /* AlertManager.swift in Sources */,
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,

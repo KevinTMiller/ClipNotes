@@ -23,8 +23,8 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     private var isInitialFirstViewing = true
     
-
-    @IBOutlet weak var controlShadowView: UIView!
+//
+//    @IBOutlet weak var controlShadowView: UIView!
     @IBOutlet weak var audioPlotGL: EZAudioPlotGL!
     @IBOutlet weak var spacerHeightConstraint: NSLayoutConstraint!
     @IBOutlet var recordStackLeading: NSLayoutConstraint!
@@ -34,7 +34,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private let cellIdentifier = "annotationCell"
     let interval = 0.01
     
-    @IBOutlet weak var summaryView: EZAudioPlotGL!
+//    @IBOutlet weak var summaryView: EZAudioPlotGL!
     @IBOutlet weak var recordStackView: UIStackView!
     @IBOutlet weak var playStackView: UIStackView!
     @IBOutlet weak var gradientView: GradientView!
@@ -61,10 +61,12 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        controlShadowView.layer.shadowColor = UIColor.black.cgColor
-        controlShadowView.layer.shadowOpacity = 0.1
-        controlShadowView.layer.shadowRadius = 10
-        controlShadowView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//        controlShadowView.layer.shadowColor = UIColor.black.cgColor
+//        controlShadowView.layer.shadowOpacity = 0.1
+//        controlShadowView.layer.shadowRadius = 10
+//        controlShadowView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//
+        definesPresentationContext = true
         
         playStackLeading = playStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 5.0)
         playStackTrailing = playStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5.0)
@@ -96,7 +98,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidAppear(animated)
         switch mediaManager.currentMode {
         case .play:
-            showSummaryWaveform()
+//            showSummaryWaveform()
             if isShowingRecordingView {
                 switchToRecordView(false)
             }
@@ -186,8 +188,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         switchToRecordView(true)
     }
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
-        
-        showBookmarkModal(type: .create, indexPath: nil)
+        showBookmarkModal(sender: sender)
     }
     
     // MARK: Model control
@@ -218,7 +219,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private func stopRecording() {
         pauseRecording()
         stopTimer()
-        self.presentBookmarkDialog(title: "Save", message: "Enter a title for this recording") { (name) in
+        self.presentAlertWith(title: "Save", message: "Enter a title for this recording", placeholder: "New Recording") { (name) in
             if name != "" {
                 self.mediaManager.currentRecording?.userTitle = name
             }
@@ -248,7 +249,7 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
             let timeStamp = mediaManager.currentTimeInterval {
             let bookmarkNumber = String((currentRecording.annotations?.count ?? 0) + 1)
             let title = "Bookmark \(bookmarkNumber) (\(timeString))"
-            self.presentBookmarkDialog(title: title, message: "Enterbookmark", completion: { (text) in
+            self.presentAlertWith(title: title, message: "Enter bookmark", placeholder: "Type bookmark Text Here", completion: { (text) in
                 print(text)
                 self.mediaManager.addAnnotation(title: title, text: text, timestamp: timeStamp)
             })
@@ -257,14 +258,19 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
     // MARK: UI Funcs
-    private func showBookmarkModal(type: BookmarkType, indexPath: IndexPath?) {
+    @objc func showBookmarkModal(sender: Any) {
         
         let bookmarkVC = UIStoryboard(name: mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: bookmarkModal) as! BookmarkModalViewController
         bookmarkVC.modalPresentationStyle = .custom
-        bookmarkVC.bookmarkType = type
         bookmarkVC.transitioningDelegate = modalTransitioningDelegate
-        if let indexPath = indexPath {
-            bookmarkVC.currentBookmarkIndexPath = indexPath
+        
+        if sender is UIButton {
+            bookmarkVC.bookmarkType = .create
+        }
+        if let sender = sender as? UILongPressGestureRecognizer,
+            let tableviewCell = sender.view as? BookmarkTableViewCell {
+            bookmarkVC.bookmarkType = .edit
+            bookmarkVC.currentBookmarkIndexPath = tableviewCell.indexPath
         }
         present(bookmarkVC, animated: true, completion: nil)
         
@@ -297,17 +303,18 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     // AudioKit funcs
     
-    private func showSummaryWaveform() {
-        if let plot = mediaManager.getPlotFromCurrentRecording(),
-            let scrollPlot = mediaManager.getPlotFromCurrentRecording(){
-            scrollPlot.frame = audioPlotGL.bounds
-            plot.frame = summaryView.bounds
-            scrollPlot.plotType = .rolling
-            scrollPlot.setRollingHistoryLength(100)
-            summaryView.addSubview(plot)
-            audioPlotGL.addSubview(scrollPlot)
-        }
-    }
+//    private func showSummaryWaveform() {
+//        if let plot = mediaManager.getPlotFromCurrentRecording(),
+//            let scrollPlot = mediaManager.getPlotFromCurrentRecording(){
+//            scrollPlot.frame = audioPlotGL.bounds
+//            plot.frame = summaryView.bounds
+//            scrollPlot.plotType = .rolling
+//            scrollPlot.setRollingHistoryLength(100)
+////            scrollPlot.displayLinkNeedsDisplay(EZAudioDisplayLink!)
+////            summaryView.addSubview(plot)
+//            audioPlotGL.addSubview(scrollPlot)
+//        }
+//    }
     
     private func setUpAudioPlot() {
         
@@ -352,8 +359,17 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     // MARK: Tableview Delegate / DataSource
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Bookmarks"
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70.0
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -369,12 +385,21 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) ->
         UITableViewCell {
             guard indexPath.row < (mediaManager.currentRecording?.annotations?.count)! else {fatalError("Index row exceeds array bounds")}
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
-            if let bookmark = mediaManager.currentRecording?.annotations?[indexPath.row] {
-                cell.textLabel?.text = bookmark.title
-                cell.detailTextLabel?.text = bookmark.noteText
+            
+            if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? BookmarkTableViewCell,
+                let bookmark = mediaManager.currentRecording?.annotations?[indexPath.row] {
+                cell.bookmarkTextLabel?.text = bookmark.noteText
+                cell.bookmarkTitleLabel?.text = bookmark.title
+                cell.bookmarkTimeStamp?.text = String.stringFrom(timeInterval: bookmark.timeStamp)
+                cell.indexPath = indexPath
+                
+                // TODO: Figure out how to check for targets
+                
+                cell.longPressRecognizer.addTarget(self, action: #selector(showBookmarkModal))
+//                cell.addGestureRecognizer(cell.longPressRecognizer)
+                return cell
             }
-            return cell
+            return tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -391,9 +416,6 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
                     mediaManager.playAudio()
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
                 }
-            }
-            if mediaManager.currentMode == .record {
-                showBookmarkModal(type: .edit, indexPath: indexPath)
             }
         }
     }

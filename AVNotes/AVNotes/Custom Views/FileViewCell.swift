@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FileViewCell: UITableViewCell {
+class FileViewCell: LongPressTableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!

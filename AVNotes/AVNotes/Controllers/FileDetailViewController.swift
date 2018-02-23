@@ -21,10 +21,12 @@ class FileDetailViewController: UIViewController{
     }
     var mediaManager = AudioPlayerRecorder.sharedInstance
     var fileManager = AVNManager.sharedInstance
+    var modalTransitioningDelegate = CustomModalPresentationManager()
     
     @IBOutlet weak var fileDetailTableView: UITableView!
     @IBAction func addDidTouch(_ sender: UIBarButtonItem) {
         mediaManager.currentMode = .record
+        mediaManager.currentRecording?.folderID = folder.systemID
         navigationController?.popToRootViewController(animated: true)
     }
     

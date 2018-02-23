@@ -128,8 +128,8 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             plot.plotType = .buffer
             plot.shouldFill = true
             plot.shouldMirror = true
-            plot.color = UIColor.red
-            plot.updateBuffer(data.buffers[0], withBufferSize: 200)
+            plot.color = UIColor.white
+            plot.updateBuffer(data.buffers[0], withBufferSize: data.bufferSize)
             return plot
         }
         return nil
@@ -171,6 +171,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
         currentRecording?.annotations?[indexPath.row].title = title
     }
     
+
     func stopRecordingAudio() {
         audioRecorder?.stop()
         // Audio recorder's delegate function didFinishRecording is called and finishes
@@ -298,7 +299,8 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     private func saveRecording(recording: AnnotatedRecording) {
         currentRecording?.duration = getDuration(recording: recording)
-        recordingManager.recordingArray.append(currentRecording!)
+        recordingManager.recordingArray.insert(currentRecording!, at: 0)
+//        recordingManager.recordingArray.append(currentRecording!)
         recordingManager.saveFiles()
         let lastRecording = defaults.value(forKey: Constants.lastRecordingKey) as? Int ?? 1
         defaults.set(lastRecording + 1, forKey: Constants.lastRecordingKey)

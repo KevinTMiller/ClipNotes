@@ -22,7 +22,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
    
     
     @IBAction func newFolderDidTouch(_ sender: UIBarButtonItem) {
-        self.presentBookmarkDialog(title: "New Folder", message: "Enter name for folder") { [weak self] (text) in
+        self.presentAlertWith(title: "New Folder", message: "Enter name for folder", placeholder: "New Folder") { [weak self] (text) in
             var userTitle = text
             if text == "" {userTitle = "New Folder" }
             self?.fileManager.addFolder(title: userTitle)
@@ -33,9 +33,12 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        definesPresentationContext = true
         fileTableView.dragDelegate = self
         fileTableView.dropDelegate = self
         fileTableView.dragInteractionEnabled = true
+
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .annotationsDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView), name: .modelDidUpdate, object: nil)
     }
@@ -62,8 +65,54 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         fileTableView.reloadData()
     }
     
+    @objc private func editFileorFolder(sender: UILongPressGestureRecognizer) {
+        presentAlertWith(title: "Edit", message: "message", placeholder: "Placeholder") { (text) in
+         print("Edit to \(text)")
+        }
+    }
+    
     // MARK: Tableview Delegate / Datasource
 
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self](action, indexPath) in
+            self?.presentAlert(title: "Delete", message: "Are you sure you want to delete? This action cannot be undone")
+            // Need a different alert with an action completion block
+        }
+        
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { [weak self] (action, indexPath) in
+            var title = String()
+            var message = String()
+            var placeholder = String()
+            var uniqueID = String()
+            
+            if let currentRecording = self?.fileManager.filesAndFolders[indexPath.row] as? AnnotatedRecording {
+                title = "Edit Recording Title"
+                message = "Enter the new title below"
+                placeholder = currentRecording.userTitle
+                uniqueID = currentRecording.fileName
+            }
+            
+            if let currentFolder = self?.fileManager.filesAndFolders[indexPath.row] as?
+                Folder {
+                title = "Edit Folder Name"
+                message = "Enter new folder name below"
+                placeholder = currentFolder.userTitle
+                uniqueID = currentFolder.systemID
+            }
+            
+            self?.presentAlertWith(title: title, message: message, placeholder: placeholder, completion: { [weak self] (text) in
+                self?.fileManager.editTitleOf(uniqueID: uniqueID, newTitle: text)
+            })
+        }
+        
+        return [delete, edit]
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selection = fileManager.filesAndFolders[indexPath.row]
 
