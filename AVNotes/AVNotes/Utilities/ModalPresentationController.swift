@@ -17,12 +17,16 @@ class ModalPresentationController: UIPresentationController {
         dimmingView.translatesAutoresizingMaskIntoConstraints = false
         dimmingView.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         dimmingView.alpha = 0.0
-        let recognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap(recognizer:)))
+        let recognizer = UITapGestureRecognizer(target: presentedViewController, action: #selector(handleTap))
+        recognizer.numberOfTapsRequired = 1
+        recognizer.numberOfTouchesRequired = 1
         dimmingView.addGestureRecognizer(recognizer)
     }
+    
    @objc dynamic func handleTap(recognizer: UITapGestureRecognizer) {
         presentingViewController.dismiss(animated: true)
     }
+    
     // MARK: Init
     override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)

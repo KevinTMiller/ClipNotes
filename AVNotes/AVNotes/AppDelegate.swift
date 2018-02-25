@@ -15,11 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        UIApplication.shared.statusBarStyle = .lightContent
         AVNManager.sharedInstance.loadFiles()
+        application.statusBarStyle = .lightContent
         AudioPlayerRecorder.sharedInstance.setUpRecordingSession()
         return true
     }
+    
     
     func applicationWillResignActive(_ application: UIApplication) {
         AVNManager.sharedInstance.saveFiles()

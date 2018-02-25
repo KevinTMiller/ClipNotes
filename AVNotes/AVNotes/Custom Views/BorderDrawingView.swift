@@ -28,7 +28,7 @@ class BorderDrawingView: UIView {
     }
     
     func drawRoundedRect() {
-     
+    
     let rect = self.bounds.insetBy(dx: 3, dy: 3)
     path = UIBezierPath.init(roundedRect: rect, cornerRadius: 20.0)
 

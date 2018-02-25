@@ -56,16 +56,13 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private var isShowingRecordingView = true
     private var plot: AKNodeOutputPlot?
     private var modalTransitioningDelegate = CustomModalPresentationManager()
+
     
     // MARK: Lifecycle functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        controlShadowView.layer.shadowColor = UIColor.black.cgColor
-//        controlShadowView.layer.shadowOpacity = 0.1
-//        controlShadowView.layer.shadowRadius = 10
-//        controlShadowView.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-//
+        
         definesPresentationContext = true
         
         playStackLeading = playStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 5.0)
@@ -98,7 +95,6 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidAppear(animated)
         switch mediaManager.currentMode {
         case .play:
-//            showSummaryWaveform()
             if isShowingRecordingView {
                 switchToRecordView(false)
             }
@@ -112,6 +108,8 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .lightContent
+        setNeedsStatusBarAppearanceUpdate()
         audioPlotGL.backgroundColor = .clear
         navigationController?.navigationBar.backgroundColor = .clear
     }
@@ -219,13 +217,15 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     private func stopRecording() {
         pauseRecording()
         stopTimer()
-        self.presentAlertWith(title: "Save", message: "Enter a title for this recording", placeholder: "New Recording") { (name) in
+        self.presentAlertWith(title: "Save", message: "Enter a title for this recording", placeholder: "New Recording") { [ weak self ] (name) in
             if name != "" {
-                self.mediaManager.currentRecording?.userTitle = name
+                self?.mediaManager.currentRecording?.userTitle = name
             }
-            self.mediaManager.stopRecordingAudio()
-            self.plot?.clear()
-            self.performSegue(withIdentifier: "toFileView", sender: self)
+            self?.mediaManager.stopRecordingAudio()
+            self?.plot?.clear()
+            self?.recordButton.setImage(UIImage(named:"ic_fiber_manual_record_48pt"), for: .normal)
+            self?.presentAlert(title: "Success", message: "Your recording has been saved.")
+            
         }
     }
     
@@ -277,7 +277,10 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     @objc private func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(updateTimerLabel), userInfo: nil, repeats: true)
+        
+        DispatchQueue.main.async(group: nil, qos: .userInitiated, flags: DispatchWorkItemFlags.enforceQoS, execute: {
+            self.timer = Timer.scheduledTimer(timeInterval: self.interval, target: self, selector: #selector(self.updateTimerLabel), userInfo: nil, repeats: true)
+        })
     }
     
     @objc private func stopTimer() {
@@ -394,9 +397,11 @@ class AudioRecordViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.indexPath = indexPath
                 
                 // TODO: Figure out how to check for targets
-                
+                if cell.longPressRecognizer == nil {
+                    cell.longPressRecognizer = UILongPressGestureRecognizer()
+                }
                 cell.longPressRecognizer.addTarget(self, action: #selector(showBookmarkModal))
-//                cell.addGestureRecognizer(cell.longPressRecognizer)
+                cell.addGestureRecognizer(cell.longPressRecognizer)
                 return cell
             }
             return tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!

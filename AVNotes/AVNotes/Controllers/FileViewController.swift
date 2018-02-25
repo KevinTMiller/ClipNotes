@@ -33,7 +33,6 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         definesPresentationContext = true
         fileTableView.dragDelegate = self
         fileTableView.dropDelegate = self
@@ -44,6 +43,8 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UIApplication.shared.statusBarStyle = .default
+        setNeedsStatusBarAppearanceUpdate()
         updateTableView()
     }
     
@@ -109,7 +110,6 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self?.fileManager.editTitleOf(uniqueID: uniqueID, newTitle: text)
             })
         }
-        
         return [delete, edit]
     }
     
@@ -117,6 +117,12 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         let selection = fileManager.filesAndFolders[indexPath.row]
 
         if let recording = selection as? AnnotatedRecording {
+            switch mediaManager.currentMode {
+            case .record:
+                mediaManager.stopRecordingAudio()
+            case .play:
+                mediaManager.stopRecordingAudio()
+            }
             mediaManager.switchToPlay(file: recording)
             navigationController?.popToRootViewController(animated: true)
         }

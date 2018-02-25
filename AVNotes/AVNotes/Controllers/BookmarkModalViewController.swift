@@ -27,6 +27,7 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
         dismiss(animated: true, completion: nil)
     }
     @IBAction func cancelButtonDidTouch(_ sender: UIButton) {
+        view.endEditing(true)
         dismiss(animated: true, completion: nil)
     }
     @IBOutlet weak var bookmarkView: UIView!
@@ -58,6 +59,11 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
         case .edit:
             populateFromBookmark()
         }
+    }
+    
+    @objc func handleTap(sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+        dismiss(animated: true, completion: nil)
     }
     
     private func populateFromCurrentRecording() {
