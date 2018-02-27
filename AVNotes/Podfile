@@ -7,7 +7,7 @@ target 'AVNotes' do
 
   # Pods for AVNotes
 pod 'Disk', '~> 0.3.3'
-pod 'AudioKit/UI', '~> 4.0'
-pod 'AudioKit', '~> 4.0'
+#pod 'AudioKit/UI', '~> 4.0'
+#pod 'AudioKit', '~> 4.0'
 
 end

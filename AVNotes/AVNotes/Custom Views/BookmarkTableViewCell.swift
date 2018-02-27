@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookmarkTableViewCell: LongPressTableViewCell {
+class BookmarkTableViewCell: UITableViewCell {
 
     @IBOutlet weak var bookmarkTextLabel: UILabel!
     @IBOutlet weak var bookmarkTimeStamp: UILabel!

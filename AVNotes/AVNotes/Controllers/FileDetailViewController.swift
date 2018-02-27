@@ -57,10 +57,13 @@ extension FileDetailViewController : UITableViewDataSource, UITableViewDelegate 
         case .play:
             mediaManager.stopRecordingAudio()
         }
-
-        mediaManager.switchToPlay(file: recordings[indexPath.row])
-        
-        navigationController?.popToRootViewController(animated: true)
+        if indexPath.row == 0 {
+            navigationController?.popViewController(animated: true)
+        }
+        if indexPath.row < 0 {
+             mediaManager.switchToPlay(file: recordings[(indexPath.row - 1)])
+            navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

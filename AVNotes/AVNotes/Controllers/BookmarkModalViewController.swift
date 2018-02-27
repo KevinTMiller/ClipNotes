@@ -97,7 +97,7 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
     
     private func createBookmark() {
         let title = bookmarkTitleTextField.text ?? "New Bookmark"
-        let text = bookmarkTextView.text ?? ""
+        let text = bookmarkTextView.text ?? "Long press to edit this bookmark's text."
         mediaManager.addAnnotation(title: title, text: text, timestamp: bookmarkTimeStamp)
     }
     

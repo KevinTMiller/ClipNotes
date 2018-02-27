@@ -102,13 +102,9 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "${PODS_ROOT}/AudioKit/iOS/AudioKit.framework"
-  install_framework "${PODS_ROOT}/AudioKit/iOS/AudioKitUI.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Disk/Disk.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "${PODS_ROOT}/AudioKit/iOS/AudioKit.framework"
-  install_framework "${PODS_ROOT}/AudioKit/iOS/AudioKitUI.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Disk/Disk.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

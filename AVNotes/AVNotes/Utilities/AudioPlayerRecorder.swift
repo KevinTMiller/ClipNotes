@@ -32,8 +32,16 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     // MARK: Public vars
     
-    public var currentState: CurrentState = .fresh
-    public var currentMode: CurrentMode = .record
+    public var currentState: CurrentState = .fresh {
+        didSet {
+            print(currentState)
+        }
+    }
+    public var currentMode: CurrentMode = .record {
+        didSet {
+            print(currentMode)
+        }
+    }
     public var plot: AKNodeOutputPlot?
     
     // TODO: Check if you need isRecording and isPlaying since you now have
@@ -85,7 +93,7 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     // MARK: Private vars
     
     private let audioSession = AVAudioSession.sharedInstance()
-    private let recordingManager = AVNManager.sharedInstance
+    private let fileManager = AVNManager.sharedInstance
     private let audioSettings = [
         AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
         AVSampleRateKey : 44100,
@@ -158,12 +166,35 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
             currentState = .finishedWithError
         }
     }
+    func findIndexOfInsertion(timestamp: Double) -> Int? {
+        guard let annotations = currentRecording?.annotations else {return 0}
+        
+        var indexCounter = 0
+        while (indexCounter + 1) < annotations.count {
+            if annotations[indexCounter].timeStamp < timestamp &&
+                annotations[indexCounter + 1].timeStamp >= timestamp {
+                return (indexCounter + 1)
+            }
+            indexCounter += 1
+        }
+        return nil
+    }
     
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
         let timeStampDouble = Double(timestamp)
         let bookmark = AVNAnnotation(title: title, timestamp: timeStampDouble, noteText: text)
-        currentRecording?.annotations?.append(bookmark)
+        
+        // Find the index of the bookmark with the next smallest time stamp
+        // and insert after
+        let index = findIndexOfInsertion(timestamp: timestamp)
+        if let index = index {
+            currentRecording?.annotations?.insert(bookmark, at: index)
+        } else {
+            currentRecording?.annotations?.append(bookmark)
+        }
+        fileManager.saveFiles()
         NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
+        
     }
     
     func editBookmark(indexPath: IndexPath, title: String, text: String) {
@@ -299,9 +330,9 @@ class AudioPlayerRecorder : NSObject , AVAudioRecorderDelegate, AVAudioPlayerDel
     
     private func saveRecording(recording: AnnotatedRecording) {
         currentRecording?.duration = getDuration(recording: recording)
-        recordingManager.recordingArray.insert(currentRecording!, at: 0)
+        fileManager.recordingArray.insert(currentRecording!, at: 0)
 //        recordingManager.recordingArray.append(currentRecording!)
-        recordingManager.saveFiles()
+        fileManager.saveFiles()
         let lastRecording = defaults.value(forKey: Constants.lastRecordingKey) as? Int ?? 1
         defaults.set(lastRecording + 1, forKey: Constants.lastRecordingKey)
         currentRecording = createAnnotatedRecording()

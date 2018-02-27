@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		870FF26720436BDF00F0B69F /* GradientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 870FF26620436BDF00F0B69F /* GradientManager.swift */; };
 		8713674F1FE420D200545AAA /* AudioPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8713674E1FE420D200545AAA /* AudioPlayerRecorder.swift */; };
 		871367561FE427B400545AAA /* AnnotatedRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871367551FE427B400545AAA /* AnnotatedRecording.swift */; };
 		871367581FE427FA00545AAA /* AVNAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 871367571FE427FA00545AAA /* AVNAnnotation.swift */; };
@@ -26,6 +27,9 @@
 		873F5075200FA8A30059F720 /* WaveFormDrawingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */; };
 		874EE92C2024E8C500B752A9 /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */; };
 		876428CC2018179800968634 /* FileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876428CB2018179800968634 /* FileViewCell.swift */; };
+		8786DDD9204460D600BCC61B /* montserrat.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8786DDD8204460D500BCC61B /* montserrat.regular.ttf */; };
+		8786DDE9204502E600BCC61B /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786DDE22045001A00BCC61B /* AudioKit.framework */; };
+		8786DDEA204502E600BCC61B /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786DDE42045001A00BCC61B /* AudioKitUI.framework */; };
 		8792185E2022676100CA19AF /* CurvedTransparencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792185D2022676100CA19AF /* CurvedTransparencyView.swift */; };
 		8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792186020227A6B00CA19AF /* BorderDrawingView.swift */; };
 		879D7117203C850E007CD559 /* LongPressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D7116203C850E007CD559 /* LongPressTableViewCell.swift */; };
@@ -40,10 +44,43 @@
 		87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61931FEC79AA00AB7B19 /* Timestampable.swift */; };
 		87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */; };
 		87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */; };
-		EC2B6D0D2425917E02E8593D /* Pods_AVNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBC73F0CD257D7E7A5F9C6E6 /* Pods_AVNotes.framework */; };
+		912EFEA29F5B58D05D5103E9 /* Pods_AVNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75EDB931BB2B9CB1F63635A /* Pods_AVNotes.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8786DDE12045001A00BCC61B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C42F35001C057E03000E937C;
+			remoteInfo = AudioKit;
+		};
+		8786DDE32045001A00BCC61B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EA7D07011F4E63C200707706;
+			remoteInfo = AudioKitUI;
+		};
+		8786DDE52045004300BCC61B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C42F34FF1C057E03000E937C;
+			remoteInfo = AudioKit;
+		};
+		8786DDE72045004300BCC61B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = EA7D07001F4E63C200707706;
+			remoteInfo = AudioKitUI;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		3F93FF80A5A1739ADBFFA246 /* Pods-AVNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes.release.xcconfig"; sourceTree = "<group>"; };
+		870FF26620436BDF00F0B69F /* GradientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientManager.swift; sourceTree = "<group>"; };
 		8713674E1FE420D200545AAA /* AudioPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerRecorder.swift; sourceTree = "<group>"; };
 		871367551FE427B400545AAA /* AnnotatedRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatedRecording.swift; sourceTree = "<group>"; };
 		871367571FE427FA00545AAA /* AVNAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVNAnnotation.swift; sourceTree = "<group>"; };
@@ -65,6 +102,8 @@
 		873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormDrawingImageView.swift; sourceTree = "<group>"; };
 		874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
 		876428CB2018179800968634 /* FileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewCell.swift; sourceTree = "<group>"; };
+		8786DDD8204460D500BCC61B /* montserrat.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = montserrat.regular.ttf; sourceTree = "<group>"; };
+		8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../../AudioKit/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		8792185D2022676100CA19AF /* CurvedTransparencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedTransparencyView.swift; sourceTree = "<group>"; };
 		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
 		879D7116203C850E007CD559 /* LongPressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressTableViewCell.swift; sourceTree = "<group>"; };
@@ -81,9 +120,8 @@
 		87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueFileName.swift"; sourceTree = "<group>"; };
 		87FAD5CD20221639008721A4 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../AudioKit/AudioKit/Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
 		87FAD5CE20221639008721A4 /* AudioKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKit.framework; path = "../../../AudioKit/AudioKit/Frameworks/AudioKit-iOS/AudioKit.framework"; sourceTree = "<group>"; };
-		BBC73F0CD257D7E7A5F9C6E6 /* Pods_AVNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AVNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D7B5C4B250C55C4A7F495028 /* Pods-AVNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVNotes.release.xcconfig"; path = "Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes.release.xcconfig"; sourceTree = "<group>"; };
-		DE96C40759591B81C1772654 /* Pods-AVNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVNotes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes.debug.xcconfig"; sourceTree = "<group>"; };
+		ADCD591D489F62A13B7E111B /* Pods-AVNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AVNotes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes.debug.xcconfig"; sourceTree = "<group>"; };
+		C75EDB931BB2B9CB1F63635A /* Pods_AVNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AVNotes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,19 +129,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC2B6D0D2425917E02E8593D /* Pods_AVNotes.framework in Frameworks */,
+				8786DDE9204502E600BCC61B /* AudioKit.framework in Frameworks */,
+				8786DDEA204502E600BCC61B /* AudioKitUI.framework in Frameworks */,
+				912EFEA29F5B58D05D5103E9 /* Pods_AVNotes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		434739C5B81CFDEDAA75E39D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ADCD591D489F62A13B7E111B /* Pods-AVNotes.debug.xcconfig */,
+				3F93FF80A5A1739ADBFFA246 /* Pods-AVNotes.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		5D630EE5BBF87E468FC183A0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */,
 				87FAD5CE20221639008721A4 /* AudioKit.framework */,
 				87FAD5CD20221639008721A4 /* AudioKitUI.framework */,
-				BBC73F0CD257D7E7A5F9C6E6 /* Pods_AVNotes.framework */,
+				C75EDB931BB2B9CB1F63635A /* Pods_AVNotes.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -120,6 +170,7 @@
 				8713675F1FE4558D00545AAA /* AVNManager.swift */,
 				8733DEC2200FCA2E005B8315 /* AlertManager.swift */,
 				87DEA021201F9A5A0081C188 /* Constants.swift */,
+				870FF26620436BDF00F0B69F /* GradientManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -144,8 +195,8 @@
 			children = (
 				872A66FA1FD7035F00AD6B2C /* AVNotes */,
 				872A66F91FD7035F00AD6B2C /* Products */,
-				B0272B62396D09D31CF5F008 /* Pods */,
 				5D630EE5BBF87E468FC183A0 /* Frameworks */,
+				434739C5B81CFDEDAA75E39D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -170,6 +221,7 @@
 				872A67021FD7035F00AD6B2C /* Assets.xcassets */,
 				872A67041FD7035F00AD6B2C /* LaunchScreen.storyboard */,
 				872A67071FD7035F00AD6B2C /* Info.plist */,
+				8786DDD8204460D500BCC61B /* montserrat.regular.ttf */,
 			);
 			path = AVNotes;
 			sourceTree = "<group>";
@@ -186,6 +238,15 @@
 				87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8786DDDD2045001800BCC61B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8786DDE22045001A00BCC61B /* AudioKit.framework */,
+				8786DDE42045001A00BCC61B /* AudioKitUI.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		87EA61951FEC79B100AB7B19 /* Protocols */ = {
@@ -207,15 +268,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		B0272B62396D09D31CF5F008 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				DE96C40759591B81C1772654 /* Pods-AVNotes.debug.xcconfig */,
-				D7B5C4B250C55C4A7F495028 /* Pods-AVNotes.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -223,16 +275,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 872A670A1FD7035F00AD6B2C /* Build configuration list for PBXNativeTarget "AVNotes" */;
 			buildPhases = (
-				878796F35F8E63FB46D822E2 /* [CP] Check Pods Manifest.lock */,
+				7250FEACEE8750BD3580C605 /* [CP] Check Pods Manifest.lock */,
 				872A66F41FD7035F00AD6B2C /* Sources */,
 				872A66F51FD7035F00AD6B2C /* Frameworks */,
 				872A66F61FD7035F00AD6B2C /* Resources */,
-				EB7CF82F46E2CDDE0894D75E /* [CP] Embed Pods Frameworks */,
-				8A97E33058791753C60DF242 /* [CP] Copy Pods Resources */,
+				40D6A3A9617684D1F91662FD /* [CP] Embed Pods Frameworks */,
+				AA6C864ED4AF3AF848DC49F8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8786DDE62045004300BCC61B /* PBXTargetDependency */,
+				8786DDE82045004300BCC61B /* PBXTargetDependency */,
 			);
 			name = AVNotes;
 			productName = AVNotes;
@@ -266,6 +320,12 @@
 			mainGroup = 872A66EF1FD7035F00AD6B2C;
 			productRefGroup = 872A66F91FD7035F00AD6B2C /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8786DDDD2045001800BCC61B /* Products */;
+					ProjectRef = 8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				872A66F71FD7035F00AD6B2C /* AVNotes */,
@@ -273,12 +333,30 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		8786DDE22045001A00BCC61B /* AudioKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKit.framework;
+			remoteRef = 8786DDE12045001A00BCC61B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8786DDE42045001A00BCC61B /* AudioKitUI.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = AudioKitUI.framework;
+			remoteRef = 8786DDE32045001A00BCC61B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		872A66F61FD7035F00AD6B2C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				872A67061FD7035F00AD6B2C /* LaunchScreen.storyboard in Resources */,
+				8786DDD9204460D600BCC61B /* montserrat.regular.ttf in Resources */,
 				872A67031FD7035F00AD6B2C /* Assets.xcassets in Resources */,
 				872A67011FD7035F00AD6B2C /* Main.storyboard in Resources */,
 			);
@@ -287,7 +365,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		878796F35F8E63FB46D822E2 /* [CP] Check Pods Manifest.lock */ = {
+		40D6A3A9617684D1F91662FD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Disk.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7250FEACEE8750BD3580C605 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -305,7 +401,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8A97E33058791753C60DF242 /* [CP] Copy Pods Resources */ = {
+		AA6C864ED4AF3AF848DC49F8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -318,28 +414,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EB7CF82F46E2CDDE0894D75E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes-frameworks.sh",
-				"${PODS_ROOT}/AudioKit/iOS/AudioKit.framework",
-				"${PODS_ROOT}/AudioKit/iOS/AudioKitUI.framework",
-				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AudioKitUI.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Disk.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -363,6 +437,7 @@
 				8713674F1FE420D200545AAA /* AudioPlayerRecorder.swift in Sources */,
 				873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */,
 				879D7117203C850E007CD559 /* LongPressTableViewCell.swift in Sources */,
+				870FF26720436BDF00F0B69F /* GradientManager.swift in Sources */,
 				872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */,
 				8733DEC3200FCA2E005B8315 /* AlertManager.swift in Sources */,
 				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
@@ -383,6 +458,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8786DDE62045004300BCC61B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AudioKit;
+			targetProxy = 8786DDE52045004300BCC61B /* PBXContainerItemProxy */;
+		};
+		8786DDE82045004300BCC61B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = AudioKitUI;
+			targetProxy = 8786DDE72045004300BCC61B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		872A66FF1FD7035F00AD6B2C /* Main.storyboard */ = {
@@ -513,13 +601,17 @@
 		};
 		872A670B1FD7035F00AD6B2C /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE96C40759591B81C1772654 /* Pods-AVNotes.debug.xcconfig */;
+			baseConfigurationReference = ADCD591D489F62A13B7E111B /* Pods-AVNotes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MGUZZ82XQ4;
 				INFOPLIST_FILE = AVNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Kevin-Miller.AVNotes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -529,13 +621,17 @@
 		};
 		872A670C1FD7035F00AD6B2C /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D7B5C4B250C55C4A7F495028 /* Pods-AVNotes.release.xcconfig */;
+			baseConfigurationReference = 3F93FF80A5A1739ADBFFA246 /* Pods-AVNotes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MGUZZ82XQ4;
 				INFOPLIST_FILE = AVNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lstdc++",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.Kevin-Miller.AVNotes";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

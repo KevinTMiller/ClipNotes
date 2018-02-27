@@ -15,5 +15,6 @@ class ClearBarNavViewController: UINavigationController {
         navigationBar.isTranslucent = true
         navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationBar.backgroundColor = UIColor.clear
+        navigationBar.shadowImage = UIImage()
     }
 }
