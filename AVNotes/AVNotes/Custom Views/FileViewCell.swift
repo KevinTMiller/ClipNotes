@@ -8,13 +8,13 @@
 
 import UIKit
 
-class FileViewCell: LongPressTableViewCell {
+class FileViewCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var bookmarkLabel: UILabel!
-    @IBOutlet weak var durationLabel: UILabel!
-    
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var dateLabel: UILabel!
+    @IBOutlet private weak var bookmarkLabel: UILabel!
+    @IBOutlet private weak var durationLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -22,12 +22,13 @@ class FileViewCell: LongPressTableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
+
     func populateSelfFrom(recording: AnnotatedRecording) {
         self.titleLabel.text = recording.userTitle
         self.durationLabel.text = String.stringFrom(timeInterval: recording.duration)
         self.bookmarkLabel.text = "\(recording.annotations?.count ?? 0) Bookmarks"
-        self.dateLabel.text = DateFormatter.localizedString(from: recording.date, dateStyle: .short, timeStyle: .none)
+        self.dateLabel.text = DateFormatter.localizedString(from: recording.date,
+                                                            dateStyle: .short,
+                                                            timeStyle: .none)
     }
-
 }

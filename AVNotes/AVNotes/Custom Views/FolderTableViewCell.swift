@@ -8,14 +8,19 @@
 
 import UIKit
 
-class FolderTableViewCell: LongPressTableViewCell {
+class FolderTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var folderTitleLabel: UILabel!
-    @IBOutlet weak var fileCountLabel: UILabel!
-    
+    @IBOutlet private weak var folderTitleLabel: UILabel!
+    @IBOutlet private weak var fileCountLabel: UILabel!
+
+    func populateWith(title: String, icon: String) {
+        folderTitleLabel.text = title
+        fileCountLabel.text = icon
+    }
+
     func populateSelf(folder: Folder) {
-        self.folderTitleLabel.text = folder.userTitle
+        folderTitleLabel.text = folder.userTitle
         fileCountLabel.text =
-        "\((AVNManager.sharedInstance.recordingArray.filter {$0.folderID == folder.systemID}).count)"
+        "\((AVNManager.sharedInstance.recordingArray.filter { $0.folderID == folder.systemID }).count)"
     }
 }

@@ -1,5 +1,10 @@
-//  Created by Kevin Miller on 1/1/18.
+//
+//  NotificationName+Constants.swift
+//  AVNotes
+//
+//  Created by Kevin Miller on 1/17/18.
 //  Copyright © 2018 Kevin Miller. All rights reserved.
+//
 
 import Foundation
 
@@ -12,4 +17,3 @@ extension Notification.Name {
     public static let playRecordDidStop = Notification.Name(rawValue: "playRecordDidStop")
     public static let modelDidUpdate = Notification.Name(rawValue: "modelDidUpdate")
 }
-

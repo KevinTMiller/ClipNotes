@@ -6,35 +6,35 @@
 //  Copyright © 2018 Kevin Miller. All rights reserved.
 //
 
-import UIKit
 import MobileCoreServices
+import UIKit
 
-class FileDetailViewController: UIViewController{
+class FileDetailViewController: UIViewController {
     
-    let cellIdentifier = "fileViewCell"
-    let folderCellIdentifier = "folderCell"
-    let unwindSegue = "unwindToAudioRecord"
-    
+    enum Constants {
+        static let cellIdentifier = "fileViewCell"
+        static let folderCellIdentifier = "folderCell"
+        static let unwindSegue = "unwindToAudioRecord"
+        static let folderLabel = "Files"
+        static let folderIcon = "⇧"
+    }
+
     var folder: Folder!
     var recordings: [AnnotatedRecording]! {
-        return fileManager.recordingArray.filter({$0.folderID == folder.systemID})
+        return fileManager.recordingArray.filter({ $0.folderID == folder.systemID })
     }
     var mediaManager = AudioPlayerRecorder.sharedInstance
     var fileManager = AVNManager.sharedInstance
-    var modalTransitioningDelegate = CustomModalPresentationManager()
+    weak var modalTransitioningDelegate = CustomModalPresentationManager()
     
-    @IBOutlet weak var fileDetailTableView: UITableView!
+    @IBOutlet private weak var fileDetailTableView: UITableView!
+
     @IBAction func addDidTouch(_ sender: UIBarButtonItem) {
         mediaManager.currentMode = .record
         mediaManager.currentRecording?.folderID = folder.systemID
         navigationController?.popToRootViewController(animated: true)
     }
-    
-    @IBAction func doneDidTouch(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         fileDetailTableView.dragInteractionEnabled = true
@@ -43,7 +43,7 @@ class FileDetailViewController: UIViewController{
     }
 }
 
-extension FileDetailViewController : UITableViewDataSource, UITableViewDelegate {
+extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recordings.count + 1
@@ -67,17 +67,19 @@ extension FileDetailViewController : UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         if indexPath.row == 0,
-            let cell = tableView.dequeueReusableCell(withIdentifier: folderCellIdentifier) as? FolderTableViewCell {
-            cell.fileCountLabel.text = "⇧"
-            cell.folderTitleLabel.text = "Files"
+            let cell =
+            tableView.dequeueReusableCell(withIdentifier: Constants.folderCellIdentifier)
+                as? FolderTableViewCell {
+            cell.populateWith(title: Constants.folderLabel, icon: Constants.folderIcon)
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)!
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier)!
+
         if indexPath.row > 0 {
-            if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? FileViewCell {
+            if let cell =
+                tableView.dequeueReusableCell(withIdentifier: Constants.cellIdentifier) as? FileViewCell {
                 cell.populateSelfFrom(recording: recordings[indexPath.row - 1])
                 return cell
             }
@@ -85,15 +87,16 @@ extension FileDetailViewController : UITableViewDataSource, UITableViewDelegate 
         return cell
     }
 }
-extension FileDetailViewController : UITableViewDragDelegate, UITableViewDropDelegate {
+
+extension FileDetailViewController: UITableViewDragDelegate, UITableViewDropDelegate {
     
-    func tableView(_ tableView: UITableView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        
+    func tableView(_ tableView: UITableView,
+                   itemsForBeginning session: UIDragSession,
+                   at indexPath: IndexPath) -> [UIDragItem] {
         guard indexPath.row > 0 else { return [] }
-        
+
         let file = recordings[indexPath.row - 1]
         let data = file.fileName.data(using: .utf8)
-        
         let itemProvider = NSItemProvider()
         itemProvider.registerDataRepresentation(forTypeIdentifier: kUTTypePlainText as String,
                                                 visibility: .all,
@@ -104,23 +107,24 @@ extension FileDetailViewController : UITableViewDragDelegate, UITableViewDropDel
         let dragItem = UIDragItem(itemProvider: itemProvider)
         return [dragItem]
     }
-    
+
     func tableView(_ tableView: UITableView, performDropWith coordinator: UITableViewDropCoordinator) {
-        
+
         coordinator.session.loadObjects(ofClass: NSString.self) { items in
-            
-            let dragStringItem = items[0] as! String
-            
-            self.fileManager.changeFolderof(sourceItemID: dragStringItem , toFolder: "")
+            guard let dragStringItem = items[0] as? String else { return }
+            self.fileManager.changeFolderof(sourceItemID: dragStringItem, toFolder: "")
             tableView.reloadData()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, dragSessionAllowsMoveOperation session: UIDragSession) -> Bool {
         return false
     }
-    func tableView(_ tableView: UITableView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
-        
+
+    func tableView(_ tableView: UITableView,
+                   dropSessionDidUpdate session: UIDropSession,
+                   withDestinationIndexPath destinationIndexPath: IndexPath?) -> UITableViewDropProposal {
+
         if tableView.hasActiveDrag {
             if session.items.count > 1 {
                 return UITableViewDropProposal(operation: .cancel)

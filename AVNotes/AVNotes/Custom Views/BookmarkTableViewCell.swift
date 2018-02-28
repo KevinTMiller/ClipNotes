@@ -10,14 +10,17 @@ import UIKit
 
 class BookmarkTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var bookmarkTextLabel: UILabel!
-    @IBOutlet weak var bookmarkTimeStamp: UILabel!
-    @IBOutlet weak var bookmarkTitleLabel: UILabel!
-    
+    @IBOutlet private weak var bookmarkTextLabel: UILabel!
+    @IBOutlet private weak var bookmarkTimeStamp: UILabel!
+    @IBOutlet private weak var bookmarkTitleLabel: UILabel!
+
     var indexPath: IndexPath!
     var longPressRecognizer: UILongPressGestureRecognizer!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+
+    func populateFromBookmark(_ bookmark: AVNAnnotation, index: IndexPath) {
+        bookmarkTextLabel.text = bookmark.noteText
+        bookmarkTitleLabel.text = bookmark.title
+        bookmarkTimeStamp.text = String.stringFrom(timeInterval: bookmark.timeStamp)
+        indexPath = index
     }
 }

@@ -11,7 +11,7 @@ import UIKit
 class ModalPresentationController: UIPresentationController {
 
     private var dimmingView: UIView!
-    
+
     private func setupDimmingView() {
         dimmingView = UIView()
         dimmingView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,22 +22,24 @@ class ModalPresentationController: UIPresentationController {
         recognizer.numberOfTouchesRequired = 1
         dimmingView.addGestureRecognizer(recognizer)
     }
-    
-   @objc dynamic func handleTap(recognizer: UITapGestureRecognizer) {
+
+   @objc
+    dynamic func handleTap(recognizer: UITapGestureRecognizer) {
         presentingViewController.dismiss(animated: true)
     }
-    
+
     // MARK: Init
-    override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
-        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+    override init(presentedViewController: UIViewController,
+                  presenting presentingViewController: UIViewController?) {
+        super.init(presentedViewController: presentedViewController,
+                   presenting: presentingViewController)
         setupDimmingView()
     }
-    
+
     // MARK: Transition funcs
     override func presentationTransitionWillBegin() {
 
         containerView?.addSubview(dimmingView)
-        
         NSLayoutConstraint.activate(
             NSLayoutConstraint.constraints(withVisualFormat: "V:|[dimmingView]|",
                                            options: [], metrics: nil, views: ["dimmingView": dimmingView]))
@@ -48,17 +50,17 @@ class ModalPresentationController: UIPresentationController {
         guard let coordinator = presentedViewController.transitionCoordinator else {
             dimmingView.alpha = 1.0
             return }
-        
+
         coordinator.animate(alongsideTransition: { _ in
             self.dimmingView.alpha = 1.0 })
     }
-    
+
     override func dismissalTransitionWillBegin() {
         guard let coordinator = presentedViewController.transitionCoordinator else {
             dimmingView.alpha = 0.0
             return
         }
-        
+
         coordinator.animate(alongsideTransition: { _ in
             self.dimmingView.alpha = 0.0
         })

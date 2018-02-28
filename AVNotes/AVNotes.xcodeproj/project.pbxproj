@@ -17,31 +17,22 @@
 		872A67031FD7035F00AD6B2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 872A67021FD7035F00AD6B2C /* Assets.xcassets */; };
 		872A67061FD7035F00AD6B2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 872A67041FD7035F00AD6B2C /* LaunchScreen.storyboard */; };
 		872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A670F1FD7088A00AD6B2C /* AudioRecordViewController.swift */; };
-		872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */; };
 		872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67131FD708B500AD6B2C /* FileViewController.swift */; };
-		872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A67151FD708FB00AD6B2C /* LoginViewController.swift */; };
 		8730DB4F203749C5007068D9 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8730DB4E203749C5007068D9 /* BookmarkTableViewCell.swift */; };
-		8733DEC3200FCA2E005B8315 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733DEC2200FCA2E005B8315 /* AlertManager.swift */; };
 		8733DEC9200FE633005B8315 /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8733DEC8200FE633005B8315 /* UIViewController+Alerts.swift */; };
 		873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */; };
-		873F5075200FA8A30059F720 /* WaveFormDrawingImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */; };
 		874EE92C2024E8C500B752A9 /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */; };
 		876428CC2018179800968634 /* FileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876428CB2018179800968634 /* FileViewCell.swift */; };
 		8786DDD9204460D600BCC61B /* montserrat.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8786DDD8204460D500BCC61B /* montserrat.regular.ttf */; };
 		8786DDE9204502E600BCC61B /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786DDE22045001A00BCC61B /* AudioKit.framework */; };
 		8786DDEA204502E600BCC61B /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786DDE42045001A00BCC61B /* AudioKitUI.framework */; };
-		8792185E2022676100CA19AF /* CurvedTransparencyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792185D2022676100CA19AF /* CurvedTransparencyView.swift */; };
 		8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792186020227A6B00CA19AF /* BorderDrawingView.swift */; };
-		879D7117203C850E007CD559 /* LongPressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879D7116203C850E007CD559 /* LongPressTableViewCell.swift */; };
-		87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */; };
 		87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B48FA0201257C60056F894 /* FileDetailViewController.swift */; };
 		87DEA01C201AACAC0081C188 /* ClearBarNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */; };
 		87DEA020201BD2EA0081C188 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01F201BD2EA0081C188 /* GradientView.swift */; };
-		87DEA022201F9A5A0081C188 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA021201F9A5A0081C188 /* Constants.swift */; };
 		87E11D1B203201470064D767 /* BookmarkModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E11D1A203201460064D767 /* BookmarkModalViewController.swift */; };
 		87E11D1D2034A9B50064D767 /* CustomModalPresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E11D1C2034A9B50064D767 /* CustomModalPresentationManager.swift */; };
 		87E11D1F2035D79E0064D767 /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E11D1E2035D79E0064D767 /* ModalPresentationController.swift */; };
-		87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61931FEC79AA00AB7B19 /* Timestampable.swift */; };
 		87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */; };
 		87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */; };
 		912EFEA29F5B58D05D5103E9 /* Pods_AVNotes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C75EDB931BB2B9CB1F63635A /* Pods_AVNotes.framework */; };
@@ -92,30 +83,21 @@
 		872A67051FD7035F00AD6B2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		872A67071FD7035F00AD6B2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		872A670F1FD7088A00AD6B2C /* AudioRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordViewController.swift; sourceTree = "<group>"; };
-		872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoRecordViewController.swift; sourceTree = "<group>"; };
 		872A67131FD708B500AD6B2C /* FileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewController.swift; sourceTree = "<group>"; };
-		872A67151FD708FB00AD6B2C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8730DB4E203749C5007068D9 /* BookmarkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewCell.swift; sourceTree = "<group>"; };
-		8733DEC2200FCA2E005B8315 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		8733DEC8200FE633005B8315 /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StringFromTimeInterval.swift"; sourceTree = "<group>"; };
-		873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveFormDrawingImageView.swift; sourceTree = "<group>"; };
 		874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
 		876428CB2018179800968634 /* FileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewCell.swift; sourceTree = "<group>"; };
 		8786DDD8204460D500BCC61B /* montserrat.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = montserrat.regular.ttf; sourceTree = "<group>"; };
 		8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../../AudioKit/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
-		8792185D2022676100CA19AF /* CurvedTransparencyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurvedTransparencyView.swift; sourceTree = "<group>"; };
 		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
-		879D7116203C850E007CD559 /* LongPressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongPressTableViewCell.swift; sourceTree = "<group>"; };
-		87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerRecorder.swift; sourceTree = "<group>"; };
 		87B48FA0201257C60056F894 /* FileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
 		87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBarNavViewController.swift; sourceTree = "<group>"; };
 		87DEA01F201BD2EA0081C188 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		87DEA021201F9A5A0081C188 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		87E11D1A203201460064D767 /* BookmarkModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkModalViewController.swift; sourceTree = "<group>"; };
 		87E11D1C2034A9B50064D767 /* CustomModalPresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModalPresentationManager.swift; sourceTree = "<group>"; };
 		87E11D1E2035D79E0064D767 /* ModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
-		87EA61931FEC79AA00AB7B19 /* Timestampable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timestampable.swift; sourceTree = "<group>"; };
 		87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotifcationName+Constants.swift"; sourceTree = "<group>"; };
 		87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UniqueFileName.swift"; sourceTree = "<group>"; };
 		87FAD5CD20221639008721A4 /* AudioKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioKitUI.framework; path = "../../../AudioKit/AudioKit/Frameworks/AudioKit-iOS/AudioKitUI.framework"; sourceTree = "<group>"; };
@@ -164,12 +146,9 @@
 				87E11D1C2034A9B50064D767 /* CustomModalPresentationManager.swift */,
 				87E11D1E2035D79E0064D767 /* ModalPresentationController.swift */,
 				8713674E1FE420D200545AAA /* AudioPlayerRecorder.swift */,
-				87AF75E120053E23005E9A58 /* VideoPlayerRecorder.swift */,
 				871367551FE427B400545AAA /* AnnotatedRecording.swift */,
 				871367571FE427FA00545AAA /* AVNAnnotation.swift */,
 				8713675F1FE4558D00545AAA /* AVNManager.swift */,
-				8733DEC2200FCA2E005B8315 /* AlertManager.swift */,
-				87DEA021201F9A5A0081C188 /* Constants.swift */,
 				870FF26620436BDF00F0B69F /* GradientManager.swift */,
 			);
 			path = Utilities;
@@ -178,14 +157,11 @@
 		8713675B1FE435E300545AAA /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				873F5074200FA8A30059F720 /* WaveFormDrawingImageView.swift */,
 				876428CB2018179800968634 /* FileViewCell.swift */,
 				87DEA01F201BD2EA0081C188 /* GradientView.swift */,
-				8792185D2022676100CA19AF /* CurvedTransparencyView.swift */,
 				8792186020227A6B00CA19AF /* BorderDrawingView.swift */,
 				874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */,
 				8730DB4E203749C5007068D9 /* BookmarkTableViewCell.swift */,
-				879D7116203C850E007CD559 /* LongPressTableViewCell.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -212,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				87EA619B1FFABD6300AB7B19 /* Extensions */,
-				87EA61951FEC79B100AB7B19 /* Protocols */,
 				8713675B1FE435E300545AAA /* Custom Views */,
 				871367501FE426BD00545AAA /* Utilities */,
 				872A670E1FD7085600AD6B2C /* Controllers */,
@@ -231,9 +206,7 @@
 			children = (
 				87E11D1A203201460064D767 /* BookmarkModalViewController.swift */,
 				872A670F1FD7088A00AD6B2C /* AudioRecordViewController.swift */,
-				872A67111FD7089B00AD6B2C /* VideoRecordViewController.swift */,
 				872A67131FD708B500AD6B2C /* FileViewController.swift */,
-				872A67151FD708FB00AD6B2C /* LoginViewController.swift */,
 				87B48FA0201257C60056F894 /* FileDetailViewController.swift */,
 				87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */,
 			);
@@ -247,14 +220,6 @@
 				8786DDE42045001A00BCC61B /* AudioKitUI.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		87EA61951FEC79B100AB7B19 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				87EA61931FEC79AA00AB7B19 /* Timestampable.swift */,
-			);
-			path = Protocols;
 			sourceTree = "<group>";
 		};
 		87EA619B1FFABD6300AB7B19 /* Extensions */ = {
@@ -281,6 +246,7 @@
 				872A66F61FD7035F00AD6B2C /* Resources */,
 				40D6A3A9617684D1F91662FD /* [CP] Embed Pods Frameworks */,
 				AA6C864ED4AF3AF848DC49F8 /* [CP] Copy Pods Resources */,
+				8706B2412046F91E00F66AB4 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -401,6 +367,19 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8706B2412046F91E00F66AB4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint";
+		};
 		AA6C864ED4AF3AF848DC49F8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -423,31 +402,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				873F5075200FA8A30059F720 /* WaveFormDrawingImageView.swift in Sources */,
-				87DEA022201F9A5A0081C188 /* Constants.swift in Sources */,
 				87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */,
-				8792185E2022676100CA19AF /* CurvedTransparencyView.swift in Sources */,
 				871367601FE4558D00545AAA /* AVNManager.swift in Sources */,
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
 				87E11D1B203201470064D767 /* BookmarkModalViewController.swift in Sources */,
-				87EA61941FEC79AB00AB7B19 /* Timestampable.swift in Sources */,
 				8730DB4F203749C5007068D9 /* BookmarkTableViewCell.swift in Sources */,
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
 				87E11D1F2035D79E0064D767 /* ModalPresentationController.swift in Sources */,
 				8713674F1FE420D200545AAA /* AudioPlayerRecorder.swift in Sources */,
 				873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */,
-				879D7117203C850E007CD559 /* LongPressTableViewCell.swift in Sources */,
 				870FF26720436BDF00F0B69F /* GradientManager.swift in Sources */,
 				872A67141FD708B500AD6B2C /* FileViewController.swift in Sources */,
-				8733DEC3200FCA2E005B8315 /* AlertManager.swift in Sources */,
-				872A67161FD708FB00AD6B2C /* LoginViewController.swift in Sources */,
 				87DEA020201BD2EA0081C188 /* GradientView.swift in Sources */,
-				87AF75E220053E23005E9A58 /* VideoPlayerRecorder.swift in Sources */,
 				871367561FE427B400545AAA /* AnnotatedRecording.swift in Sources */,
 				87E11D1D2034A9B50064D767 /* CustomModalPresentationManager.swift in Sources */,
 				874EE92C2024E8C500B752A9 /* FolderTableViewCell.swift in Sources */,
 				8733DEC9200FE633005B8315 /* UIViewController+Alerts.swift in Sources */,
-				872A67121FD7089B00AD6B2C /* VideoRecordViewController.swift in Sources */,
 				87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */,
 				876428CC2018179800968634 /* FileViewCell.swift in Sources */,
 				87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */,

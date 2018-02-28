@@ -7,17 +7,16 @@
 //
 import Foundation
 
-struct AVNAnnotation : Codable {
+struct AVNAnnotation: Codable {
     var title: String
     var timeStamp: Double
-    // TODO: refactor noteText to use String?
     var noteText: String
     var dateStamp: Date
-    
+
     init(title: String, timestamp: Double, noteText: String) {
         self.title = title
         self.timeStamp = timestamp
         self.noteText = noteText
-        self.dateStamp = Date.init()
+        self.dateStamp = Date()
     }
 }
