@@ -21,6 +21,6 @@ class FolderTableViewCell: UITableViewCell {
     func populateSelf(folder: Folder) {
         folderTitleLabel.text = folder.userTitle
         fileCountLabel.text =
-        "\((AVNManager.sharedInstance.recordingArray.filter { $0.folderID == folder.systemID }).count)"
+        "\((RecordingManager.sharedInstance.recordingArray.filter { $0.folderID == folder.systemID }).count)"
     }
 }

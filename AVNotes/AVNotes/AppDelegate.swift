@@ -15,14 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        AVNManager.sharedInstance.loadFiles()
+        RecordingManager.sharedInstance.loadFiles()
         application.statusBarStyle = .lightContent
-        AudioPlayerRecorder.sharedInstance.setUpRecordingSession()
+        AudioManager.sharedInstance.setUpRecordingSession()
         return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
-        AVNManager.sharedInstance.saveFiles()
+        RecordingManager.sharedInstance.saveFiles()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
@@ -30,6 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        AVNManager.sharedInstance.saveFiles()
+        RecordingManager.sharedInstance.saveFiles()
     }
 }

@@ -1,5 +1,5 @@
 //
-//  AVNManager.swift
+//  RecordingManager.swift
 //  AVNotes
 //
 //  Created by Kevin Miller on 12/15/17.
@@ -15,9 +15,9 @@ struct Folder: Codable {
     var systemID: String
 }
 
-class AVNManager: NSObject {
+class RecordingManager: NSObject {
 
-    static let sharedInstance = AVNManager()
+    static let sharedInstance = RecordingManager()
 
     // Public Vars
     var folderList = [Folder]() {

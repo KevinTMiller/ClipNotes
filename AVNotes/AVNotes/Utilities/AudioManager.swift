@@ -1,5 +1,5 @@
 //
-//  AudioPlayerRecorder.swift
+//  AudioManager.swift
 //  AVNotes
 //
 //  Created by Kevin Miller on 12/15/17.
@@ -10,8 +10,6 @@ import AudioKit
 import AudioKitUI
 import AVKit
 import UIKit
-
-//TODO: Refactor class name to AudioManager
 
 enum CurrentState {
     case finishedSuccessfully
@@ -26,9 +24,9 @@ enum CurrentMode {
     case play
 }
 
-class AudioPlayerRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
-    static let sharedInstance = AudioPlayerRecorder()
+    static let sharedInstance = AudioManager()
 
     enum Constants {
         static let m4aSuffix = "m4a"
@@ -92,7 +90,7 @@ class AudioPlayerRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDeleg
 
     // MARK: Private vars
     private let audioSession = AVAudioSession.sharedInstance()
-    private let fileManager = AVNManager.sharedInstance
+    private let fileManager = RecordingManager.sharedInstance
     private let audioSettings = [
         AVFormatIDKey : Int(kAudioFormatMPEG4AAC),
         AVSampleRateKey : 44_100,
@@ -181,7 +179,7 @@ class AudioPlayerRecorder: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDeleg
 
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
         let timeStampDouble = Double(timestamp)
-        let bookmark = AVNAnnotation(title: title, timestamp: timeStampDouble, noteText: text)
+        let bookmark = Bookmark(title: title, timestamp: timeStampDouble, noteText: text)
 
         // Find the index of the bookmark with the next smallest time stamp
         // and insert after

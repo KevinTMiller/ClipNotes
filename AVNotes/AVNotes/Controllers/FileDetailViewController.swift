@@ -20,18 +20,18 @@ class FileDetailViewController: UIViewController {
     }
 
     var folder: Folder!
-    var recordings: [AnnotatedRecording]! {
+    private var recordings: [AnnotatedRecording]! {
         return fileManager.recordingArray.filter({ $0.folderID == folder.systemID })
     }
-    var mediaManager = AudioPlayerRecorder.sharedInstance
-    var fileManager = AVNManager.sharedInstance
-    weak var modalTransitioningDelegate = CustomModalPresentationManager()
+    private lazy var audioManager = AudioManager.sharedInstance
+    private lazy var fileManager = RecordingManager.sharedInstance
+    private weak var modalTransitioningDelegate = CustomModalPresentationManager()
     
     @IBOutlet private weak var fileDetailTableView: UITableView!
 
     @IBAction func addDidTouch(_ sender: UIBarButtonItem) {
-        mediaManager.currentMode = .record
-        mediaManager.currentRecording?.folderID = folder.systemID
+        audioManager.currentMode = .record
+        audioManager.currentRecording?.folderID = folder.systemID
         navigationController?.popToRootViewController(animated: true)
     }
 
@@ -51,17 +51,17 @@ extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
-        switch mediaManager.currentMode {
+        switch audioManager.currentMode {
         case .record:
-            mediaManager.stopRecordingAudio()
+            audioManager.stopRecordingAudio()
         case .play:
-            mediaManager.stopRecordingAudio()
+            audioManager.stopRecordingAudio()
         }
         if indexPath.row == 0 {
             navigationController?.popViewController(animated: true)
         }
         if indexPath.row < 0 {
-             mediaManager.switchToPlay(file: recordings[(indexPath.row - 1)])
+             audioManager.switchToPlay(file: recordings[(indexPath.row - 1)])
             navigationController?.popToRootViewController(animated: true)
         }
     }

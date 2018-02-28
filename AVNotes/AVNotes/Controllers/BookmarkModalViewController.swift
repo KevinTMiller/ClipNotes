@@ -59,10 +59,10 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
 
     var bookmarkTimeStamp = TimeInterval()
     var bookmarkType: BookmarkType = .create
-    var currentBookmark: AVNAnnotation?
+    var currentBookmark: Bookmark?
     var currentBookmarkIndexPath: IndexPath?
     
-    private var mediaManager = AudioPlayerRecorder.sharedInstance
+    private var mediaManager = AudioManager.sharedInstance
 
     private func populateUI() {
         switch bookmarkType {

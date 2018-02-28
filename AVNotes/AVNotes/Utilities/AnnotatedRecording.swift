@@ -21,7 +21,7 @@ struct AnnotatedRecording: Codable {
     var userTitle: String
     var fileName: String
     var folderID: String
-    var annotations: [AVNAnnotation]?
+    var annotations: [Bookmark]?
     var mediaType: MediaType
     let date: Date
 

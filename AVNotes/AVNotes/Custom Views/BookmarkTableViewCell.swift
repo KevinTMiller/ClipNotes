@@ -17,7 +17,7 @@ class BookmarkTableViewCell: UITableViewCell {
     var indexPath: IndexPath!
     var longPressRecognizer: UILongPressGestureRecognizer!
 
-    func populateFromBookmark(_ bookmark: AVNAnnotation, index: IndexPath) {
+    func populateFromBookmark(_ bookmark: Bookmark, index: IndexPath) {
         bookmarkTextLabel.text = bookmark.noteText
         bookmarkTitleLabel.text = bookmark.title
         bookmarkTimeStamp.text = String.stringFrom(timeInterval: bookmark.timeStamp)

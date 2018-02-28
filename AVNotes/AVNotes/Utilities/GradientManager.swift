@@ -10,12 +10,12 @@ import UIKit
 
 class GradientManager: NSObject {
 
-    private var managedViews = [UIView]()
-    private var index = UserDefaults.standard.value(forKey: "gradient") as? Int ?? 0
-    private var gradientLayer = CAGradientLayer()
-    private var keyDictionary = ["Vanusa", "eXpresso", "Red Sunset", "Taran Tado",
+    private lazy var managedViews = [UIView]()
+    private lazy var index = UserDefaults.standard.value(forKey: "gradient") as? Int ?? 0
+    private lazy var gradientLayer = CAGradientLayer()
+    private lazy var keyDictionary = ["Vanusa", "eXpresso", "Red Sunset", "Taran Tado",
                                  "Purple Bliss"]
-    private var gradientDictionary: [String: [CGColor]] = [
+    private lazy var gradientDictionary: [String: [CGColor]] = [
         "Vanusa":       [UIColor(red: 0.85, green: 0.27, blue: 0.33, alpha: 1.0).cgColor,
                          UIColor(red: 0.54, green: 0.13, blue: 0.42, alpha: 1.0).cgColor],
         "eXpresso":     [UIColor(red: 0.68, green: 0.33, blue: 0.54, alpha: 1.0).cgColor,

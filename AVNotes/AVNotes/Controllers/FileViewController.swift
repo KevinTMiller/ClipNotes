@@ -29,8 +29,8 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         static let editFolderMessage = "Enter new folder name below"
     }
 
-    private let fileManager = AVNManager.sharedInstance
-    private let mediaManager = AudioPlayerRecorder.sharedInstance
+    private let fileManager = RecordingManager.sharedInstance
+    private let mediaManager = AudioManager.sharedInstance
 
     @IBAction func newFolderDidTouch(_ sender: UIBarButtonItem) {
         self.presentAlertWith(title: AlertConstants.newFolder, message: AlertConstants.enterName,

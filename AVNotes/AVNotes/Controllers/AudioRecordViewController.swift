@@ -68,16 +68,16 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var addButtonSuperview: UIView!
 
     // MARK: Private Vars
-    private var isInitialFirstViewing = true
+    private lazy var isInitialFirstViewing = true
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
-    private let mediaManager = AudioPlayerRecorder.sharedInstance
-    private let fileManager = AVNManager.sharedInstance
+    private let mediaManager = AudioManager.sharedInstance
+    private let fileManager = RecordingManager.sharedInstance
     private var timer: Timer?
-    private var isShowingRecordingView = true
+    private lazy var isShowingRecordingView = true
     private var plot: AKNodeOutputPlot?
     private weak var modalTransitioningDelegate = CustomModalPresentationManager()
-    private var gradientManager = GradientManager()
+    private lazy var gradientManager = GradientManager()
 
     // MARK: Lifecycle functions
     override func viewDidLoad() {
