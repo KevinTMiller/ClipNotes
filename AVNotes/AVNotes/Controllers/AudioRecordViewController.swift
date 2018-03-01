@@ -96,7 +96,7 @@ class AudioRecordViewController: UIViewController {
         updateUIInfo()
         setUpMiscUI()
         setUpAudioPlot()
-        try? AudioKit.stop()
+       try? AudioKit.stop()
     }
 
     override func viewWillLayoutSubviews() {
@@ -121,6 +121,7 @@ class AudioRecordViewController: UIViewController {
             }
         }
         updateUIInfo()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -224,8 +225,8 @@ class AudioRecordViewController: UIViewController {
     }
 
     private func startRecording() {
-        mediaManager.startRecordingAudio()
         setUpAudioPlot()
+        mediaManager.startRecordingAudio()
         try? AudioKit.start()
         updateTableView()
         startTimer()
@@ -298,6 +299,7 @@ class AudioRecordViewController: UIViewController {
         let orientation = UIDevice.current.orientation
         if orientation.isLandscape || orientation.isPortrait {
             roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
+            plot?.bounds = audioPlotGL.bounds
         }
     }
 
@@ -371,23 +373,29 @@ class AudioRecordViewController: UIViewController {
             updateTableView()
         }
     }
-
+    
     private func setUpAudioPlot() {
-
         if let mic = mediaManager.akMicrophone {
             if plot == nil {
-                plot = AKNodeOutputPlot(mic, frame: audioPlotGL.bounds)
+                plot = AKNodeOutputPlot(mic, frame: CGRect())
             }
-            plot?.plotType = .rolling
-            plot?.shouldFill = true
-            plot?.shouldMirror = true
-            plot?.backgroundColor = .clear
-            plot?.color = .white
-            plot?.gain = 3
-            plot?.shouldOptimizeForRealtimePlot = true
-            plot?.setRollingHistoryLength(200) // 200 Displays 5 sec before scrolling
-            audioPlotGL.addSubview(plot!)
         }
+        plot?.plotType = .rolling
+        plot?.shouldFill = true
+        plot?.shouldMirror = true
+        plot?.backgroundColor = .clear
+        plot?.color = .white
+        plot?.gain = 3
+        plot?.shouldOptimizeForRealtimePlot = true
+        plot?.setRollingHistoryLength(200) // 200 Displays 5 sec before scrolling
+        plot?.translatesAutoresizingMaskIntoConstraints = false
+        audioPlotGL.addSubview(plot!)
+        plot?.topAnchor.constraint(equalTo: waveformView.topAnchor).isActive = true
+        plot?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
+        // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
+        // and has a border width of 2.0. 4.0 has a nice seamless look
+        plot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor, constant: 4.0).isActive = true
+        plot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor, constant: -4.0).isActive = true
     }
 
     private func swapViews() {

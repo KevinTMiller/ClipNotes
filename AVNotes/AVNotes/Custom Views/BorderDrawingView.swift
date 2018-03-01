@@ -15,7 +15,6 @@ class BorderDrawingView: UIView {
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
         drawRoundedRect()
         drawCenterLine()
         UIColor.white.setStroke()
