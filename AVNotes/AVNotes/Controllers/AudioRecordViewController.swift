@@ -474,9 +474,9 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
             label.lineBreakMode = .byWordWrapping
             tableView.backgroundView = label
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.widthAnchor.constraint(equalTo: tableView.widthAnchor).isActive = true
-            label.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
-            label.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
+            label.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -16.0).isActive = true
+            label.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 8.0).isActive = true
+            label.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: -8.0).isActive = true
             label.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
             label.bottomAnchor.constraint(equalTo: tableView.topAnchor,
                                           constant: 150.0).isActive = true
