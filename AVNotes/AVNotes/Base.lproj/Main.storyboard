@@ -484,7 +484,7 @@
                                 <rect key="frame" x="0.0" y="424.66666666666663" width="375" height="70"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hX-3x-7kE">
-                                        <rect key="frame" x="157.66666666666666" y="5" width="60" height="60"/>
+                                        <rect key="frame" x="305" y="5" width="60" height="60"/>
                                         <color key="backgroundColor" red="0.13224950432777405" green="0.97018426656723022" blue="0.049383766949176788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="mT1-yn-fa4"/>
@@ -507,6 +507,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="1hX-3x-7kE" firstAttribute="centerY" secondItem="TsU-fO-3Xc" secondAttribute="centerY" id="1BU-8f-Jh8"/>
+                                    <constraint firstAttribute="trailing" secondItem="1hX-3x-7kE" secondAttribute="trailing" constant="10" id="58B-ze-Dmg"/>
                                     <constraint firstAttribute="height" constant="70" id="P9I-tc-9Zx"/>
                                     <constraint firstItem="1hX-3x-7kE" firstAttribute="centerX" secondItem="TsU-fO-3Xc" secondAttribute="centerX" id="Uhv-IK-dfz"/>
                                     <constraint firstItem="1hX-3x-7kE" firstAttribute="top" secondItem="TsU-fO-3Xc" secondAttribute="top" constant="5" id="aSi-vj-wwM"/>
@@ -519,13 +520,14 @@
                                     <mask key="constraints">
                                         <exclude reference="1BU-8f-Jh8"/>
                                         <exclude reference="Uhv-IK-dfz"/>
+                                        <exclude reference="rE0-mc-lzU"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="P9I-tc-9Zx"/>
                                         <include reference="1BU-8f-Jh8"/>
-                                        <include reference="Uhv-IK-dfz"/>
+                                        <exclude reference="Uhv-IK-dfz"/>
                                         <exclude reference="rE0-mc-lzU"/>
                                     </mask>
                                 </variation>
@@ -566,10 +568,8 @@
                         <viewLayoutGuide key="safeArea" id="5Q6-4O-wcv"/>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="W0z-Gw-0rp"/>
-                                <exclude reference="dgp-pO-YUl"/>
-                                <exclude reference="nvz-co-3Il"/>
                                 <exclude reference="SLl-PA-KXJ"/>
+                                <exclude reference="W0z-Gw-0rp"/>
                                 <exclude reference="bSJ-gF-LUr"/>
                                 <exclude reference="ff6-Vf-JNj"/>
                                 <exclude reference="A1K-VU-7xN"/>
@@ -577,10 +577,12 @@
                                 <exclude reference="ApO-b8-e8b"/>
                                 <exclude reference="I2F-s9-BVe"/>
                                 <exclude reference="WwV-LC-eY0"/>
+                                <exclude reference="nvz-co-3Il"/>
                                 <exclude reference="wOQ-Np-9Oe"/>
                                 <exclude reference="1lH-ih-49i"/>
                                 <exclude reference="Ajv-ph-TBJ"/>
                                 <exclude reference="Cre-N3-B6c"/>
+                                <exclude reference="dgp-pO-YUl"/>
                                 <exclude reference="opZ-Kn-Yst"/>
                             </mask>
                         </variation>
@@ -596,15 +598,15 @@
                         </variation>
                         <variation key="heightClass=regular">
                             <mask key="constraints">
-                                <include reference="W0z-Gw-0rp"/>
-                                <include reference="dgp-pO-YUl"/>
-                                <include reference="nvz-co-3Il"/>
                                 <include reference="SLl-PA-KXJ"/>
+                                <include reference="W0z-Gw-0rp"/>
                                 <include reference="ff6-Vf-JNj"/>
                                 <include reference="A1K-VU-7xN"/>
                                 <include reference="I2F-s9-BVe"/>
                                 <include reference="WwV-LC-eY0"/>
+                                <include reference="nvz-co-3Il"/>
                                 <include reference="Ajv-ph-TBJ"/>
+                                <include reference="dgp-pO-YUl"/>
                                 <include reference="opZ-Kn-Yst"/>
                             </mask>
                         </variation>
@@ -628,6 +630,8 @@
                         <outlet property="addButtonSuperview" destination="TsU-fO-3Xc" id="dXo-r0-yKs"/>
                         <outlet property="annotationTableView" destination="Ydp-xj-2i5" id="QUW-Sb-PJh"/>
                         <outlet property="audioPlotGL" destination="raW-1b-yBP" id="8ld-I2-Ejo"/>
+                        <outlet property="bookmarkButtonCenter" destination="rE0-mc-lzU" id="QsL-wI-2WV"/>
+                        <outlet property="bookmarkButtonTrailing" destination="58B-ze-Dmg" id="ONh-V1-jQY"/>
                         <outlet property="controlView" destination="sqQ-Gs-taK" id="D2F-ZV-8xq"/>
                         <outlet property="gradientView" destination="XsD-lQ-ekE" id="CI5-SN-X74"/>
                         <outlet property="playPauseButton" destination="ZMJ-kw-klq" id="xc5-yI-Zm4"/>

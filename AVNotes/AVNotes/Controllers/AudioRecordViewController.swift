@@ -32,6 +32,7 @@ class AudioRecordViewController: UIViewController {
         static let animationDuation = 0.33
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
+        static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button."
     }
 
     enum AlertConstants {
@@ -52,7 +53,8 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var spacerHeightConstraint: NSLayoutConstraint!
     @IBOutlet private var recordStackLeading: NSLayoutConstraint!
     @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
-
+    @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
+    @IBOutlet private var bookmarkButtonTrailing: NSLayoutConstraint!
     @IBOutlet private weak var recordStackView: UIStackView!
     @IBOutlet private weak var playStackView: UIStackView!
     @IBOutlet private var gradientView: GradientView!
@@ -229,6 +231,7 @@ class AudioRecordViewController: UIViewController {
         mediaManager.startRecordingAudio()
         try? AudioKit.start()
         updateTableView()
+        animateFab(active: true)
         startTimer()
     }
 
@@ -243,6 +246,7 @@ class AudioRecordViewController: UIViewController {
     private func stopRecording() {
         pauseRecording()
         stopTimer()
+        animateFab(active: false)
         self.presentAlertWith(title: AlertConstants.save, message: AlertConstants.enterTitle,
                               placeholder: AlertConstants.newRecording) { [ weak self ] name in
                                 if name != "" {
@@ -269,6 +273,9 @@ class AudioRecordViewController: UIViewController {
 
     // MARK: UI Funcs
     private func setUpMiscUI() {
+        bookmarkButtonCenter.isActive = false
+        bookmarkButtonTrailing.isActive = true
+        addBookmarkButton.layer.opacity = 0.33
         playStackLeading =
             playStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 5.0)
         playStackTrailing =
@@ -292,6 +299,24 @@ class AudioRecordViewController: UIViewController {
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
         gradientManager.addManagedView(addBookmarkButton)
+    }
+
+    private func animateFab(active: Bool) {
+        if active {
+            bookmarkButtonTrailing.isActive = false
+            bookmarkButtonCenter.isActive = true
+        } else {
+            bookmarkButtonCenter.isActive = false
+            bookmarkButtonTrailing.isActive = true
+        }
+        UIView.animate(withDuration: 0.33,
+                       delay: 0.0,
+                       options: .curveEaseOut,
+                       animations: { [weak self] in
+                        self?.view.layoutIfNeeded()
+                        self?.addBookmarkButton.isEnabled = active
+                        self?.addBookmarkButton.layer.opacity = active ? 1.0 : 0.33
+        }, completion: nil)
     }
 
     @objc
@@ -430,6 +455,34 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70.0
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        let count = mediaManager.currentRecording?.annotations?.count ?? 0
+        if count == 0 && tableView.backgroundView == nil {
+            tableView.isScrollEnabled = false
+            let label = UILabel(frame: CGRect())
+            label.text = Constants.emptyTableText
+            label.textColor = UIColor.lightGray
+            label.textAlignment = .center
+            label.numberOfLines = 4
+            label.lineBreakMode = .byWordWrapping
+            tableView.backgroundView = label
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.widthAnchor.constraint(equalTo: tableView.widthAnchor).isActive = true
+            label.leadingAnchor.constraint(equalTo: tableView.leadingAnchor).isActive = true
+            label.trailingAnchor.constraint(equalTo: tableView.trailingAnchor).isActive = true
+            label.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+            label.bottomAnchor.constraint(equalTo: tableView.topAnchor,
+                                          constant: 150.0).isActive = true
+            return 0
+        }
+        if count > 0 {
+            tableView.isScrollEnabled = true
+            tableView.backgroundView = nil
+            return 1
+        }
+        return 0
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

@@ -8,7 +8,7 @@ disabled_rules: # rule identifiers to exclude from running
   - todo
   - control_statement
 opt_in_rules: # some rules are only opt-in
-  - empty_count
+  #- empty_count
  # - file_header
   - explicit_init
   - closure_spacing
