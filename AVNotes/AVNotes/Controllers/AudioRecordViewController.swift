@@ -22,62 +22,66 @@ let mainStoryboard = "Main"
 class AudioRecordViewController: UIViewController {
     
     enum Constants {
-        static let bookmarkModal = "bookmarkModal"
-        static let mainStoryboard = "Main"
-        static let cellIdentifier = "annotationCell"
-        static let recordAlertTitle = "Press Record"
-        static let recordAlertMessage = "Start recording before adding a bookmark"
-        static let timerInterval = 0.01
-        static let emptyTimeString = "00:00.00"
         static let animationDuation = 0.33
+        static let bookmarkModal = "bookmarkModal"
+        static let cellIdentifier = "annotationCell"
+        static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button."
+        static let emptyTimeString = "00:00.00"
+        static let mainStoryboard = "Main"
+        static let recordAlertMessage = "Start recording before adding a bookmark"
+        static let recordAlertTitle = "Press Record"
+        static let tableViewInset: CGFloat = 8.0
+        static let timerInterval = 0.01
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
+        static let viewSize: CGFloat = 150.0
     }
 
     enum AlertConstants {
-        static let save = "Save"
-        static let success = "Success"
         static let enterTitle = "Enter a title for this recording"
         static let newRecording = "New Recording"
         static let recordingSaved = "Your recording has been saved."
+        static let save = "Save"
+        static let success = "Success"
     }
 
     enum ImageConstants {
         static let pauseImage = "ic_pause_circle_outline_48pt"
-        static let recordImage = "ic_fiber_manual_record_48pt"
         static let playImage = "ic_play_circle_outline_48pt"
+        static let recordImage = "ic_fiber_manual_record_48pt"
     }
 
-    @IBOutlet private weak var audioPlotGL: EZAudioPlot!
-    @IBOutlet private weak var spacerHeightConstraint: NSLayoutConstraint!
-    @IBOutlet private var recordStackLeading: NSLayoutConstraint!
-    @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
-
-    @IBOutlet private weak var recordStackView: UIStackView!
-    @IBOutlet private weak var playStackView: UIStackView!
-    @IBOutlet private var gradientView: GradientView!
-    @IBOutlet private weak var controlView: UIView!
-    @IBOutlet private weak var waveformView: BorderDrawingView!
-    @IBOutlet private weak var stopWatchLabel: UILabel!
-    @IBOutlet private weak var recordingTitleLabel: UILabel!
-    @IBOutlet private weak var recordingDateLabel: UILabel!
-    @IBOutlet private weak var annotationTableView: UITableView!
-    @IBOutlet private weak var recordButton: UIButton!
-    @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var addBookmarkButton: UIButton!
     @IBOutlet private weak var addButtonSuperview: UIView!
+    @IBOutlet private weak var annotationTableView: UITableView!
+    @IBOutlet private weak var audioPlotGL: EZAudioPlot!
+    @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
+    @IBOutlet private var bookmarkButtonTrailing: NSLayoutConstraint!
+    @IBOutlet private weak var controlView: UIView!
+    @IBOutlet private var gradientView: GradientView!
+    @IBOutlet private weak var playPauseButton: UIButton!
+    @IBOutlet private weak var playStackView: UIStackView!
+    @IBOutlet private weak var recordButton: UIButton!
+    @IBOutlet private weak var recordingDateLabel: UILabel!
+    @IBOutlet private weak var recordingTitleLabel: UILabel!
+    @IBOutlet private var recordStackLeading: NSLayoutConstraint!
+    @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
+    @IBOutlet private weak var recordStackView: UIStackView!
+    @IBOutlet private weak var spacerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var stopWatchLabel: UILabel!
+    @IBOutlet private weak var waveformView: BorderDrawingView!
 
     // MARK: Private Vars
+    private let fileManager = RecordingManager.sharedInstance
+    private lazy var gradientManager = GradientManager()
     private lazy var isInitialFirstViewing = true
+    private lazy var isShowingRecordingView = true
+    private let mediaManager = AudioManager.sharedInstance
+    private weak var modalTransitioningDelegate = CustomModalPresentationManager()
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
-    private let mediaManager = AudioManager.sharedInstance
-    private let fileManager = RecordingManager.sharedInstance
-    private var timer: Timer?
-    private lazy var isShowingRecordingView = true
     private var plot: AKNodeOutputPlot?
-    private weak var modalTransitioningDelegate = CustomModalPresentationManager()
-    private lazy var gradientManager = GradientManager()
+    private var timer: Timer?
 
     // MARK: Lifecycle functions
     override func viewDidLoad() {
@@ -229,6 +233,7 @@ class AudioRecordViewController: UIViewController {
         mediaManager.startRecordingAudio()
         try? AudioKit.start()
         updateTableView()
+        animateFab(active: true)
         startTimer()
     }
 
@@ -243,6 +248,7 @@ class AudioRecordViewController: UIViewController {
     private func stopRecording() {
         pauseRecording()
         stopTimer()
+        animateFab(active: false)
         self.presentAlertWith(title: AlertConstants.save, message: AlertConstants.enterTitle,
                               placeholder: AlertConstants.newRecording) { [ weak self ] name in
                                 if name != "" {
@@ -269,6 +275,10 @@ class AudioRecordViewController: UIViewController {
 
     // MARK: UI Funcs
     private func setUpMiscUI() {
+        bookmarkButtonCenter.isActive = false
+        bookmarkButtonTrailing.isActive = true
+        addBookmarkButton.layer.opacity = 0.33
+
         playStackLeading =
             playStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 5.0)
         playStackTrailing =
@@ -292,6 +302,24 @@ class AudioRecordViewController: UIViewController {
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
         gradientManager.addManagedView(addBookmarkButton)
+    }
+
+    private func animateFab(active: Bool) {
+        if active {
+            bookmarkButtonTrailing.isActive = false
+            bookmarkButtonCenter.isActive = true
+        } else {
+            bookmarkButtonCenter.isActive = false
+            bookmarkButtonTrailing.isActive = true
+        }
+        UIView.animate(withDuration: 0.33,
+                       delay: 0.0,
+                       options: .curveEaseOut,
+                       animations: { [weak self] in
+                        self?.view.layoutIfNeeded()
+                        self?.addBookmarkButton.isEnabled = active
+                        self?.addBookmarkButton.layer.opacity = active ? 1.0 : 0.33
+        }, completion: nil)
     }
 
     @objc
@@ -430,6 +458,44 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
 
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70.0
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        let count = mediaManager.currentRecording?.annotations?.count ?? 0
+
+        if count == 0 && tableView.backgroundView == nil {
+            tableView.isScrollEnabled = false
+
+            let view = UIView(frame:CGRect())
+            let label = UILabel(frame: CGRect())
+            label.text = Constants.emptyTableText
+            label.textColor = UIColor.lightGray
+            label.textAlignment = .center
+            label.numberOfLines = 0
+            label.lineBreakMode = .byWordWrapping
+            view.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            label.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            tableView.backgroundView = view
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.widthAnchor.constraint(equalTo: tableView.widthAnchor,
+                                        constant: -Constants.tableViewInset * 2).isActive = true
+            view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor,
+                                          constant: Constants.tableViewInset).isActive = true
+            view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor,
+                                           constant: -Constants.tableViewInset).isActive = true
+            view.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+            view.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: Constants.viewSize).isActive = true
+            return 0
+        }
+        if count > 0 {
+            tableView.isScrollEnabled = true
+            tableView.backgroundView = nil
+            return 1
+        }
+        return 0
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
