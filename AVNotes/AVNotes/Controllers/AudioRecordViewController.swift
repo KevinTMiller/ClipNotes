@@ -80,6 +80,7 @@ class AudioRecordViewController: UIViewController {
     private var plot: AKNodeOutputPlot?
     private weak var modalTransitioningDelegate = CustomModalPresentationManager()
     private lazy var gradientManager = GradientManager()
+    private var buttonIsCenter = false
 
     // MARK: Lifecycle functions
     override func viewDidLoad() {
@@ -273,8 +274,10 @@ class AudioRecordViewController: UIViewController {
 
     // MARK: UI Funcs
     private func setUpMiscUI() {
-        bookmarkButtonCenter.isActive = false
-        bookmarkButtonTrailing.isActive = true
+
+        NSLayoutConstraint.deactivate([bookmarkButtonCenter])
+        NSLayoutConstraint.activate([bookmarkButtonTrailing])
+
         addBookmarkButton.layer.opacity = 0.33
         playStackLeading =
             playStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 5.0)
@@ -303,11 +306,13 @@ class AudioRecordViewController: UIViewController {
 
     private func animateFab(active: Bool) {
         if active {
-            bookmarkButtonTrailing.isActive = false
-            bookmarkButtonCenter.isActive = true
+            NSLayoutConstraint.deactivate([bookmarkButtonTrailing])
+            NSLayoutConstraint.activate([bookmarkButtonCenter])
+            buttonIsCenter = true
         } else {
-            bookmarkButtonCenter.isActive = false
-            bookmarkButtonTrailing.isActive = true
+            NSLayoutConstraint.deactivate([bookmarkButtonCenter])
+            NSLayoutConstraint.activate([bookmarkButtonTrailing])
+            buttonIsCenter = false
         }
         UIView.animate(withDuration: 0.33,
                        delay: 0.0,
@@ -324,7 +329,7 @@ class AudioRecordViewController: UIViewController {
         let orientation = UIDevice.current.orientation
         if orientation.isLandscape || orientation.isPortrait {
             roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
-            plot?.bounds = audioPlotGL.bounds
+            animateFab(active: buttonIsCenter)
         }
     }
 
