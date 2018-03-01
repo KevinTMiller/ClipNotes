@@ -217,11 +217,14 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     func switchToRecord() {
         currentRecording = createAnnotatedRecording()
         currentMode = .record
+        currentState = .stopped
     }
 
     func switchToPlay(file: AnnotatedRecording) {
         currentRecording = file
+        prepareAudioPlayer()
         currentMode = .play
+        currentState = .stopped
     }
 
     private func setNewRecording() {
@@ -230,10 +233,7 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
     /* Documents directory path changes frequently.
     Always get a fresh path and then append the filename to create the URL to play */
-
-    func playAudio() {
-        audioPlayer?.stop()
-        audioPlayer?.prepareToPlay() // Prevents audio player repeating last file
+    func prepareAudioPlayer() {
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(currentRecording!.fileName)
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
@@ -241,6 +241,14 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         } catch let error {
             print(error)
         }
+        audioPlayer?.prepareToPlay()
+    }
+
+    func playAudio() {
+        if audioPlayer == nil {
+            prepareAudioPlayer()
+        }
+
         audioPlayer?.play()
         currentMode = .play
         currentState = .running
@@ -269,12 +277,21 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
 
     func skipFixedTime(time: Double) {
-        if let audioPlayer = audioPlayer {
+        if let audioPlayer = audioPlayer,
+        let duration = currentRecording?.duration {
+            let newTime = audioPlayer.currentTime + time
+            if newTime > duration {
+                audioPlayer.currentTime = duration
+                pauseAudio()
+                return
+            }
+            if newTime < 0.0 {
+                audioPlayer.currentTime = 0.0
+                return
+            }
         audioPlayer.currentTime += time
         }
     }
-
-    // TODO: Put this in the init method
 
     func setUpRecordingSession() {
         do {
