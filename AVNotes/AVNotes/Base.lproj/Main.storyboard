@@ -319,6 +319,7 @@
                                                 <rect key="frame" x="125" y="0.0" width="125" height="48"/>
                                                 <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="ic_play_circle_outline_white_48pt"/>
+                                                <state key="selected" image="ic_pause_circle_outline_white_48pt"/>
                                                 <connections>
                                                     <action selector="playPauseDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="kwf-RT-fJl"/>
                                                 </connections>
@@ -356,6 +357,7 @@
                                                 <rect key="frame" x="183.66666666666663" y="0.0" width="191.33333333333337" height="48"/>
                                                 <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="ic_fiber_manual_record_white_48pt"/>
+                                                <state key="selected" image="ic_pause_circle_filled_white_48pt"/>
                                                 <connections>
                                                     <action selector="recordButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="SCD-6t-lYr"/>
                                                 </connections>
@@ -991,6 +993,8 @@
         <image name="ic_fiber_manual_record_white_48pt" width="48" height="48"/>
         <image name="ic_folder_48pt" width="48" height="48"/>
         <image name="ic_forward_10_white_48pt" width="48" height="48"/>
+        <image name="ic_pause_circle_filled_white_48pt" width="48" height="48"/>
+        <image name="ic_pause_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_play_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_replay_10_white_48pt" width="48" height="48"/>
     </resources>

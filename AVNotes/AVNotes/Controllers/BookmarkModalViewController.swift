@@ -81,8 +81,8 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
 
     private func populateFromCurrentRecording() {
         if let currentRecording = mediaManager.currentRecording,
-            let timeString = mediaManager.currentTimeString,
-            let timeStamp = mediaManager.currentTimeInterval {
+            let timeString = mediaManager.currentTimeString {
+            let timeStamp = mediaManager.currentTimeInterval
             let bookmarkNumber = String((currentRecording.annotations?.count ?? 0) + 1)
             
             bookmarkTimeStamp = timeStamp

@@ -29,6 +29,8 @@
 		8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792186020227A6B00CA19AF /* BorderDrawingView.swift */; };
 		87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B48FA0201257C60056F894 /* FileDetailViewController.swift */; };
 		87CE568420486F7000C5DC03 /* UIImage+ImageFromString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE568320486F7000C5DC03 /* UIImage+ImageFromString.swift */; };
+		87CE568D2049B0E900C5DC03 /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE568C2049B0E900C5DC03 /* StateManager.swift */; };
+		87CE568F2049FD9A00C5DC03 /* StateManagerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE568E2049FD9A00C5DC03 /* StateManagerProtocols.swift */; };
 		87DEA01C201AACAC0081C188 /* ClearBarNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */; };
 		87DEA020201BD2EA0081C188 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01F201BD2EA0081C188 /* GradientView.swift */; };
 		87E11D1B203201470064D767 /* BookmarkModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87E11D1A203201460064D767 /* BookmarkModalViewController.swift */; };
@@ -95,6 +97,8 @@
 		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
 		87B48FA0201257C60056F894 /* FileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
 		87CE568320486F7000C5DC03 /* UIImage+ImageFromString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageFromString.swift"; sourceTree = "<group>"; };
+		87CE568C2049B0E900C5DC03 /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
+		87CE568E2049FD9A00C5DC03 /* StateManagerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManagerProtocols.swift; sourceTree = "<group>"; };
 		87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBarNavViewController.swift; sourceTree = "<group>"; };
 		87DEA01F201BD2EA0081C188 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		87E11D1A203201460064D767 /* BookmarkModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkModalViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				871367571FE427FA00545AAA /* Bookmark.swift */,
 				8713675F1FE4558D00545AAA /* RecordingManager.swift */,
 				870FF26620436BDF00F0B69F /* GradientManager.swift */,
+				87CE568C2049B0E900C5DC03 /* StateManager.swift */,
+				87CE568E2049FD9A00C5DC03 /* StateManagerProtocols.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -408,9 +414,11 @@
 				87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */,
 				871367601FE4558D00545AAA /* RecordingManager.swift in Sources */,
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
+				87CE568D2049B0E900C5DC03 /* StateManager.swift in Sources */,
 				87E11D1B203201470064D767 /* BookmarkModalViewController.swift in Sources */,
 				87CE568420486F7000C5DC03 /* UIImage+ImageFromString.swift in Sources */,
 				8730DB4F203749C5007068D9 /* BookmarkTableViewCell.swift in Sources */,
+				87CE568F2049FD9A00C5DC03 /* StateManagerProtocols.swift in Sources */,
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
 				87E11D1F2035D79E0064D767 /* ModalPresentationController.swift in Sources */,
 				8713674F1FE420D200545AAA /* AudioManager.swift in Sources */,

@@ -20,7 +20,7 @@ let bookmarkModal = "bookmarkModal"
 let mainStoryboard = "Main"
 
 class AudioRecordViewController: UIViewController {
-    
+
     enum Constants {
         static let bookmarkModal = "bookmarkModal"
         static let mainStoryboard = "Main"
@@ -50,8 +50,7 @@ class AudioRecordViewController: UIViewController {
         static let thumbImage = "ic_fiber_manual_record_white_18pt"
     }
 
-    @IBOutlet var scrubSlider: UISlider!
-    @IBOutlet private weak var audioPlotGL: EZAudioPlot!
+    @IBOutlet private var audioPlotGL: EZAudioPlot!
     @IBOutlet private var recordStackLeading: NSLayoutConstraint!
     @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
     @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
@@ -61,6 +60,7 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private var gradientView: GradientView!
     @IBOutlet private weak var controlView: UIView!
     @IBOutlet private weak var waveformView: BorderDrawingView!
+    @IBOutlet private var scrubSlider: UISlider!
     @IBOutlet private weak var stopWatchLabel: UILabel!
     @IBOutlet private weak var recordingTitleLabel: UILabel!
     @IBOutlet private weak var recordingDateLabel: UILabel!
@@ -78,54 +78,65 @@ class AudioRecordViewController: UIViewController {
     private let fileManager = RecordingManager.sharedInstance
     private var timer: Timer?
     private lazy var isShowingRecordingView = true
-    private var plot: AKNodeOutputPlot?
+    var plot: AKNodeOutputPlot?
     private weak var modalTransitioningDelegate = CustomModalPresentationManager()
     private lazy var gradientManager = GradientManager()
     private var buttonIsCenter = false
+    private var stateManager = StateManager.sharedInstance
+
+    // MARK: AudioKit Vars
+    var microphone: AKMicrophone!
+    var tracker: AKFrequencyTracker!
+    var silence: AKBooster!
 
     // MARK: Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        AKSettings.audioInputEnabled = true
+        microphone = AKMicrophone()
+        tracker = AKFrequencyTracker(microphone)
+        silence = AKBooster(tracker, gain: 0)
+        stateManager.viewDelegate = self
+        stateManager.currentState = .initialize
         definesPresentationContext = true
         NotificationCenter.default.addObserver(self, selector: #selector(updateTableView),
                                                name: .annotationsDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateUIInfo),
-                                               name: .currentRecordingDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(startTimer),
-                                               name: .playRecordDidStart, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer),
-                                               name: .playRecordDidStop, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(updateUIInfo),
+//                                               name: .currentRecordingDidChange, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(toggleTimer),
+//                                               name: .playRecordDidStart, object: nil)
+////        NotificationCenter.default.addObserver(self, selector: #selector(stopTimer),
+//                                               name: .playRecordDidStop, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshAfterRotate),
                                                name: .UIDeviceOrientationDidChange, object: nil)
-        updateUIInfo()
+//        updateUIInfo()
         setUpMiscUI()
-        setUpAudioPlot()
-       try? AudioKit.stop()
+//       setUpAudioPlot()
+//       try? AudioKit.stop()
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if isInitialFirstViewing {
             isInitialFirstViewing = false
-            switchToRecordView(true)
+//            switchToRecordStack(true)
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         gradientManager.cycleGradient()
-        switch mediaManager.currentMode {
-        case .play:
-            if isShowingRecordingView {
-                switchToRecordView(false)
-            }
-        case .record:
-            if !isShowingRecordingView {
-                switchToRecordView(true)
-            }
-        }
-        updateUIInfo()
-
+//        switch mediaManager.currentMode {
+//        case .play:
+//            if isShowingRecordingView {
+//                switchToRecordView(false)
+//            }
+//        case .record:
+//            if !isShowingRecordingView {
+//                switchToRecordView(true)
+//            }
+//        }
+//        updateUIInfo()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -138,39 +149,41 @@ class AudioRecordViewController: UIViewController {
 
     // MARK: IBActions
     @IBAction func doneButtonDidTouch(_ sender: UIButton) {
-        switch mediaManager.currentMode {
-        case .play:
-            stopPlaying()
-            // TODO: Implement save method
-            print("Save the annotated recording")
-        case .record:
-            print("save and show files")
-            stopRecording()
-        }
+        stateManager.doneButtonPressed()
+//        switch mediaManager.currentMode {
+//        case .play:
+//            stopPlaying()
+//            // TODO: Implement save method
+//            print("Save the annotated recording")
+//        case .record:
+//            print("save and show files")
+//            stopRecording()
+//        }
     }
 
     @IBAction func playPauseDidTouch(_ sender: UIButton) {
-        let pauseImage = UIImage(named: ImageConstants.pauseImage)
-        let playImage = UIImage(named: ImageConstants.playImage)
-        if mediaManager.currentMode == .play {
-            switch mediaManager.currentState {
-            case .running:
-                mediaManager.pauseAudio()
-                playPauseButton.setImage(playImage, for: .normal)
-            case .paused:
-                mediaManager.resumeAudio()
-                playPauseButton.setImage(pauseImage, for: .normal)
-            default:
-                mediaManager.playAudio()
-                playPauseButton.setImage(pauseImage, for: .normal)
-            }
-        }
+        stateManager.playButtonPressed(sender: sender)
+
+//        let pauseImage = UIImage(named: ImageConstants.pauseImage)
+//        let playImage = UIImage(named: ImageConstants.playImage)
+//        if mediaManager.currentMode == .play {
+//            switch mediaManager.currentState {
+//            case .running:
+//                mediaManager.pauseAudio()
+//                playPauseButton.setImage(playImage, for: .normal)
+//            case .paused:
+//                mediaManager.resumeAudio()
+//                playPauseButton.setImage(pauseImage, for: .normal)
+//            default:
+//                mediaManager.playAudio()
+//                playPauseButton.setImage(pauseImage, for: .normal)
+//            }
+//        }
     }
 
     @IBAction func skipBackDidTouch(_ sender: Any) {
         mediaManager.skipFixedTime(time: -10.0)
         if timer == nil {
-            // To take care of case that skip is touched before play
             updateTimerLabel()
         }
     }
@@ -191,101 +204,18 @@ class AudioRecordViewController: UIViewController {
     }
 
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
-        if mediaManager.currentMode == .record {
-            switch mediaManager.currentState {
-            case .running:
-                pauseRecording()
-                sender.setImage(UIImage(named: ImageConstants.recordImage), for: .normal)
-            case .paused:
-                resumeRecording()
-                sender.setImage(UIImage(named: ImageConstants.pauseImage), for: .normal)
-            default:
-                startRecording()
-                sender.setImage(UIImage(named: ImageConstants.pauseImage), for: .normal)
-            }
-        }
-
-        if mediaManager.currentMode == .play {
-            switch mediaManager.currentState {
-            // TODO: Implement these
-            case .running:
-                print("show an alert and ask if they want to start a new recording")
-            case .paused:
-                print("start recording and insert at the current time stamp of the playback")
-            case .stopped:
-                print("start recording at the end of the current recording")
-            default:
-                break
-            }
-        }
+        stateManager.recordButtonPressed(sender: sender)
     }
 
     @IBAction func addDidTouch(_ sender: Any) {
+        stateManager.addButtonPressed()
         mediaManager.switchToRecord()
-        switchToRecordView(true)
     }
-
+    
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
-        switch mediaManager.currentState {
-        case .running:
+        if stateManager.shouldShowBookmarkModal() {
             showBookmarkModal(sender: sender)
-        case .paused:
-            showBookmarkModal(sender: sender)
-        default:
-            presentAlert(title: Constants.recordAlertTitle, message: Constants.recordAlertMessage)
         }
-    }
-
-    // MARK: Model control
-
-    private func saveAndDismiss() {
-        fileManager.saveFiles()
-        dismiss(animated: true, completion: nil)
-    }
-
-    private func startRecording() {
-        setUpAudioPlot()
-        mediaManager.startRecordingAudio()
-        try? AudioKit.start()
-        updateTableView()
-        animateFab(active: true)
-        startTimer()
-    }
-
-    private func stopPlaying() {
-        mediaManager.stopPlayingAudio()
-        if let plot = plot {
-            plot.clear()
-        }
-        performSegue(withIdentifier: Constants.toFileView, sender: self)
-    }
-
-    private func stopRecording() {
-        pauseRecording()
-        stopTimer()
-        animateFab(active: false)
-        self.presentAlertWith(title: AlertConstants.save, message: AlertConstants.enterTitle,
-                              placeholder: AlertConstants.newRecording) { [ weak self ] name in
-                                if name != "" {
-                                    self?.mediaManager.currentRecording?.userTitle = name
-                                }
-                                self?.mediaManager.stopRecordingAudio()
-                                self?.plot?.clear()
-                                self?.recordButton.setImage(UIImage(named: ImageConstants.recordImage),
-                                                            for: .normal)
-                                self?.presentAlert(title: AlertConstants.success,
-                                                   message: AlertConstants.recordingSaved)
-        }
-    }
-
-    private func pauseRecording() {
-        mediaManager.togglePause(pause: true)
-        try? AudioKit.stop()
-    }
-
-    private func resumeRecording() {
-        mediaManager.togglePause(pause: false)
-        try? AudioKit.start()
     }
 
     // MARK: UI Funcs
@@ -293,7 +223,7 @@ class AudioRecordViewController: UIViewController {
 
         NSLayoutConstraint.deactivate([bookmarkButtonCenter])
         NSLayoutConstraint.activate([bookmarkButtonTrailing])
-        toggleSlider(isOn: false)
+
         addBookmarkButton.layer.opacity = 0.33
 
         playStackLeading =
@@ -406,29 +336,27 @@ class AudioRecordViewController: UIViewController {
             bookmarkVC.currentBookmarkIndexPath = tableviewCell.indexPath
         }
         present(bookmarkVC, animated: true, completion: nil)
-
     }
 
     @objc
-    private func startTimer() {
-        timer = Timer.scheduledTimer(timeInterval: Constants.timerInterval,
-                                     target: self, selector: #selector(self.updateTimerLabel),
-                                     userInfo: nil, repeats: true)
-        let runLoop = RunLoop.current
-        runLoop.add(timer!, forMode: .UITrackingRunLoopMode)
-    }
-
-    @objc
-    private func stopTimer() {
-        timer?.invalidate()
-        timer = nil
+    private func toggleTimer(isOn: Bool) {
+        if isOn {
+            timer = Timer.scheduledTimer(timeInterval: Constants.timerInterval,
+                                         target: self, selector: #selector(self.updateTimerLabel),
+                                         userInfo: nil, repeats: true)
+            let runLoop = RunLoop.current
+            runLoop.add(timer!, forMode: .UITrackingRunLoopMode)
+        } else {
+            timer?.invalidate()
+            timer = nil
+        }
     }
     
     @objc
     private func updateTimerLabel() {
         stopWatchLabel.text = mediaManager.currentTimeString ?? Constants.emptyTimeString
-        if scrubSlider.isEnabled,
-            let value = mediaManager.currentTimeInterval {
+        if scrubSlider.isEnabled {
+            let value = mediaManager.currentTimeInterval
             scrubSlider.setValue(Float(value), animated: false)
         }
     }
@@ -438,7 +366,6 @@ class AudioRecordViewController: UIViewController {
         annotationTableView.reloadData()
     }
 
-    // Update labels to reflect new recording info
     @objc
     private func updateUIInfo() {
         if let currentRecording = mediaManager.currentRecording {
@@ -449,60 +376,146 @@ class AudioRecordViewController: UIViewController {
             stopWatchLabel.text = String.stringFrom(timeInterval: currentRecording.duration)
             updateTableView()
         }
-        if mediaManager.currentMode == .play {
-            setSliderImages()
-        }
-
     }
-    
-    private func setUpAudioPlot() {
-        if let mic = mediaManager.akMicrophone {
-            if plot == nil {
-                plot = AKNodeOutputPlot(mic, frame: CGRect())
-            }
-        }
+
+    private func resetPlot() {
+        
+        plot?.clear()
         plot?.plotType = .rolling
         plot?.shouldFill = true
         plot?.shouldMirror = true
         plot?.backgroundColor = .clear
         plot?.color = .white
-        plot?.gain = 3
-        plot?.shouldOptimizeForRealtimePlot = true
+        plot?.gain = 10
+        plot?.setRollingHistoryLength(200)
+    }
+    
+    private func setUpAudioPlot() {
+//        AudioKit.output = silence
+        plot = AKNodeOutputPlot(microphone, frame: CGRect())
+        plot?.plotType = .rolling
+        plot?.shouldFill = true
+        plot?.shouldMirror = true
+        plot?.backgroundColor = .clear
+        plot?.color = .white
+        plot?.gain = 10
         plot?.setRollingHistoryLength(200) // 200 Displays 5 sec before scrolling
-        plot?.translatesAutoresizingMaskIntoConstraints = false
         audioPlotGL.addSubview(plot!)
+        plot?.translatesAutoresizingMaskIntoConstraints = false
         plot?.topAnchor.constraint(equalTo: waveformView.topAnchor).isActive = true
         plot?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
         plot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor, constant: 4.0).isActive = true
         plot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor, constant: -4.0).isActive = true
+//        try? AudioKit.start()
+//        try? AudioKit.stop()
     }
 
-    private func swapViews() {
-        switchToRecordView(isShowingRecordingView)
-        UIView.animate(withDuration: Constants.animationDuation, delay: 0,
-                       options: .curveEaseInOut, animations: {
-                        self.view.layoutIfNeeded()
-        })
-    }
-
-    private func switchToRecordView(_ isToRecordView: Bool) {
+    private func switchToPlayStack() {
         guard let playStackLeading = playStackLeading,
             let playStackTrailing = playStackTrailing else { return }
-        isShowingRecordingView = !isShowingRecordingView
-        if isToRecordView {
-            NSLayoutConstraint.deactivate([playStackLeading, playStackTrailing])
-            NSLayoutConstraint.activate([recordStackLeading, recordStackTrailing])
-            toggleSlider(isOn: false)
-        } else {
-            NSLayoutConstraint.deactivate([recordStackLeading, recordStackTrailing])
-            NSLayoutConstraint.activate([playStackLeading, playStackTrailing])
-            toggleSlider(isOn: true)
-        }
+        NSLayoutConstraint.deactivate([recordStackLeading, recordStackTrailing])
+        NSLayoutConstraint.activate([playStackLeading, playStackTrailing])
         UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+
+    private func switchToRecordStack() {
+        guard let playStackLeading = playStackLeading,
+            let playStackTrailing = playStackTrailing else { return }
+            NSLayoutConstraint.deactivate([playStackLeading, playStackTrailing])
+            NSLayoutConstraint.activate([recordStackLeading, recordStackTrailing])
+        UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+}
+extension AudioRecordViewController: StateManagerViewDelegate {
+    func updateButtons() {
+        playPauseButton.isSelected = stateManager.playButtonSelected
+        recordButton.isSelected = stateManager.recordButtonSelected
+    }
+
+    func errorAlert() {
+        
+    }
+
+    func errorAlert(_ error: Error) {
+        
+    }
+
+    func finishRecording() {
+        updateUIInfo()
+        plot?.clear()
+        toggleSlider(isOn: false)
+    }
+
+    func startRecording() {
+        try? AudioKit.start()
+        toggleTimer(isOn: true)
+        animateFab(active: true)
+    }
+
+    func prepareToPlay() {
+        scrubSlider.value = 0.0
+        updateUIInfo()
+        plot?.clear()
+        toggleSlider(isOn: true)
+        switchToPlayStack()
+    }
+
+    func initialSetup() {
+        updateUIInfo()
+        setUpAudioPlot()
+        toggleSlider(isOn: false)
+        switchToRecordStack()
+    }
+
+    func prepareToRecord() {
+        updateUIInfo()
+        resetPlot()
+        toggleSlider(isOn: false)
+//        setUpAudioPlot()
+        switchToRecordStack()
+
+    }
+
+    func playAudio() {
+        toggleTimer(isOn: true)
+        animateFab(active: true)
+    }
+
+    func pauseRecording() {
+        try? AudioKit.stop()
+        toggleTimer(isOn: false)
+    }
+
+    func resumeRecording() {
+        try? AudioKit.start()
+        toggleTimer(isOn: true)
+    }
+
+    func stopRecording() {
+        try? AudioKit.stop()
+        plot?.clear()
+        toggleTimer(isOn: false)
+        self.presentAlertWith(title: AlertConstants.save, message: AlertConstants.enterTitle,
+                              placeholder: AlertConstants.newRecording) { [ weak self ] name in
+                                if name != "" {
+                                    self?.mediaManager.currentRecording?.userTitle = name
+                                }
+//                                self?.mediaManager.stopRecordingAudio()
+//                                self?.stateManager.currentState = .prepareToRecord
+//                                self?.plot?.clear()
+//                                self?.recordButton.setImage(UIImage(named: ImageConstants.recordImage),
+//                                                            for: .normal)
+                                self?.presentAlert(title: AlertConstants.success,
+                                                   message: AlertConstants.recordingSaved)
+                                self?.updateUIInfo()
+                                self?.stateManager.currentState = .prepareToPlay
+        }
     }
 }
 
@@ -570,19 +583,15 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let bookmark = mediaManager.currentRecording?.annotations?[indexPath.row] {
-            if mediaManager.currentMode == .play {
+//            if mediaManager.currentMode == .play {
                 scrubSlider.setValue(Float(bookmark.timeStamp), animated: false)
-                switch mediaManager.currentState {
-                case .running:
-                    mediaManager.skipTo(timeInterval: bookmark.timeStamp)
-                case .paused:
-                    mediaManager.skipTo(timeInterval: bookmark.timeStamp)
-                case .stopped:
+                switch stateManager.currentState {
+                case .playing, .playingPaused, .playingStopped:
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
                 default:
                     mediaManager.playAudio()
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
-                }
+//                }
             }
         }
     }
