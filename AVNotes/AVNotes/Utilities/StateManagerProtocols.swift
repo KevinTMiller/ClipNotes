@@ -11,32 +11,25 @@ import UIKit
 
 protocol StateManagerViewDelegate: AnyObject {
     func errorAlert(_ error: Error)
-    func stopRecording()
+    func initialSetup()
+    func pauseRecording()
     func playAudio()
     func prepareToPlay()
     func prepareToRecord()
-    func startRecording()
-    func pauseRecording()
     func resumeRecording()
-    func initialSetup()
+    func stopRecording()
+    func startRecording()
     func updateButtons()
 }
 
 protocol StateManagerModelDelegate: AnyObject {
-
-// Record
-
-// Play
-
-    // Setup
-
-    func stopRecordingAudio()
     func pauseAudio()
     func pauseRecording()
     func playAudio()
     func prepareToPlay(success: (() -> Void), failure: ((Error) -> Void))
     func prepareToRecord(success: (() -> Void), failure: ((Error) -> Void))
-    func startRecordingAudio()
-    func resumeRecording()
     func resumeAudio()
+    func resumeRecording()
+    func startRecordingAudio()
+    func stopRecordingAudio()
 }

@@ -51,18 +51,12 @@ extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-//        switch stateManager.currentState {
-//        case .recording:
-//            audioManager.stopRecordingAudio()
-//        case .play:
-//            audioManager.stopRecordingAudio()
-//        }
+
         if indexPath.row == 0 {
             navigationController?.popViewController(animated: true)
         }
-        if indexPath.row < 0 {
-             audioManager.switchToPlay(file: recordings[(indexPath.row - 1)])
+        if indexPath.row > 0 {
+            audioManager.switchToPlay(file: recordings[(indexPath.row - 1)])
             navigationController?.popToRootViewController(animated: true)
         }
     }

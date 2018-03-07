@@ -25,25 +25,10 @@ class StateManager: NSObject {
         case paused
     }
 
-//    switch currentState {
-//    case .prepareToPlay:
-//    case .prepareToRecord:
-//    case .readyToPlay:
-//    case .readyToRecord:
-//    case .recording:
-//    case .playing:
-//    case .playingPaused:
-//    case .recordingPaused:
-//    case .paused:
-//    }
-
-    // var modelDelegate
-    // var viewController Delegate
-    
     static let sharedInstance = StateManager()
 
-   weak var modelDelegate: StateManagerModelDelegate!
-   weak var viewDelegate: StateManagerViewDelegate!
+    weak var modelDelegate: StateManagerModelDelegate!
+    weak var viewDelegate: StateManagerViewDelegate!
 
     var currentState: CurrentState = .initialize {
         didSet {
@@ -68,6 +53,23 @@ class StateManager: NSObject {
             return true
         default:
             return false
+        }
+    }
+    var filesButtonEnabled: Bool {
+        switch currentState {
+        case .recording:
+            return false
+        default:
+            return true
+        }
+    }
+
+    var plusButtonEnabled: Bool {
+        switch currentState {
+        case .recording:
+            return false
+        default:
+            return true
         }
     }
 
@@ -105,12 +107,12 @@ class StateManager: NSObject {
                 viewDelegate.errorAlert(error)
             })
         case .prepareToPlay:
-                modelDelegate.prepareToPlay(success: {
-                    viewDelegate.prepareToPlay()
-                    currentState = .readyToPlay
-                }, failure: { error in
-                    viewDelegate.errorAlert(error)
-                })
+            modelDelegate.prepareToPlay(success: {
+                viewDelegate.prepareToPlay()
+                currentState = .readyToPlay
+            }, failure: { error in
+                viewDelegate.errorAlert(error)
+            })
 
         case .prepareToRecord:
             modelDelegate.prepareToRecord(success: {
@@ -142,7 +144,7 @@ class StateManager: NSObject {
             viewDelegate.resumeRecording()
             sender.isSelected = true
         default:
-        return
+            return
         }
     }
 
@@ -173,91 +175,12 @@ class StateManager: NSObject {
         }
     }
 
-    func addButtonPressed() {
-        
-    }
-
     func shouldShowBookmarkModal() -> Bool {
         switch currentState {
         case .recording, .playing, .playingPaused, .recordingPaused, .playingStopped, .readyToPlay:
-        return true
+            return true
         default:
-        return false
+            return false
         }
     }
-
-//    func recordViewShouldShow() -> Bool {
-//        return true
-//    }
-//
-//    func shouldResume() -> Bool {
-//        return false
-//    }
-//
-//    func isPlayStack() -> Bool {
-//        switch currentState {
-//        case fresh:
-//        case recording:
-//        case playing:
-//        case paused:
-//        }
-//    }
-//
-//    func buttonEnabled() -> Bool {
-//        switch currentState {
-//        case fresh:
-//        case recording:
-//        case playing:
-//        case paused:
-//        }
-//    }
-//
-//    func recordButtonIsSelected() -> Bool {
-//        switch currentState {
-//        case fresh:
-//        case recording:
-//        case playing:
-//        case paused:
-//        }
-//    }
-//
-//    func timerIsOn() -> Bool {
-//        switch currentState {
-//        case fresh:
-//        case recording:
-//        case playing:
-//        case paused:
-//        }
-//    }
-//
-//    func resetPlot() -> Bool {
-//        switch currentState {
-//        case fresh:
-//        case recording:
-//        case playing:
-//        case paused:
-//        }
-//    }
-//
-//    func updateTimerLabel -> Bool {
-//        switch currentState {
-//        case fresh:
-//        case recording:
-//        case playing:
-//        case paused:
-//        }
-//    }
-//
-//    func scrubSliderIsOn -> Bool {
-//        switch currentState {
-//        case fresh:
-//            return false
-//        case recording:
-//            return false
-//        case playing:
-//            return true
-//        case paused:
-//            return true
-//        }
-//    }
 }
