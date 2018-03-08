@@ -111,8 +111,9 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
 
     private func createBookmark() {
         let title = bookmarkTitleTextField.text ?? Constants.newBookmark
-        let text = bookmarkTextView.text ?? Constants.placeholder
-        mediaManager.addAnnotation(title: title, text: text, timestamp: bookmarkTimeStamp)
+        let text =
+        bookmarkTextView.text == "" ? Constants.placeholder : bookmarkTextView.text
+        mediaManager.addAnnotation(title: title, text: text!, timestamp: bookmarkTimeStamp)
     }
 
     @objc

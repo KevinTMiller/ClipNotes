@@ -23,7 +23,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>AV Bookmarks would like to use your camera to record video</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>AV Bookmarks would like to use your camera to record audio</string>
+	<string>This app would like to use your microphone to record audio</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>AV Bookmarks would like to access your photo library</string>
 	<key>NSPhotoLibraryUsageDescription</key>

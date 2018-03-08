@@ -81,6 +81,9 @@ class AudioRecordViewController: UIViewController {
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
     private var plot: AKNodeOutputPlot?
+    private weak var modalTransitioningDelegate = CustomModalPresentationManager()
+    private lazy var gradientManager = GradientManager()
+    private var buttonIsCenter = false
     private var timer: Timer?
 
     // MARK: Lifecycle functions
@@ -275,8 +278,10 @@ class AudioRecordViewController: UIViewController {
 
     // MARK: UI Funcs
     private func setUpMiscUI() {
-        bookmarkButtonCenter.isActive = false
-        bookmarkButtonTrailing.isActive = true
+
+        NSLayoutConstraint.deactivate([bookmarkButtonCenter])
+        NSLayoutConstraint.activate([bookmarkButtonTrailing])
+
         addBookmarkButton.layer.opacity = 0.33
 
         playStackLeading =
@@ -306,11 +311,13 @@ class AudioRecordViewController: UIViewController {
 
     private func animateFab(active: Bool) {
         if active {
-            bookmarkButtonTrailing.isActive = false
-            bookmarkButtonCenter.isActive = true
+            NSLayoutConstraint.deactivate([bookmarkButtonTrailing])
+            NSLayoutConstraint.activate([bookmarkButtonCenter])
+            buttonIsCenter = true
         } else {
-            bookmarkButtonCenter.isActive = false
-            bookmarkButtonTrailing.isActive = true
+            NSLayoutConstraint.deactivate([bookmarkButtonCenter])
+            NSLayoutConstraint.activate([bookmarkButtonTrailing])
+            buttonIsCenter = false
         }
         UIView.animate(withDuration: 0.33,
                        delay: 0.0,
@@ -327,7 +334,7 @@ class AudioRecordViewController: UIViewController {
         let orientation = UIDevice.current.orientation
         if orientation.isLandscape || orientation.isPortrait {
             roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
-            plot?.bounds = audioPlotGL.bounds
+            animateFab(active: buttonIsCenter)
         }
     }
 
@@ -469,7 +476,7 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
             let view = UIView(frame:CGRect())
             let label = UILabel(frame: CGRect())
             label.text = Constants.emptyTableText
-            label.textColor = UIColor.lightGray
+            label.textColor = .lightGray
             label.textAlignment = .center
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
