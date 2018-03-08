@@ -336,15 +336,14 @@ class AudioRecordViewController: UIViewController {
     }
 
     private func setSliderImages() {
-        if let duration = mediaManager.currentRecording?.duration {
-            scrubSlider.minimumValue = 0.0
-            scrubSlider.maximumValue = Float(duration)
-            let timeString = String.stringFrom(timeInterval: duration)
-            let image = UIImage.imageFromString(string: timeString)
-            let zeroImage = UIImage.imageFromString(string: Constants.emptyTimeString)
-            scrubSlider.maximumValueImage = image
-            scrubSlider.minimumValueImage = zeroImage
-        }
+        guard let duration = mediaManager.currentRecording?.duration else { return }
+        scrubSlider.minimumValue = 0.0
+        scrubSlider.maximumValue = Float(duration)
+        let timeString = String.stringFrom(timeInterval: duration)
+        let image = UIImage.imageFromString(string: timeString)
+        let zeroImage = UIImage.imageFromString(string: Constants.emptyTimeString)
+        scrubSlider.maximumValueImage = image
+        scrubSlider.minimumValueImage = zeroImage
     }
 
     private func animateFab(active: Bool) {
