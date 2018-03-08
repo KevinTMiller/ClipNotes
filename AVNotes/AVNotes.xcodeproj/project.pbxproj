@@ -28,6 +28,7 @@
 		8786DDEA204502E600BCC61B /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786DDE42045001A00BCC61B /* AudioKitUI.framework */; };
 		8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792186020227A6B00CA19AF /* BorderDrawingView.swift */; };
 		87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B48FA0201257C60056F894 /* FileDetailViewController.swift */; };
+		87CE568420486F7000C5DC03 /* UIImage+ImageFromString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE568320486F7000C5DC03 /* UIImage+ImageFromString.swift */; };
 		87CE56872048980400C5DC03 /* UIFont+Montserrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE56862048980400C5DC03 /* UIFont+Montserrat.swift */; };
 		87DEA01C201AACAC0081C188 /* ClearBarNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */; };
 		87DEA020201BD2EA0081C188 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87DEA01F201BD2EA0081C188 /* GradientView.swift */; };
@@ -94,6 +95,7 @@
 		8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../../AudioKit/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
 		87B48FA0201257C60056F894 /* FileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
+		87CE568320486F7000C5DC03 /* UIImage+ImageFromString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageFromString.swift"; sourceTree = "<group>"; };
 		87CE56862048980400C5DC03 /* UIFont+Montserrat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Montserrat.swift"; sourceTree = "<group>"; };
 		87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearBarNavViewController.swift; sourceTree = "<group>"; };
 		87DEA01F201BD2EA0081C188 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				87EA61991FFABD5900AB7B19 /* NotifcationName+Constants.swift */,
 				87EA619C1FFABE2E00AB7B19 /* String+UniqueFileName.swift */,
 				873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */,
+				87CE568320486F7000C5DC03 /* UIImage+ImageFromString.swift */,
 				87CE56862048980400C5DC03 /* UIFont+Montserrat.swift */,
 			);
 			path = Extensions;
@@ -410,6 +413,7 @@
 				871367601FE4558D00545AAA /* RecordingManager.swift in Sources */,
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
 				87E11D1B203201470064D767 /* BookmarkModalViewController.swift in Sources */,
+				87CE568420486F7000C5DC03 /* UIImage+ImageFromString.swift in Sources */,
 				8730DB4F203749C5007068D9 /* BookmarkTableViewCell.swift in Sources */,
 				872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */,
 				87E11D1F2035D79E0064D767 /* ModalPresentationController.swift in Sources */,

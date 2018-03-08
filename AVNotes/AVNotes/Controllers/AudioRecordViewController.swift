@@ -32,6 +32,8 @@ class AudioRecordViewController: UIViewController {
         static let recordAlertTitle = "Press Record"
         static let tableViewInset: CGFloat = 8.0
         static let timerInterval = 0.01
+        static let emptyTimeString = "00:00"
+        static let animationDuation = 0.33
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
         static let viewSize: CGFloat = 150.0
@@ -48,9 +50,14 @@ class AudioRecordViewController: UIViewController {
     enum ImageConstants {
         static let pauseImage = "ic_pause_circle_outline_48pt"
         static let playImage = "ic_play_circle_outline_48pt"
+        static let thumbImage = "ic_fiber_manual_record_white_18pt"
         static let recordImage = "ic_fiber_manual_record_48pt"
     }
 
+    @IBOutlet var scrubSlider: UISlider!
+    @IBOutlet private weak var audioPlotGL: EZAudioPlot!
+    @IBOutlet private var recordStackLeading: NSLayoutConstraint!
+    @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
     @IBOutlet private weak var addBookmarkButton: UIButton!
     @IBOutlet private weak var addButtonSuperview: UIView!
     @IBOutlet private weak var annotationTableView: UITableView!
@@ -172,10 +179,25 @@ class AudioRecordViewController: UIViewController {
 
     @IBAction func skipBackDidTouch(_ sender: Any) {
         mediaManager.skipFixedTime(time: -10.0)
+        if timer == nil {
+            // To take care of case that skip is touched before play
+            updateTimerLabel()
+        }
+    }
+
+    @IBAction func sliderDidSlide(_ sender: UISlider) {
+        let value = Double(sender.value)
+        mediaManager.skipTo(timeInterval: value)
+        if timer == nil {
+            updateTimerLabel()
+        }
     }
 
     @IBAction func skipForwardDidTouch(_ sender: UIButton) {
         mediaManager.skipFixedTime(time: 10.0)
+        if timer == nil {
+            updateTimerLabel()
+        }
     }
 
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
@@ -281,7 +303,7 @@ class AudioRecordViewController: UIViewController {
 
         NSLayoutConstraint.deactivate([bookmarkButtonCenter])
         NSLayoutConstraint.activate([bookmarkButtonTrailing])
-
+        toggleSlider(isOn: false)
         addBookmarkButton.layer.opacity = 0.33
 
         playStackLeading =
@@ -290,7 +312,6 @@ class AudioRecordViewController: UIViewController {
             playStackView.trailingAnchor.constraint(equalTo: controlView.trailingAnchor, constant: -5.0)
         playStackView.trailingAnchor.constraint(equalTo: recordStackView.leadingAnchor,
                                                 constant: -30.0).isActive = true
-        spacerHeightConstraint.constant = 1 / UIScreen.main.scale
         let navBarAttributes = [
             NSAttributedStringKey.foregroundColor: UIColor.white,
             NSAttributedStringKey.font: UIFont(name: Constants.titleFont, size: 18)!]
@@ -307,6 +328,32 @@ class AudioRecordViewController: UIViewController {
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
         gradientManager.addManagedView(addBookmarkButton)
+    
+    }
+
+    private func toggleSlider(isOn: Bool) {
+        if isOn {
+            scrubSlider.setThumbImage(UIImage(named: ImageConstants.thumbImage), for: .normal)
+            scrubSlider.isEnabled = true
+            setSliderImages()
+        } else {
+            scrubSlider.minimumValueImage = nil
+            scrubSlider.maximumValueImage = nil
+            scrubSlider.setThumbImage(UIImage(), for: .disabled)
+            scrubSlider.setValue(0, animated: false)
+            scrubSlider.isEnabled = false
+        }
+    }
+
+    private func setSliderImages() {
+        guard let duration = mediaManager.currentRecording?.duration else { return }
+        scrubSlider.minimumValue = 0.0
+        scrubSlider.maximumValue = Float(duration)
+        let timeString = String.stringFrom(timeInterval: duration)
+        let image = UIImage.imageFromString(string: timeString)
+        let zeroImage = UIImage.imageFromString(string: Constants.emptyTimeString)
+        scrubSlider.maximumValueImage = image
+        scrubSlider.minimumValueImage = zeroImage
     }
 
     private func animateFab(active: Bool) {
@@ -389,6 +436,10 @@ class AudioRecordViewController: UIViewController {
     @objc
     private func updateTimerLabel() {
         stopWatchLabel.text = mediaManager.currentTimeString ?? Constants.emptyTimeString
+        if scrubSlider.isEnabled,
+            let value = mediaManager.currentTimeInterval {
+            scrubSlider.setValue(Float(value), animated: false)
+        }
     }
     
     @objc
@@ -407,6 +458,10 @@ class AudioRecordViewController: UIViewController {
             stopWatchLabel.text = String.stringFrom(timeInterval: currentRecording.duration)
             updateTableView()
         }
+        if mediaManager.currentMode == .play {
+            setSliderImages()
+        }
+
     }
     
     private func setUpAudioPlot() {
@@ -448,9 +503,11 @@ class AudioRecordViewController: UIViewController {
         if isToRecordView {
             NSLayoutConstraint.deactivate([playStackLeading, playStackTrailing])
             NSLayoutConstraint.activate([recordStackLeading, recordStackTrailing])
+            toggleSlider(isOn: false)
         } else {
             NSLayoutConstraint.deactivate([recordStackLeading, recordStackTrailing])
             NSLayoutConstraint.activate([playStackLeading, playStackTrailing])
+            toggleSlider(isOn: true)
         }
         UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
@@ -533,6 +590,7 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let bookmark = mediaManager.currentRecording?.annotations?[indexPath.row] {
             if mediaManager.currentMode == .play {
+                scrubSlider.setValue(Float(bookmark.timeStamp), animated: false)
                 switch mediaManager.currentState {
                 case .running:
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
