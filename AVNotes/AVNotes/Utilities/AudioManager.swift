@@ -141,7 +141,7 @@ StateManagerModelDelegate {
             plot.plotType = .buffer
             plot.shouldFill = true
             plot.shouldMirror = true
-            plot.color = UIColor.white
+            plot.color = .white
             plot.updateBuffer(data.buffers[0], withBufferSize: data.bufferSize)
             return plot
         }

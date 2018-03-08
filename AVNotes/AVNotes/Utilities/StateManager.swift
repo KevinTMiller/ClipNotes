@@ -55,7 +55,7 @@ class StateManager: NSObject {
             return false
         }
     }
-    var filesButtonEnabled: Bool {
+    var canViewFiles: Bool {
         switch currentState {
         case .recording:
             return false
@@ -64,7 +64,7 @@ class StateManager: NSObject {
         }
     }
 
-    var plusButtonEnabled: Bool {
+    var canAnnotate: Bool {
         switch currentState {
         case .recording:
             return false
@@ -73,7 +73,7 @@ class StateManager: NSObject {
         }
     }
 
-    var playButtonSelected: Bool {
+    var isPlaying: Bool {
         switch currentState {
         case .playing:
             return true
@@ -85,7 +85,7 @@ class StateManager: NSObject {
             return false
         }
     }
-    var recordButtonSelected: Bool {
+    var isRecording: Bool {
         switch currentState {
         case .recording:
             return true
@@ -129,7 +129,7 @@ class StateManager: NSObject {
         }
     }
     
-    func recordButtonPressed(sender: UIButton) {
+    func toggleRecordingState(sender: UIButton) {
         switch currentState {
         case .readyToRecord:
             modelDelegate.startRecordingAudio()
@@ -148,7 +148,7 @@ class StateManager: NSObject {
         }
     }
 
-    func doneButtonPressed() {
+    func endRecording() {
         switch currentState {
         case .recording, .recordingPaused:
             modelDelegate.stopRecordingAudio()
@@ -158,7 +158,7 @@ class StateManager: NSObject {
         }
     }
 
-    func playButtonPressed(sender: UIButton) {
+    func togglePlayState(sender: UIButton) {
         switch currentState {
         case .readyToPlay:
             modelDelegate.playAudio()
@@ -175,7 +175,7 @@ class StateManager: NSObject {
         }
     }
 
-    func shouldShowBookmarkModal() -> Bool {
+    func allowsAnnotation() -> Bool {
         switch currentState {
         case .recording, .playing, .playingPaused, .recordingPaused, .playingStopped, .readyToPlay:
             return true

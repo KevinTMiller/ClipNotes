@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         RecordingManager.sharedInstance.loadFiles()
         application.statusBarStyle = .lightContent
-//        AudioManager.sharedInstance.setUpRecordingSession()
         return true
     }
 
