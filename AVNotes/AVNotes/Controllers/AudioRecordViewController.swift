@@ -129,11 +129,11 @@ class AudioRecordViewController: UIViewController {
 
     // MARK: IBActions
     @IBAction func doneButtonDidTouch(_ sender: UIButton) {
-        stateManager.doneButtonPressed()
+        stateManager.endRecording()
     }
 
     @IBAction func playPauseDidTouch(_ sender: UIButton) {
-        stateManager.playButtonPressed(sender: sender)
+        stateManager.togglePlayState(sender: sender)
     }
 
     @IBAction func skipBackDidTouch(_ sender: Any) {
@@ -159,7 +159,7 @@ class AudioRecordViewController: UIViewController {
     }
 
     @IBAction func recordButtonDidTouch(_ sender: UIButton) {
-        stateManager.recordButtonPressed(sender: sender)
+        stateManager.toggleRecordingState(sender: sender)
     }
 
     @IBAction func addDidTouch(_ sender: Any) {
@@ -167,7 +167,7 @@ class AudioRecordViewController: UIViewController {
     }
     
     @IBAction func addButtonDidTouch(_ sender: UIButton) {
-        if stateManager.shouldShowBookmarkModal() {
+        if stateManager.allowsAnnotation() {
             showBookmarkModal(sender: sender)
         }
     }
@@ -386,10 +386,10 @@ class AudioRecordViewController: UIViewController {
 extension AudioRecordViewController: StateManagerViewDelegate {
 
     func updateButtons() {
-        playPauseButton.isSelected = stateManager.playButtonSelected
-        recordButton.isSelected = stateManager.recordButtonSelected
-        plusButton.isEnabled = stateManager.plusButtonEnabled
-        filesButton.isEnabled = stateManager.filesButtonEnabled
+        playPauseButton.isSelected = stateManager.isPlaying
+        recordButton.isSelected = stateManager.isRecording
+        plusButton.isEnabled = stateManager.canAnnotate
+        filesButton.isEnabled = stateManager.canViewFiles
     }
 
     func errorAlert(_ error: Error) {

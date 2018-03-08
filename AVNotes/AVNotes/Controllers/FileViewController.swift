@@ -135,12 +135,6 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         let selection = fileManager.filesAndFolders[indexPath.row]
 
         if let recording = selection as? AnnotatedRecording {
-//            switch mediaManager.currentMode {
-//            case .record:
-//                mediaManager.stopRecordingAudio()
-//            case .play:
-//                mediaManager.stopRecordingAudio()
-//            }
             mediaManager.switchToPlay(file: recording)
             navigationController?.popToRootViewController(animated: true)
         }
