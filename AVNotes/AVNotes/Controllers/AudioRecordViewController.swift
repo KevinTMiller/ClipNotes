@@ -468,7 +468,7 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
             tableView.isScrollEnabled = false
             let label = UILabel(frame: CGRect())
             label.text = Constants.emptyTableText
-            label.textColor = UIColor.lightGray
+            label.textColor = .lightGray
             label.textAlignment = .center
             label.numberOfLines = 4
             label.lineBreakMode = .byWordWrapping
