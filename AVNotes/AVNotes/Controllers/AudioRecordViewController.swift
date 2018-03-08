@@ -22,32 +22,37 @@ let mainStoryboard = "Main"
 class AudioRecordViewController: UIViewController {
 
     enum Constants {
+        static let animationDuation = 0.33
         static let bookmarkModal = "bookmarkModal"
-        static let mainStoryboard = "Main"
         static let cellIdentifier = "annotationCell"
-        static let recordAlertTitle = "Press Record"
+        static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button."
+        static let emptyTimeString = "00:00.00"
+        static let mainStoryboard = "Main"
         static let recordAlertMessage = "Start recording before adding a bookmark"
         static let timerInterval = 0.03
+        static let recordAlertTitle = "Press Record"
+        static let tableViewInset: CGFloat = 8.0
         static let emptyTimeString = "00:00"
         static let animationDuation = 0.33
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
         static let emptyTableText = "No bookmarks yet. To create a bookmark, start recording or playback and then press the add button."
+        static let viewSize: CGFloat = 150.0
     }
 
     enum AlertConstants {
-        static let save = "Save"
-        static let success = "Success"
         static let enterTitle = "Enter a title for this recording"
         static let newRecording = "New Recording"
         static let recordingSaved = "Your recording has been saved."
+        static let save = "Save"
+        static let success = "Success"
     }
 
     enum ImageConstants {
         static let pauseImage = "ic_pause_circle_outline_48pt"
-        static let recordImage = "ic_fiber_manual_record_48pt"
         static let playImage = "ic_play_circle_outline_48pt"
         static let thumbImage = "ic_fiber_manual_record_white_18pt"
+        static let recordImage = "ic_fiber_manual_record_48pt"
     }
 
     @IBOutlet private var filesButton: UIBarButtonItem!
@@ -55,41 +60,49 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private var audioPlotGL: EZAudioPlot!
     @IBOutlet private var recordStackLeading: NSLayoutConstraint!
     @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
-    @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
-    @IBOutlet private var bookmarkButtonTrailing: NSLayoutConstraint!
-    @IBOutlet private weak var recordStackView: UIStackView!
-    @IBOutlet private weak var playStackView: UIStackView!
-    @IBOutlet private var gradientView: GradientView!
-    @IBOutlet private weak var controlView: UIView!
-    @IBOutlet private weak var waveformView: BorderDrawingView!
-    @IBOutlet private var scrubSlider: UISlider!
-    @IBOutlet private weak var stopWatchLabel: UILabel!
-    @IBOutlet private weak var recordingTitleLabel: UILabel!
-    @IBOutlet private weak var recordingDateLabel: UILabel!
-    @IBOutlet private weak var annotationTableView: UITableView!
-    @IBOutlet private weak var recordButton: UIButton!
-    @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var addBookmarkButton: UIButton!
     @IBOutlet private weak var addButtonSuperview: UIView!
+    @IBOutlet private weak var annotationTableView: UITableView!
+    @IBOutlet private weak var audioPlotGL: EZAudioPlot!
+    @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
+    @IBOutlet private var bookmarkButtonTrailing: NSLayoutConstraint!
+    @IBOutlet private weak var controlView: UIView!
+    @IBOutlet private var scrubSlider: UISlider!
+    @IBOutlet private weak var annotationTableView: UITableView!
+    @IBOutlet private var gradientView: GradientView!
+    @IBOutlet private weak var playPauseButton: UIButton!
+    @IBOutlet private weak var playStackView: UIStackView!
+    @IBOutlet private weak var recordButton: UIButton!
+    @IBOutlet private weak var recordingDateLabel: UILabel!
+    @IBOutlet private weak var recordingTitleLabel: UILabel!
+    @IBOutlet private var recordStackLeading: NSLayoutConstraint!
+    @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
+    @IBOutlet private weak var recordStackView: UIStackView!
+    @IBOutlet private weak var spacerHeightConstraint: NSLayoutConstraint!
+    @IBOutlet private weak var stopWatchLabel: UILabel!
+    @IBOutlet private weak var waveformView: BorderDrawingView!
 
     // MARK: Private Vars
+    private let fileManager = RecordingManager.sharedInstance
+    private lazy var gradientManager = GradientManager()
     private lazy var isInitialFirstViewing = true
+    private lazy var isShowingRecordingView = true
+    private let mediaManager = AudioManager.sharedInstance
+    private weak var modalTransitioningDelegate = CustomModalPresentationManager()
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
-    private let mediaManager = AudioManager.sharedInstance
-    private let fileManager = RecordingManager.sharedInstance
+
     private var timer: Timer?
-    private lazy var isShowingRecordingView = true
     var plot: AKNodeOutputPlot?
-    private weak var modalTransitioningDelegate = CustomModalPresentationManager()
-    private lazy var gradientManager = GradientManager()
-    private var buttonIsCenter = false
     private var stateManager = StateManager.sharedInstance
 
     // MARK: AudioKit Vars
     var microphone: AKMicrophone!
     var tracker: AKFrequencyTracker!
     var silence: AKBooster!
+    private var plot: AKNodeOutputPlot?
+    private lazy var gradientManager = GradientManager()
+    private var buttonIsCenter = false
 
     // MARK: Lifecycle functions
     override func viewDidLoad() {
@@ -220,15 +233,14 @@ class AudioRecordViewController: UIViewController {
     }
 
     private func setSliderImages() {
-        if let duration = mediaManager.currentRecording?.duration {
-            scrubSlider.minimumValue = 0.0
-            scrubSlider.maximumValue = Float(duration)
-            let timeString = String.stringFrom(timeInterval: duration)
-            let image = UIImage.imageFromString(string: timeString)
-            let zeroImage = UIImage.imageFromString(string: Constants.emptyTimeString)
-            scrubSlider.maximumValueImage = image
-            scrubSlider.minimumValueImage = zeroImage
-        }
+        guard let duration = mediaManager.currentRecording?.duration else { return }
+        scrubSlider.minimumValue = 0.0
+        scrubSlider.maximumValue = Float(duration)
+        let timeString = String.stringFrom(timeInterval: duration)
+        let image = UIImage.imageFromString(string: timeString)
+        let zeroImage = UIImage.imageFromString(string: Constants.emptyTimeString)
+        scrubSlider.maximumValueImage = image
+        scrubSlider.minimumValueImage = zeroImage
     }
 
     private func animateFab(active: Bool) {
@@ -477,22 +489,32 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
 
     func numberOfSections(in tableView: UITableView) -> Int {
         let count = mediaManager.currentRecording?.annotations?.count ?? 0
+
         if count == 0 && tableView.backgroundView == nil {
             tableView.isScrollEnabled = false
+
+            let view = UIView(frame:CGRect())
             let label = UILabel(frame: CGRect())
             label.text = Constants.emptyTableText
-            label.textColor = UIColor.lightGray
+            label.textColor = .lightGray
             label.textAlignment = .center
-            label.numberOfLines = 4
+            label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping
-            tableView.backgroundView = label
+            view.addSubview(label)
             label.translatesAutoresizingMaskIntoConstraints = false
-            label.widthAnchor.constraint(equalTo: tableView.widthAnchor, constant: -16.0).isActive = true
-            label.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 8.0).isActive = true
-            label.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: -8.0).isActive = true
-            label.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
-            label.bottomAnchor.constraint(equalTo: tableView.topAnchor,
-                                          constant: 150.0).isActive = true
+            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+            label.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            label.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            tableView.backgroundView = view
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.widthAnchor.constraint(equalTo: tableView.widthAnchor,
+                                        constant: -Constants.tableViewInset * 2).isActive = true
+            view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor,
+                                          constant: Constants.tableViewInset).isActive = true
+            view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor,
+                                           constant: -Constants.tableViewInset).isActive = true
+            view.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+            view.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: Constants.viewSize).isActive = true
             return 0
         }
         if count > 0 {
