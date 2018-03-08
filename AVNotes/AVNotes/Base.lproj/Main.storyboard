@@ -319,6 +319,7 @@
                                                 <rect key="frame" x="125" y="0.0" width="125" height="48"/>
                                                 <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="ic_play_circle_outline_white_48pt"/>
+                                                <state key="selected" image="ic_pause_circle_outline_white_48pt"/>
                                                 <connections>
                                                     <action selector="playPauseDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="kwf-RT-fJl"/>
                                                 </connections>
@@ -356,6 +357,7 @@
                                                 <rect key="frame" x="183.66666666666663" y="0.0" width="191.33333333333337" height="48"/>
                                                 <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" image="ic_fiber_manual_record_white_48pt"/>
+                                                <state key="selected" image="ic_pause_circle_filled_white_48pt"/>
                                                 <connections>
                                                     <action selector="recordButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="SCD-6t-lYr"/>
                                                 </connections>
@@ -635,9 +637,11 @@
                         <outlet property="bookmarkButtonCenter" destination="rE0-mc-lzU" id="QsL-wI-2WV"/>
                         <outlet property="bookmarkButtonTrailing" destination="58B-ze-Dmg" id="ONh-V1-jQY"/>
                         <outlet property="controlView" destination="sqQ-Gs-taK" id="D2F-ZV-8xq"/>
+                        <outlet property="filesButton" destination="19D-L6-JfK" id="csF-06-byk"/>
                         <outlet property="gradientView" destination="XsD-lQ-ekE" id="CI5-SN-X74"/>
                         <outlet property="playPauseButton" destination="ZMJ-kw-klq" id="xc5-yI-Zm4"/>
                         <outlet property="playStackView" destination="aiJ-Su-7kR" id="UGE-Rg-L4m"/>
+                        <outlet property="plusButton" destination="ybW-R5-qqM" id="aTR-MX-ipr"/>
                         <outlet property="recordButton" destination="WSU-F0-Nfc" id="JvJ-Te-gas"/>
                         <outlet property="recordStackLeading" destination="oxW-rs-0fb" id="kJz-qi-bQv"/>
                         <outlet property="recordStackTrailing" destination="CD7-7l-4KJ" id="esn-sF-9EG"/>
@@ -683,8 +687,8 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SaQ-ew-Wu5">
-                                                            <rect key="frame" x="31.666666666666671" y="26.666666666666671" width="15" height="17"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                                            <rect key="frame" x="29.666666666666671" y="26.333333333333329" width="19" height="21"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -699,7 +703,7 @@
                                                         <constraint firstItem="hGb-MA-Z8T" firstAttribute="centerY" secondItem="oSS-eb-Nel" secondAttribute="centerY" id="04n-xY-gVL"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="gPA-et-pK9" secondAttribute="bottom" constant="14" id="X9M-fL-Xr6"/>
                                                         <constraint firstItem="SaQ-ew-Wu5" firstAttribute="centerX" secondItem="hGb-MA-Z8T" secondAttribute="centerX" id="bt9-at-YCe"/>
-                                                        <constraint firstItem="SaQ-ew-Wu5" firstAttribute="centerY" secondItem="hGb-MA-Z8T" secondAttribute="centerY" id="kwZ-x7-n7K"/>
+                                                        <constraint firstItem="SaQ-ew-Wu5" firstAttribute="centerY" secondItem="hGb-MA-Z8T" secondAttribute="centerY" constant="2" id="kwZ-x7-n7K"/>
                                                         <constraint firstItem="hGb-MA-Z8T" firstAttribute="leading" secondItem="oSS-eb-Nel" secondAttribute="leading" constant="15" id="n8T-eW-zfd"/>
                                                         <constraint firstItem="gPA-et-pK9" firstAttribute="trailing" secondItem="oSS-eb-Nel" secondAttribute="trailingMargin" id="pc1-pk-YX8"/>
                                                         <constraint firstItem="gPA-et-pK9" firstAttribute="centerY" secondItem="oSS-eb-Nel" secondAttribute="centerY" id="qzh-jr-fNp"/>
@@ -851,14 +855,14 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B6V-Ay-tWd">
-                                                    <rect key="frame" x="31" y="26" width="15" height="17"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                                    <rect key="frame" x="29" y="27" width="19" height="21"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                                     <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="B6V-Ay-tWd" firstAttribute="centerY" secondItem="6QP-Yi-TmZ" secondAttribute="centerY" id="IIy-YY-QEj"/>
+                                                <constraint firstItem="B6V-Ay-tWd" firstAttribute="centerY" secondItem="6QP-Yi-TmZ" secondAttribute="centerY" constant="2" id="IIy-YY-QEj"/>
                                                 <constraint firstItem="B6V-Ay-tWd" firstAttribute="centerX" secondItem="6QP-Yi-TmZ" secondAttribute="centerX" id="cqx-mR-sKW"/>
                                                 <constraint firstItem="x1k-xp-cMy" firstAttribute="centerY" secondItem="H4v-PD-DBG" secondAttribute="centerY" id="emo-DR-3dI"/>
                                                 <constraint firstItem="6QP-Yi-TmZ" firstAttribute="centerY" secondItem="H4v-PD-DBG" secondAttribute="centerY" id="iQE-5O-Nyo"/>
@@ -991,6 +995,8 @@
         <image name="ic_fiber_manual_record_white_48pt" width="48" height="48"/>
         <image name="ic_folder_48pt" width="48" height="48"/>
         <image name="ic_forward_10_white_48pt" width="48" height="48"/>
+        <image name="ic_pause_circle_filled_white_48pt" width="48" height="48"/>
+        <image name="ic_pause_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_play_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_replay_10_white_48pt" width="48" height="48"/>
     </resources>

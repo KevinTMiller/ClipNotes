@@ -23,6 +23,7 @@ class FileDetailViewController: UIViewController {
     private var recordings: [AnnotatedRecording]! {
         return fileManager.recordingArray.filter({ $0.folderID == folder.systemID })
     }
+    private lazy var stateManager = StateManager.sharedInstance
     private lazy var audioManager = AudioManager.sharedInstance
     private lazy var fileManager = RecordingManager.sharedInstance
     private weak var modalTransitioningDelegate = CustomModalPresentationManager()
@@ -30,7 +31,7 @@ class FileDetailViewController: UIViewController {
     @IBOutlet private weak var fileDetailTableView: UITableView!
 
     @IBAction func addDidTouch(_ sender: UIBarButtonItem) {
-        audioManager.currentMode = .record
+        stateManager.currentState = .prepareToRecord
         audioManager.currentRecording?.folderID = folder.systemID
         navigationController?.popToRootViewController(animated: true)
     }
@@ -50,18 +51,12 @@ extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
-        switch audioManager.currentMode {
-        case .record:
-            audioManager.stopRecordingAudio()
-        case .play:
-            audioManager.stopRecordingAudio()
-        }
+
         if indexPath.row == 0 {
             navigationController?.popViewController(animated: true)
         }
-        if indexPath.row < 0 {
-             audioManager.switchToPlay(file: recordings[(indexPath.row - 1)])
+        if indexPath.row > 0 {
+            audioManager.switchToPlay(file: recordings[(indexPath.row - 1)])
             navigationController?.popToRootViewController(animated: true)
         }
     }

@@ -19,32 +19,48 @@ enum CurrentState {
     case paused
     case stopped
 }
+
 enum CurrentMode {
     case record
     case play
 }
+enum AudioManagerError: Error {
+    case noRecordingPermission
+    case errorSettingUpSession
+    case errorWithPlayback
+    case errorLoadingFile
+}
 
 class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+
+    override init() {
+        super.init()
+        self.stateManager = StateManager.sharedInstance
+        stateManager.modelDelegate = self
+    }
 
     static let sharedInstance = AudioManager()
 
     enum Constants {
         static let m4aSuffix = "m4a"
         static let lastRecordingKey = "lastRecording"
+        static let blankTimeString = "00:00"
     }
 
     // MARK: Public vars
+    var stateManager: StateManager!
 
-    public var currentState: CurrentState = .fresh {
-        didSet {
-            print(currentState)
-        }
-    }
-    public var currentMode: CurrentMode = .record {
-        didSet {
-            print(currentMode)
-        }
-    }
+//    public var currentState: CurrentState = .fresh {
+//        didSet {
+//            print(currentState)
+//        }
+//    }
+//    public var currentMode: CurrentMode = .record {
+//        didSet {
+//            print(currentMode)
+//        }
+//    }
+
     public var plot: AKNodeOutputPlot?
 
     public var isRecording: Bool {
@@ -58,25 +74,38 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     }
 
     public var currentTimeString: String? {
-        switch currentMode {
-        case .record:
-            guard let audioRecorder = audioRecorder else { return nil }
-            return String.stringFrom(timeInterval: audioRecorder.currentTime)
-        case .play:
-            guard let audioPlayer = audioPlayer else { return nil }
-            return String.stringFrom(timeInterval: audioPlayer.currentTime)
+        return String.stringFrom(timeInterval: currentTimeInterval)
+//        switch stateManager.currentState {
+//
+//        case .recording:
+//            guard let audioRecorder = audioRecorder else { return nil }
+//            return String.stringFrom(timeInterval: audioRecorder.currentTime)
+//        case .playing:
+//            guard let audioPlayer = audioPlayer else { return nil }
+//            return String.stringFrom(timeInterval: audioPlayer.currentTime)
+//        default:
+//            return Constants.blankTimeString
         }
-    }
 
-    public var currentTimeInterval: TimeInterval? {
-        switch currentMode {
-        case .record:
-            guard let audioRecorder = audioRecorder else { return nil }
-            return audioRecorder.currentTime
-        case .play:
-            guard let audioPlayer = audioPlayer else { return nil }
+    public var currentTimeInterval: TimeInterval {
+        if stateManager.isPlayMode {
+            guard let audioPlayer = audioPlayer else { return 0 }
             return audioPlayer.currentTime
         }
+        if stateManager.isRecordMode {
+            guard let audioRecorder = audioRecorder else { return 0 }
+            return audioRecorder.currentTime
+        }
+        return 0
+        //        switch stateManager.currentState {
+        //        case .recording:
+        //            guard let audioRecorder = audioRecorder else { return 0 }
+        //            return audioRecorder.currentTime
+        //        case .playing:
+        //            guard let audioPlayer = audioPlayer else { return 0 }
+        //            return audioPlayer.currentTime
+        ////        default:
+        //        }
     }
 
     public var currentRecording: AnnotatedRecording? {
@@ -111,18 +140,24 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private var defaults = UserDefaults.standard
 
     // MARK: AudioKit vars
-    public var akMicrophone: AKMicrophone?
-    private var tracker: AKFrequencyTracker!
+    public var akMicrophone: AKMicrophone? {
+        didSet {
+            print("mic: \(akMicrophone!)")
+        }
+    }
     private var silence: AKBooster!
-    private var player: AKAudioPlayer?
+    private var player: AKAudioPlayer!
+    private var tracker: AKFrequencyTracker!
+    var mixer: AKMixer!
 
     // MARK: AudioKit funcs
     func setUpAKAudio() {
         AKSettings.audioInputEnabled = true
         akMicrophone = AKMicrophone()
-        tracker = AKFrequencyTracker(akMicrophone)
-        silence = AKBooster(tracker, gain: 0.0)
-        AudioKit.output = silence
+//        tracker = AKFrequencyTracker(akMicrophone)
+//        silence = AKBooster(tracker, gain: 0.0)
+        mixer = AKMixer(akMicrophone)
+        AudioKit.output = mixer
     }
 
     func getPlotFromCurrentRecording() -> EZAudioPlot? {
@@ -147,20 +182,21 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     // then creating a instance of the AVAudioRecord with the current path and settings. */
 
     func startRecordingAudio() {
-
+//        audioPlayer = nil
         let filename = currentRecording?.fileName
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(filename!)
-
+//        setUpAKAudio()
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: audioSettings)
             audioRecorder?.record()
-            currentMode = .record
-            currentState = .running
-            NotificationCenter.default.post(name: .playRecordDidStart, object: nil)
+//            currentMode = .record
+//            currentState = .running
+            stateManager.currentState = .recording
             print("Recording: \(isRecording)")
         } catch {
+            print(error)
             finishRecordingAudio(success: false, path: nil, name: nil)
-            currentState = .finishedWithError
+            stateManager.currentState = .error
         }
     }
 
@@ -174,13 +210,12 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             }
             indexCounter += 1
         }
-        return nil
+        return 0
     }
 
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
         let timeStampDouble = Double(timestamp)
         let bookmark = Bookmark(title: title, timestamp: timeStampDouble, noteText: text)
-
         // Find the index of the bookmark with the next smallest time stamp
         // and insert after
         let index = findIndexOfInsertion(timestamp: timestamp)
@@ -189,8 +224,12 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         } else {
             currentRecording?.annotations?.append(bookmark)
         }
+        if let index =
+            fileManager.recordingArray.index(where: {$0.fileName == currentRecording?.fileName}) {
+            fileManager.recordingArray[index] = currentRecording!
+        }
         fileManager.saveFiles()
-        NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
+       NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
     }
 
     func editBookmark(indexPath: IndexPath, title: String, text: String) {
@@ -204,72 +243,88 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         // the recording
     }
 
-    func togglePause(pause: Bool) {
-        if pause {
-            audioRecorder?.pause()
-            currentState = .paused
-        } else {
-            audioRecorder?.record()
-            currentState = .running
+    func pauseRecording() {
+       audioRecorder?.pause()
+        stateManager.currentState = .recordingPaused
+    }
+
+    func resumeRecording() {
+        if let success = audioRecorder?.record() {
+            if success {
+                stateManager.currentState = .recording
+            } else {
+                stateManager.currentState = .error
+            }
         }
     }
 
+//    func togglePause(pause: Bool) {
+//        if pause {
+//            audioRecorder?.pause()
+//            currentState = .paused
+//        } else {
+//            audioRecorder?.record()
+//            currentState = .running
+//        }
+//    }
+
     func switchToRecord() {
-        currentRecording = createAnnotatedRecording()
-        currentMode = .record
-        currentState = .stopped
+        setBlankRecording()
+        stateManager.currentState = .prepareToRecord
     }
 
     func switchToPlay(file: AnnotatedRecording) {
         currentRecording = file
-        prepareAudioPlayer()
-        currentMode = .play
-        currentState = .stopped
+        stateManager.currentState = .prepareToPlay
     }
 
-    private func setNewRecording() {
-        blankRecording = createAnnotatedRecording()
+    private func setBlankRecording() {
+        currentRecording = createAnnotatedRecording()
     }
 
     /* Documents directory path changes frequently.
     Always get a fresh path and then append the filename to create the URL to play */
-    func prepareAudioPlayer() {
+    func prepareToPlay(success: (() -> Void), failure: ((Error) -> Void)) {
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(currentRecording!.fileName)
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
             audioPlayer = try AVAudioPlayer(contentsOf: audioFilePath, fileTypeHint: Constants.m4aSuffix)
-        } catch let error {
-            print(error)
+            audioPlayer?.prepareToPlay()
+            success()
+        } catch {
+            failure(error)
         }
-        audioPlayer?.prepareToPlay()
+    }
+
+    func prepareToRecord(success: (() -> Void), failure: ((Error) -> Void)) {
+        do {
+            audioPlayer = nil
+            try setUpRecordingSession()
+//            currentRecording = createAnnotatedRecording()
+//            setUpAKAudio()
+            success()
+        } catch {
+            failure(error)
+        }
     }
 
     func playAudio() {
-        if audioPlayer == nil {
-            prepareAudioPlayer()
-        }
-
         audioPlayer?.play()
-        currentMode = .play
-        currentState = .running
-        NotificationCenter.default.post(name: .playRecordDidStart, object: nil)
-        print("Playing: \(isPlaying)")
+        stateManager.currentState = .playing
     }
 
     func pauseAudio() {
         audioPlayer?.pause()
-        currentState = .paused
+        stateManager.currentState = .playingPaused
     }
 
     func resumeAudio() {
         audioPlayer?.play()
-        currentState = .running
-        NotificationCenter.default.post(name: .playRecordDidStart, object: nil)
+        stateManager.currentState = .playing
     }
 
     func stopPlayingAudio() {
         audioPlayer?.stop()
-        currentState = .stopped
     }
 
     func skipTo(timeInterval: TimeInterval) {
@@ -293,23 +348,20 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         }
     }
 
-    func setUpRecordingSession() {
+    func setUpRecordingSession() throws {
         do {
             try audioSession.setCategory(AVAudioSessionCategoryRecord)
             try audioSession.setActive(true)
-            setUpAKAudio()
+//            setUpAKAudio()
             audioSession.requestRecordPermission({ allowed in
                 if allowed {
                     print("Audio recording session allowed")
                 } else {
-                    // TODO: insert error message here to user
                     print("Audio recoding session not allowed")
                 }
             })
         } catch {
-            // Some error occured
-            // TODO: insert error message here to user
-            print("Error setting up recording session: \(error)")
+            throw error
         }
         if currentRecording == nil {
             currentRecording = createAnnotatedRecording()
@@ -319,11 +371,12 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private func finishRecordingAudio(success: Bool, path: URL?, name: String?) {
         if success {
             saveRecording(recording: currentRecording!)
-            currentState = .finishedSuccessfully
+            stateManager.currentState = .playingStopped
+//            currentState = .finishedSuccessfully
         } else {
-            currentState = .finishedWithError
+//            stateManager.currentState = .error
         }
-        setNewRecording()
+//        setBlankRecording()
     }
 
     // Create an Annotated recording object and set it to the currentRecording property
@@ -344,7 +397,7 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         fileManager.saveFiles()
         let lastRecording = defaults.value(forKey: Constants.lastRecordingKey) as? Int ?? 1
         defaults.set(lastRecording + 1, forKey: Constants.lastRecordingKey)
-        currentRecording = createAnnotatedRecording()
+//        setBlankRecording()
     }
 
     // .currentTime on AVAudioRecorder returns 0 when stopped.  Must turn the path into
@@ -370,17 +423,17 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         finishRecordingAudio(success: flag, path: recorder.url, name: nil)
-        NotificationCenter.default.post(name: .playRecordDidStop, object: nil)
+//        NotificationCenter.default.post(name: .playRecordDidStop, object: nil)
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag {
-            currentState = .finishedSuccessfully
+            stateManager.currentState = .playingStopped
         } else {
-            currentState = .finishedWithError
+            stateManager.currentState = .error
         }
-        NotificationCenter.default.post(name: .audioPlayerDidFinish, object: nil)
-        NotificationCenter.default.post(name: .playRecordDidStop, object: nil)
     }
+}
+extension AudioManager: StateManagerModelDelegate {
 
 }
