@@ -8,6 +8,19 @@
 
 import UIKit
 
+enum AlertConstants {
+    static let enterName = "Enter name for Folder"
+    static let newFolder = "New Folder"
+    static let delete = "Delete"
+    static let areYouSure =
+    "Are you sure you wish to delete this item? This action cannot be undone."
+    static let folderAreYouSure = "Are you sure you wish to delete this folder? All recordings in this folder will also be deleted. This action cannot be undone."
+    static let editTitle = "Edit Recording Title"
+    static let editTitleMessage = "Enter the new title below"
+    static let editFolder = "Edit Folder Name"
+    static let editFolderMessage = "Enter new folder name below"
+}
+
 class FileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     let segueIdentifier = "toFileDetail"
@@ -15,18 +28,6 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     private enum Constants {
         static let fileCell = "fileViewCell"
         static let folderCell = "folderCell"
-    }
-
-    private enum AlertConstants {
-        static let enterName = "Enter name for Folder"
-        static let newFolder = "New Folder"
-        static let delete = "Delete"
-        static let areYouSure =
-        "Are you sure you wish to delete this item? This action cannot be undone."
-        static let editTitle = "Edit Recording Title"
-        static let editTitleMessage = "Enter the new title below"
-        static let editFolder = "Edit Folder Name"
-        static let editFolderMessage = "Enter new folder name below"
     }
 
     private let fileManager = RecordingManager.sharedInstance
@@ -50,10 +51,10 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         fileTableView.dropDelegate = self
         fileTableView.dragInteractionEnabled = true
 
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView),
-                                               name: .annotationsDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView),
-                                               name: .modelDidUpdate, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView),
+//                                               name: .annotationsDidUpdate, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView),
+//                                               name: .modelDidUpdate, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -97,10 +98,24 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
                    editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
         let delete = UITableViewRowAction(style: .destructive,
-                                          title: AlertConstants.delete) { [weak self] action, indexPath in
-            self?.presentAlert(title: AlertConstants.delete, message: AlertConstants.areYouSure)
-            // TODO: Implement method to delete file or folder
+                  title: AlertConstants.delete) { [weak self] _, indexPath in
+                    let fileOrFolder = self?.fileManager.filesAndFolders[indexPath.row]
+                    let message = fileOrFolder is Folder ? AlertConstants.folderAreYouSure : AlertConstants.areYouSure
+                    self?.confirmDestructiveAlert(title: AlertConstants.delete,
+                                                  message: message,
+                                                  delete: {
+                                                    tableView.beginUpdates()
+                                                    if let folder = fileOrFolder as? Folder {
+                                                        self?.fileManager.deleteFolder(identifier: folder.systemID)
+                                                    }
+                                                    if let file = fileOrFolder as? AnnotatedRecording {
+                                                        self?.fileManager.deleteFile(identifier: file.fileName)
+                                                    }
+                                                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                                                    tableView.endUpdates()
+                    })
         }
+
         let edit = UITableViewRowAction(style: .normal, title: "Edit") { [weak self] _, indexPath in
             var title = String()
             var message = String()
@@ -126,6 +141,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
                                    placeholder: placeholder,
                                    completion: { [weak self] text in
                 self?.fileManager.editTitleOf(uniqueID: uniqueID, newTitle: text)
+                tableView.reloadRows(at: [indexPath], with: .automatic)
             })
         }
         return [delete, edit]
@@ -135,12 +151,6 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         let selection = fileManager.filesAndFolders[indexPath.row]
 
         if let recording = selection as? AnnotatedRecording {
-//            switch mediaManager.currentMode {
-//            case .record:
-//                mediaManager.stopRecordingAudio()
-//            case .play:
-//                mediaManager.stopRecordingAudio()
-//            }
             mediaManager.switchToPlay(file: recording)
             navigationController?.popToRootViewController(animated: true)
         }
@@ -168,7 +178,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         return tableView.dequeueReusableCell(withIdentifier: Constants.folderCell)!
     }
 
-    // Files and Folder is a get only calculated property - must move the objects
+    // Files and Folder is a get only computed property - must move the objects
     // in their own arrays. If an annotated recording, must find the real index
     // as the files and folders array only shows uncategorized files
     // Can't have one array because ANY is not Codable and

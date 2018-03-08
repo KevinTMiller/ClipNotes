@@ -32,6 +32,15 @@ extension UIViewController {
         self.present(alertController, animated: true)
     }
 
+    func confirmDestructiveAlert(title: String, message: String, delete: @escaping () -> Void ) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in delete() }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true)
+    }
+
     func presentAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)

@@ -23,6 +23,7 @@
 		873F5073200FA3C80059F720 /* String+StringFromTimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */; };
 		874EE92C2024E8C500B752A9 /* FolderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */; };
 		876428CC2018179800968634 /* FileViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876428CB2018179800968634 /* FileViewCell.swift */; };
+		8768D03A20509C0B00D7CABF /* BookmarkTableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8768D03920509C0B00D7CABF /* BookmarkTableViewDelegate.swift */; };
 		8786DDD9204460D600BCC61B /* montserrat.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8786DDD8204460D500BCC61B /* montserrat.regular.ttf */; };
 		8786DDE9204502E600BCC61B /* AudioKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786DDE22045001A00BCC61B /* AudioKit.framework */; };
 		8786DDEA204502E600BCC61B /* AudioKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8786DDE42045001A00BCC61B /* AudioKitUI.framework */; };
@@ -92,6 +93,7 @@
 		873F5072200FA3C80059F720 /* String+StringFromTimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+StringFromTimeInterval.swift"; sourceTree = "<group>"; };
 		874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTableViewCell.swift; sourceTree = "<group>"; };
 		876428CB2018179800968634 /* FileViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileViewCell.swift; sourceTree = "<group>"; };
+		8768D03920509C0B00D7CABF /* BookmarkTableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkTableViewDelegate.swift; sourceTree = "<group>"; };
 		8786DDD8204460D500BCC61B /* montserrat.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = montserrat.regular.ttf; sourceTree = "<group>"; };
 		8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../../AudioKit/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
@@ -157,7 +159,6 @@
 				8713675F1FE4558D00545AAA /* RecordingManager.swift */,
 				870FF26620436BDF00F0B69F /* GradientManager.swift */,
 				87CE568C2049B0E900C5DC03 /* StateManager.swift */,
-				87CE568E2049FD9A00C5DC03 /* StateManagerProtocols.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -195,6 +196,7 @@
 		872A66FA1FD7035F00AD6B2C /* AVNotes */ = {
 			isa = PBXGroup;
 			children = (
+				8768D03820509BE900D7CABF /* Protocols */,
 				87EA619B1FFABD6300AB7B19 /* Extensions */,
 				8713675B1FE435E300545AAA /* Custom Views */,
 				871367501FE426BD00545AAA /* Utilities */,
@@ -219,6 +221,15 @@
 				87DEA01B201AACAB0081C188 /* ClearBarNavViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8768D03820509BE900D7CABF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				87CE568E2049FD9A00C5DC03 /* StateManagerProtocols.swift */,
+				8768D03920509C0B00D7CABF /* BookmarkTableViewDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		8786DDDD2045001800BCC61B /* Products */ = {
@@ -434,6 +445,7 @@
 				876428CC2018179800968634 /* FileViewCell.swift in Sources */,
 				87EA619A1FFABD5900AB7B19 /* NotifcationName+Constants.swift in Sources */,
 				87DEA01C201AACAC0081C188 /* ClearBarNavViewController.swift in Sources */,
+				8768D03A20509C0B00D7CABF /* BookmarkTableViewDelegate.swift in Sources */,
 				871367581FE427FA00545AAA /* Bookmark.swift in Sources */,
 				8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */,
 			);

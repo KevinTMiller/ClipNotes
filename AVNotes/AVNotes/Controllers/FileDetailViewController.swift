@@ -45,7 +45,50 @@ class FileDetailViewController: UIViewController {
 }
 
 extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == 0 {
+            return false
+        }
+        return true
+    }
     
+    func tableView(_ tableView: UITableView,
+                   editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive,
+                                          title: AlertConstants.delete) { [weak self] _, indexPath in
+                                            self?.confirmDestructiveAlert(title: AlertConstants.delete,
+                                                                          message: AlertConstants.areYouSure,
+                                                                          delete: {
+                                                                            tableView.beginUpdates()
+                                                                            if let file = self?.recordings[indexPath.row - 1] {
+                                                                                self?.fileManager.deleteFile(identifier: file.fileName)
+                                                                            }
+                                                                            tableView.deleteRows(at: [indexPath], with: .automatic)
+                                                                            tableView.endUpdates()
+                                            })
+        }
+
+        let edit = UITableViewRowAction(style: .normal, title: "Edit") { [weak self] _, indexPath in
+
+            if let currentRecording = self?.recordings[indexPath.row - 1] {
+                let title = AlertConstants.editTitle
+                let message = AlertConstants.editTitleMessage
+                let placeholder = currentRecording.userTitle
+                let uniqueID = currentRecording.fileName
+
+                self?.presentAlertWith(title: title,
+                                       message: message,
+                                       placeholder: placeholder,
+                                       completion: { [weak self] text in
+                                        self?.fileManager.editTitleOf(uniqueID: uniqueID, newTitle: text)
+                                        tableView.reloadRows(at: [indexPath], with: .automatic )
+                })
+            }
+        }
+        return [delete, edit]
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recordings.count + 1
     }

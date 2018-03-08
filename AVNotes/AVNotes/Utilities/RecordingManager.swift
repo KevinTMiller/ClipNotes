@@ -67,6 +67,27 @@ class RecordingManager: NSObject {
         saveFiles()
     }
 
+    func deleteFolder(identifier: String) {
+        if let index = folderList.index(where: { $0.systemID == identifier }) {
+            folderList.remove(at: index)
+        }
+
+        let files = recordingArray.filter { $0.folderID == identifier }
+        for file in files {
+            if let index = recordingArray.index(where: { $0.fileName == file.fileName }) {
+                recordingArray.remove(at: index)
+            }
+        }
+        saveFiles()
+    }
+
+    func deleteFile(identifier: String) {
+        if let index = recordingArray.index(where: { $0.fileName == identifier }) {
+            recordingArray.remove(at: index)
+            saveFiles()
+        }
+    }
+
     func loadFiles() {
         do {
             try recordingArray = Disk.retrieve("recordings.json",
