@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -52,7 +53,7 @@
                                                 <rect key="frame" x="0.0" y="17" width="325" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                             </textField>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="This is the text of the bookmark. Users will enter the text of what they want to go here. " textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lgS-3L-9Xc">
                                                 <rect key="frame" x="0.0" y="56" width="325" height="132"/>
@@ -616,12 +617,20 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="AudioBookmarks" id="etY-Vw-Xqy">
-                        <barButtonItem key="leftBarButtonItem" systemItem="organize" id="19D-L6-JfK">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <segue destination="Xie-09-kZI" kind="show" identifier="toFileView" id="z2O-Yr-ca7"/>
-                            </connections>
-                        </barButtonItem>
+                        <leftBarButtonItems>
+                            <barButtonItem systemItem="organize" id="19D-L6-JfK">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <segue destination="Xie-09-kZI" kind="show" identifier="toFileView" id="z2O-Yr-ca7"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="action" id="rRw-n9-Bxn">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="shareButtonTapped:" destination="YLd-EO-8NF" id="SlZ-kb-va1"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ybW-R5-qqM">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -649,6 +658,7 @@
                         <outlet property="recordingDateLabel" destination="fYI-Gf-J4I" id="w3H-c7-yQ0"/>
                         <outlet property="recordingTitleLabel" destination="KR6-Lf-E9G" id="Q8m-n2-BCN"/>
                         <outlet property="scrubSlider" destination="S4F-to-qwf" id="dbQ-pL-mRg"/>
+                        <outlet property="shareButton" destination="rRw-n9-Bxn" id="8g1-xI-Zb2"/>
                         <outlet property="stopWatchLabel" destination="0UE-KP-Dkr" id="EBk-yF-tX7"/>
                         <outlet property="waveformView" destination="XQx-qj-YCw" id="LWn-iY-4TD"/>
                     </connections>

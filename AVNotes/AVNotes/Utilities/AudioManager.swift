@@ -50,17 +50,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     // MARK: Public vars
     var stateManager: StateManager!
 
-//    public var currentState: CurrentState = .fresh {
-//        didSet {
-//            print(currentState)
-//        }
-//    }
-//    public var currentMode: CurrentMode = .record {
-//        didSet {
-//            print(currentMode)
-//        }
-//    }
-
     public var plot: AKNodeOutputPlot?
 
     public var isRecording: Bool {
@@ -75,16 +64,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
     public var currentTimeString: String? {
         return String.stringFrom(timeInterval: currentTimeInterval)
-//        switch stateManager.currentState {
-//
-//        case .recording:
-//            guard let audioRecorder = audioRecorder else { return nil }
-//            return String.stringFrom(timeInterval: audioRecorder.currentTime)
-//        case .playing:
-//            guard let audioPlayer = audioPlayer else { return nil }
-//            return String.stringFrom(timeInterval: audioPlayer.currentTime)
-//        default:
-//            return Constants.blankTimeString
         }
 
     public var currentTimeInterval: TimeInterval {
@@ -97,15 +76,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             return audioRecorder.currentTime
         }
         return 0
-        //        switch stateManager.currentState {
-        //        case .recording:
-        //            guard let audioRecorder = audioRecorder else { return 0 }
-        //            return audioRecorder.currentTime
-        //        case .playing:
-        //            guard let audioPlayer = audioPlayer else { return 0 }
-        //            return audioPlayer.currentTime
-        ////        default:
-        //        }
     }
 
     public var currentRecording: AnnotatedRecording? {
@@ -154,8 +124,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     func setUpAKAudio() {
         AKSettings.audioInputEnabled = true
         akMicrophone = AKMicrophone()
-//        tracker = AKFrequencyTracker(akMicrophone)
-//        silence = AKBooster(tracker, gain: 0.0)
         mixer = AKMixer(akMicrophone)
         AudioKit.output = mixer
     }
@@ -182,15 +150,12 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     // then creating a instance of the AVAudioRecord with the current path and settings. */
 
     func startRecordingAudio() {
-//        audioPlayer = nil
         let filename = currentRecording?.fileName
         let audioFilePath = getDocumentsDirectory().appendingPathComponent(filename!)
-//        setUpAKAudio()
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: audioSettings)
             audioRecorder?.record()
-//            currentMode = .record
-//            currentState = .running
+
             stateManager.currentState = .recording
             print("Recording: \(isRecording)")
         } catch {
@@ -258,15 +223,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         }
     }
 
-//    func togglePause(pause: Bool) {
-//        if pause {
-//            audioRecorder?.pause()
-//            currentState = .paused
-//        } else {
-//            audioRecorder?.record()
-//            currentState = .running
-//        }
-//    }
 
     func switchToRecord() {
         setBlankRecording()
@@ -300,8 +256,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         do {
             audioPlayer = nil
             try setUpRecordingSession()
-//            currentRecording = createAnnotatedRecording()
-//            setUpAKAudio()
             success()
         } catch {
             failure(error)
@@ -352,7 +306,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         do {
             try audioSession.setCategory(AVAudioSessionCategoryRecord)
             try audioSession.setActive(true)
-//            setUpAKAudio()
             audioSession.requestRecordPermission({ allowed in
                 if allowed {
                     print("Audio recording session allowed")
@@ -372,11 +325,7 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         if success {
             saveRecording(recording: currentRecording!)
             stateManager.currentState = .playingStopped
-//            currentState = .finishedSuccessfully
-        } else {
-//            stateManager.currentState = .error
         }
-//        setBlankRecording()
     }
 
     // Create an Annotated recording object and set it to the currentRecording property
@@ -413,7 +362,7 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         return duration.seconds
     }
 
-    private func getDocumentsDirectory() -> URL {
+    func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
         return documentsDirectory
@@ -423,7 +372,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
 
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         finishRecordingAudio(success: flag, path: recorder.url, name: nil)
-//        NotificationCenter.default.post(name: .playRecordDidStop, object: nil)
     }
 
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {

@@ -32,11 +32,8 @@ class AudioRecordViewController: UIViewController {
         static let timerInterval = 0.03
         static let recordAlertTitle = "Press Record"
         static let tableViewInset: CGFloat = 8.0
-        static let emptyTimeString = "00:00"
-        static let animationDuation = 0.33
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
-        static let emptyTableText = "No bookmarks yet. To create a bookmark, start recording or playback and then press the add button."
         static let viewSize: CGFloat = 150.0
     }
 
@@ -46,6 +43,10 @@ class AudioRecordViewController: UIViewController {
         static let recordingSaved = "Your recording has been saved."
         static let save = "Save"
         static let success = "Success"
+        static let export = "Export:"
+        static let recording = "Recording"
+        static let bookmarks = "Bookmarks"
+        static let cancel = "Cancel"
     }
 
     enum ImageConstants {
@@ -55,6 +56,7 @@ class AudioRecordViewController: UIViewController {
         static let recordImage = "ic_fiber_manual_record_48pt"
     }
 
+    @IBOutlet var shareButton: UIBarButtonItem!
     @IBOutlet private var filesButton: UIBarButtonItem!
     @IBOutlet private var plusButton: UIBarButtonItem!
     @IBOutlet private var audioPlotGL: EZAudioPlot!
@@ -63,26 +65,23 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var addBookmarkButton: UIButton!
     @IBOutlet private weak var addButtonSuperview: UIView!
     @IBOutlet private weak var annotationTableView: UITableView!
-    @IBOutlet private weak var audioPlotGL: EZAudioPlot!
     @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
     @IBOutlet private var bookmarkButtonTrailing: NSLayoutConstraint!
     @IBOutlet private weak var controlView: UIView!
     @IBOutlet private var scrubSlider: UISlider!
-    @IBOutlet private weak var annotationTableView: UITableView!
     @IBOutlet private var gradientView: GradientView!
     @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var playStackView: UIStackView!
     @IBOutlet private weak var recordButton: UIButton!
     @IBOutlet private weak var recordingDateLabel: UILabel!
     @IBOutlet private weak var recordingTitleLabel: UILabel!
-    @IBOutlet private var recordStackLeading: NSLayoutConstraint!
-    @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
     @IBOutlet private weak var recordStackView: UIStackView!
     @IBOutlet private weak var spacerHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var stopWatchLabel: UILabel!
     @IBOutlet private weak var waveformView: BorderDrawingView!
 
     // MARK: Private Vars
+    
     private let fileManager = RecordingManager.sharedInstance
     private lazy var gradientManager = GradientManager()
     private lazy var isInitialFirstViewing = true
@@ -100,8 +99,6 @@ class AudioRecordViewController: UIViewController {
     var microphone: AKMicrophone!
     var tracker: AKFrequencyTracker!
     var silence: AKBooster!
-    private var plot: AKNodeOutputPlot?
-    private lazy var gradientManager = GradientManager()
     private var buttonIsCenter = false
 
     // MARK: Lifecycle functions
@@ -141,6 +138,10 @@ class AudioRecordViewController: UIViewController {
     }
 
     // MARK: IBActions
+    @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
+        showShareAlertSheet()
+    }
+
     @IBAction func doneButtonDidTouch(_ sender: UIButton) {
         stateManager.endRecording()
     }
@@ -216,6 +217,41 @@ class AudioRecordViewController: UIViewController {
         gradientManager.addManagedView(gradientView)
         gradientManager.addManagedView(addBookmarkButton)
     
+    }
+    private func showShareAlertSheet() {
+        let alert = UIAlertController(title: AlertConstants.export, message: nil, preferredStyle: .actionSheet)
+        let bookmarks = UIAlertAction(title: AlertConstants.bookmarks, style: .default) { [weak self] _ in
+            self?.exportBookmarks()
+        }
+        let recording = UIAlertAction(title: AlertConstants.recording, style: .default) { [weak self] _ in
+            self?.exportRecording()
+        }
+        let cancel = UIAlertAction(title: AlertConstants.cancel, style: .cancel, handler: nil)
+        alert.addAction(bookmarks)
+        alert.addAction(recording)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func exportRecording() {
+        guard let currentRecording = mediaManager.currentRecording else { return }
+
+        let fileName = currentRecording.fileName
+        let userName = "\(currentRecording.userTitle).m4a"
+        let originPath = mediaManager.getDocumentsDirectory().appendingPathComponent(fileName)
+        let tempPath = FileManager.default.temporaryDirectory.appendingPathComponent(userName)
+        try? FileManager.default.copyItem(at: originPath, to: tempPath)
+        let activityController = UIActivityViewController(activityItems: [tempPath], applicationActivities: nil)
+        present(activityController, animated: true, completion: nil)
+
+    }
+
+    private func exportBookmarks() {
+        guard let currentRecording = mediaManager.currentRecording else { return }
+        if let stringURL = String.formatBookmarksForExport(recording: currentRecording) {
+            let activityController = UIActivityViewController(activityItems: [stringURL], applicationActivities: nil)
+            present(activityController, animated: true, completion: nil)
+        }
     }
 
     private func toggleSlider(isOn: Bool) {
@@ -398,6 +434,7 @@ class AudioRecordViewController: UIViewController {
 extension AudioRecordViewController: StateManagerViewDelegate {
 
     func updateButtons() {
+        shareButton.isEnabled = stateManager.canShare
         playPauseButton.isSelected = stateManager.isPlaying
         recordButton.isSelected = stateManager.isRecording
         plusButton.isEnabled = stateManager.canAnnotate
@@ -428,6 +465,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         updateUIInfo()
         plot?.clear()
         toggleSlider(isOn: true)
+        animateFab(active: true)
         switchToPlayStack()
     }
 

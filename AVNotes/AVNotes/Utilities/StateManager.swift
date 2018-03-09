@@ -72,6 +72,15 @@ class StateManager: NSObject {
             return true
         }
     }
+    
+    var canShare: Bool {
+        switch currentState {
+        case .playing, .playingPaused, .playingStopped, .readyToPlay, .prepareToPlay:
+            return true
+        default:
+            return false
+        }
+    }
 
     var isPlaying: Bool {
         switch currentState {
