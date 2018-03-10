@@ -50,11 +50,6 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         fileTableView.dragDelegate = self
         fileTableView.dropDelegate = self
         fileTableView.dragInteractionEnabled = true
-
-//        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView),
-//                                               name: .annotationsDidUpdate, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView),
-//                                               name: .modelDidUpdate, object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -477,7 +477,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     }
 }
 
-extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource, BookmarkTableViewDelegate {
+extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataSource, UITableViewDelegate {
 
     func updateBookmarkTableview() {
         annotationTableView.reloadData()

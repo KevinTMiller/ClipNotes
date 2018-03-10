@@ -32,8 +32,8 @@ enum AudioManagerError: Error {
 }
 
 class AudioManager: NSObject,
-AVAudioRecorderDelegate,
 AVAudioPlayerDelegate,
+AVAudioRecorderDelegate,
 StateManagerModelDelegate {
 
     override init() {
