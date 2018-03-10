@@ -82,7 +82,7 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var waveformView: BorderDrawingView!
 
     // MARK: Private Vars
-    private var buttonIsCenter = false
+    private var isButtonCenter = false
     private let fileManager = RecordingManager.sharedInstance
     private lazy var gradientManager = GradientManager()
     private lazy var isInitialFirstViewing = true
@@ -285,11 +285,11 @@ class AudioRecordViewController: UIViewController {
         if active {
             NSLayoutConstraint.deactivate([bookmarkButtonTrailing])
             NSLayoutConstraint.activate([bookmarkButtonCenter])
-            buttonIsCenter = true
+            isButtonCenter = true
         } else {
             NSLayoutConstraint.deactivate([bookmarkButtonCenter])
             NSLayoutConstraint.activate([bookmarkButtonTrailing])
-            buttonIsCenter = false
+            isButtonCenter = false
         }
         UIView.animate(withDuration: 0.33,
                        delay: 0.0,
@@ -306,7 +306,7 @@ class AudioRecordViewController: UIViewController {
         let orientation = UIDevice.current.orientation
         if orientation.isLandscape || orientation.isPortrait {
             roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
-            animateFab(active: buttonIsCenter)
+            animateFab(active: isButtonCenter)
         }
     }
 
