@@ -27,10 +27,12 @@ class AudioRecordViewController: UIViewController {
         static let cellIdentifier = "annotationCell"
         static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button." // swiftlint:disable:this line_length
         static let emptyTimeString = "00:00.00"
+        static let insetConstant: CGFloat = 3.0
         static let mainStoryboard = "Main"
         static let playbackLineWidth: CGFloat = 1 / UIScreen.main.scale
         static let recordAlertMessage = "Start recording before adding a bookmark"
         static let recordAlertTitle = "Press Record"
+        static let trailingInset: CGFloat = 0.06
         static let tableViewInset: CGFloat = 8.0
         static let timerInterval = 0.03
         static let titleFont = "montserrat"
@@ -221,8 +223,10 @@ class AudioRecordViewController: UIViewController {
         waveformView.addSubview(playbackLine!)
         playbackLine?.backgroundColor = .white
         playbackLine?.widthAnchor.constraint(equalToConstant: Constants.playbackLineWidth).isActive = true // swiftlint:disable:this line_length
-        playbackLine?.topAnchor.constraint(equalTo: waveformView.topAnchor).isActive = true
-        playbackLine?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
+        playbackLine?.topAnchor.constraint(equalTo: waveformView.topAnchor,
+                                           constant: Constants.insetConstant).isActive = true
+        playbackLine?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor,
+                                              constant: -Constants.insetConstant).isActive = true
 
         playbackLine?.translatesAutoresizingMaskIntoConstraints = false
         playbackLine?.isHidden = false
@@ -419,10 +423,11 @@ class AudioRecordViewController: UIViewController {
         summaryPlot?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
-        summaryPlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
-                                              constant: 4.0).isActive = true
+                summaryPlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
+                                              constant: Constants.insetConstant).isActive = true
+        let trailing = waveformView.bounds.width * Constants.trailingInset
         summaryPlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
-                                               constant: -4.0).isActive = true
+                                               constant: -trailing).isActive = true
 
     }
     
@@ -442,9 +447,11 @@ class AudioRecordViewController: UIViewController {
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
         livePlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
-                                          constant: 4.0).isActive = true
+                                          constant: Constants.insetConstant).isActive = true
+        let trailing = waveformView.bounds.width * Constants.trailingInset
         livePlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
-                                           constant: -4.0).isActive = true
+                                            constant: -trailing).isActive = true
+
     }
 
     private func switchToPlayStack() {
