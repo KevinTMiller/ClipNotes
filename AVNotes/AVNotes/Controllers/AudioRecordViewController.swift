@@ -60,7 +60,7 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var addBookmarkButton: UIButton!
     @IBOutlet private weak var addButtonSuperview: UIView!
     @IBOutlet private weak var annotationTableView: UITableView!
-    @IBOutlet private var audioPlotGL: EZAudioPlot!
+    @IBOutlet private var audioPlot: EZAudioPlot!
     @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
     @IBOutlet private var bookmarkButtonTrailing: NSLayoutConstraint!
     @IBOutlet private weak var controlView: UIView!
@@ -82,6 +82,7 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var waveformView: BorderDrawingView!
 
     // MARK: Private Vars
+    private var isButtonCenter = false
     private let fileManager = RecordingManager.sharedInstance
     private lazy var gradientManager = GradientManager()
     private lazy var isInitialFirstViewing = true
@@ -90,15 +91,13 @@ class AudioRecordViewController: UIViewController {
     private weak var modalTransitioningDelegate = CustomModalPresentationManager()
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
-    private var plot: AKNodeOutputPlot?
     private var stateManager = StateManager.sharedInstance
     private var timer: Timer?
 
     // MARK: AudioKit Vars
-    var microphone: AKMicrophone!
-    var tracker: AKFrequencyTracker!
-    var silence: AKBooster!
-    private var buttonIsCenter = false
+    private var microphone: AKMicrophone!
+    private var livePlot: AKNodeOutputPlot?
+    private var summaryPlot: EZAudioPlot?
 
     // MARK: Lifecycle functions
     override func viewDidLoad() {
@@ -130,7 +129,7 @@ class AudioRecordViewController: UIViewController {
         super.viewWillAppear(animated)
         UIApplication.shared.statusBarStyle = .lightContent
         setNeedsStatusBarAppearanceUpdate()
-        audioPlotGL.backgroundColor = .clear
+        audioPlot.backgroundColor = .clear
         navigationController?.navigationBar.backgroundColor = .clear
     }
 
@@ -213,8 +212,8 @@ class AudioRecordViewController: UIViewController {
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
         gradientManager.addManagedView(addBookmarkButton)
-    
     }
+
     private func showShareAlertSheet() {
         let alert = UIAlertController(title: AlertConstants.export,
                                       message: nil,
@@ -286,11 +285,11 @@ class AudioRecordViewController: UIViewController {
         if active {
             NSLayoutConstraint.deactivate([bookmarkButtonTrailing])
             NSLayoutConstraint.activate([bookmarkButtonCenter])
-            buttonIsCenter = true
+            isButtonCenter = true
         } else {
             NSLayoutConstraint.deactivate([bookmarkButtonCenter])
             NSLayoutConstraint.activate([bookmarkButtonTrailing])
-            buttonIsCenter = false
+            isButtonCenter = false
         }
         UIView.animate(withDuration: 0.33,
                        delay: 0.0,
@@ -307,7 +306,7 @@ class AudioRecordViewController: UIViewController {
         let orientation = UIDevice.current.orientation
         if orientation.isLandscape || orientation.isPortrait {
             roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
-            animateFab(active: buttonIsCenter)
+            animateFab(active: isButtonCenter)
         }
     }
 
@@ -383,33 +382,41 @@ class AudioRecordViewController: UIViewController {
     }
 
     private func resetPlot() {
-        plot?.clear()
-        plot?.plotType = .rolling
-        plot?.shouldFill = true
-        plot?.shouldMirror = true
-        plot?.backgroundColor = .clear
-        plot?.color = .white
-        plot?.gain = 2
-        plot?.setRollingHistoryLength(200)
+        summaryPlot?.removeFromSuperview()
+        livePlot?.clear()
+        livePlot?.plotType = .rolling
+        livePlot?.shouldFill = true
+        livePlot?.shouldMirror = true
+        livePlot?.backgroundColor = .clear
+        livePlot?.color = .white
+        livePlot?.gain = 2
+        livePlot?.setRollingHistoryLength(200)
+    }
+
+    private func setSummaryPlot() {
+        summaryPlot?.removeFromSuperview()
+        summaryPlot = mediaManager.getPlotFromCurrentRecording()
+        summaryPlot!.frame = audioPlot.bounds
+        audioPlot.addSubview(summaryPlot!)
     }
     
     private func setUpAudioPlot() {
-        plot = AKNodeOutputPlot(microphone, frame: CGRect())
-        plot?.plotType = .rolling
-        plot?.shouldFill = true
-        plot?.shouldMirror = true
-        plot?.backgroundColor = .clear
-        plot?.color = .white
-        plot?.gain = 3
-        plot?.setRollingHistoryLength(200) // 200 Displays 5 sec before scrolling
-        audioPlotGL.addSubview(plot!)
-        plot?.translatesAutoresizingMaskIntoConstraints = false
-        plot?.topAnchor.constraint(equalTo: waveformView.topAnchor).isActive = true
-        plot?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
+        livePlot = AKNodeOutputPlot(microphone, frame: CGRect())
+        livePlot?.plotType = .rolling
+        livePlot?.shouldFill = true
+        livePlot?.shouldMirror = true
+        livePlot?.backgroundColor = .clear
+        livePlot?.color = .white
+        livePlot?.gain = 3
+        livePlot?.setRollingHistoryLength(200) // 200 Displays 5 sec before scrolling
+        audioPlot.addSubview(livePlot!)
+        livePlot?.translatesAutoresizingMaskIntoConstraints = false
+        livePlot?.topAnchor.constraint(equalTo: waveformView.topAnchor).isActive = true
+        livePlot?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
-        plot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor, constant: 4.0).isActive = true
-        plot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor, constant: -4.0).isActive = true
+        livePlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor, constant: 4.0).isActive = true
+        livePlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor, constant: -4.0).isActive = true
     }
 
     private func switchToPlayStack() {
@@ -432,6 +439,7 @@ class AudioRecordViewController: UIViewController {
         })
     }
 }
+
 extension AudioRecordViewController: StateManagerViewDelegate {
 
     func updateButtons() {
@@ -449,7 +457,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     func finishRecording() {
         updateButtons()
         updateUIInfo()
-        plot?.clear()
+        livePlot?.clear()
         toggleSlider(isOn: false)
     }
 
@@ -464,7 +472,8 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         updateButtons()
         scrubSlider.value = 0.0
         updateUIInfo()
-        plot?.clear()
+        livePlot?.clear()
+        setSummaryPlot()
         toggleSlider(isOn: true)
         animateFab(active: true)
         switchToPlayStack()
@@ -502,7 +511,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
 
     func stopRecording() {
         try? AudioKit.stop()
-        plot?.clear()
+        livePlot?.clear()
         toggleTimer(isOn: false)
         self.presentAlertWith(title: AlertConstants.save,
                               message: AlertConstants.enterTitle,
