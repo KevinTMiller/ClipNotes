@@ -21,14 +21,15 @@ enum CurrentState {
 }
 
 enum CurrentMode {
-    case record
     case play
+    case record
 }
+
 enum AudioManagerError: Error {
-    case noRecordingPermission
+    case errorLoadingFile
     case errorSettingUpSession
     case errorWithPlayback
-    case errorLoadingFile
+    case noRecordingPermission
 }
 
 class AudioManager: NSObject,
@@ -45,15 +46,14 @@ StateManagerModelDelegate {
     static let sharedInstance = AudioManager()
 
     enum Constants {
-        static let m4aSuffix = "m4a"
-        static let lastRecordingKey = "lastRecording"
         static let blankTimeString = "00:00"
+        static let lastRecordingKey = "lastRecording"
+        static let m4aSuffix = "m4a"
     }
 
     // MARK: Public vars
-    var stateManager: StateManager!
-
     public var plot: AKNodeOutputPlot?
+    public var stateManager: StateManager!
 
     public var isRecording: Bool {
         guard let audioRecorder = audioRecorder else { return false }
@@ -384,4 +384,3 @@ StateManagerModelDelegate {
         }
     }
 }
-

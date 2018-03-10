@@ -10,6 +10,10 @@ import UIKit
 
 class FileViewCell: UITableViewCell {
 
+    enum Constants {
+        static let bookmarks = "Bookmarks"
+    }
+
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var bookmarkLabel: UILabel!
@@ -26,7 +30,7 @@ class FileViewCell: UITableViewCell {
     func populateSelfFrom(recording: AnnotatedRecording) {
         self.titleLabel.text = recording.userTitle
         self.durationLabel.text = String.stringFrom(timeInterval: recording.duration)
-        self.bookmarkLabel.text = "\(recording.annotations?.count ?? 0) Bookmarks"
+        self.bookmarkLabel.text = "\(recording.annotations?.count ?? 0) \(Constants.bookmarks)"
         self.dateLabel.text = DateFormatter.localizedString(from: recording.date,
                                                             dateStyle: .short,
                                                             timeStyle: .none)

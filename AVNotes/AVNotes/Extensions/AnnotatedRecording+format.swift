@@ -1,5 +1,5 @@
 //
-//  String+TxtFromBookmarks.swift
+//  AnnotatedRecording+format.swift
 //  AVNotes
 //
 //  Created by Kevin Miller on 3/9/18.
@@ -8,7 +8,11 @@
 
 import Foundation
 
-extension String {
+extension AnnotatedRecording {
+    enum Constants {
+        static let created = "created"
+    }
+
     static func formatBookmarksForExport(recording: AnnotatedRecording) -> URL? {
         guard let bookmarks = recording.annotations else { return nil }
 
@@ -17,7 +21,7 @@ extension String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .long
         let prettyDate = dateFormatter.string(from: recording.date)
-        var string = "\(recording.userTitle) - created \(prettyDate)\n\n"
+        var string = "\(recording.userTitle) - \(Constants.created) \(prettyDate)\n\n"
         for bookmark in bookmarks {
             let timeString = String.stringFrom(timeInterval: bookmark.timeStamp)
             let tempString = "\(bookmark.title) - \(timeString)\n\(bookmark.noteText)\n\n"

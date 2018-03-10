@@ -25,63 +25,63 @@ class AudioRecordViewController: UIViewController {
         static let animationDuation = 0.33
         static let bookmarkModal = "bookmarkModal"
         static let cellIdentifier = "annotationCell"
-        static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button."
+        static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button." // swiftlint:disable:this line_length
         static let emptyTimeString = "00:00.00"
         static let mainStoryboard = "Main"
         static let recordAlertMessage = "Start recording before adding a bookmark"
-        static let timerInterval = 0.03
         static let recordAlertTitle = "Press Record"
         static let tableViewInset: CGFloat = 8.0
+        static let timerInterval = 0.03
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
         static let viewSize: CGFloat = 150.0
     }
 
     enum AlertConstants {
+        static let bookmarks = "Bookmarks"
+        static let cancel = "Cancel"
         static let enterTitle = "Enter a title for this recording"
+        static let export = "Export:"
         static let newRecording = "New Recording"
+        static let recording = "Recording"
         static let recordingSaved = "Your recording has been saved."
         static let save = "Save"
         static let success = "Success"
-        static let export = "Export:"
-        static let recording = "Recording"
-        static let bookmarks = "Bookmarks"
-        static let cancel = "Cancel"
     }
 
     enum ImageConstants {
         static let pauseImage = "ic_pause_circle_outline_48pt"
         static let playImage = "ic_play_circle_outline_48pt"
-        static let thumbImage = "ic_fiber_manual_record_white_18pt"
         static let recordImage = "ic_fiber_manual_record_48pt"
+        static let thumbImage = "ic_fiber_manual_record_white_18pt"
     }
 
-    @IBOutlet var shareButton: UIBarButtonItem!
-    @IBOutlet private var filesButton: UIBarButtonItem!
-    @IBOutlet private var plusButton: UIBarButtonItem!
-    @IBOutlet private var audioPlotGL: EZAudioPlot!
-    @IBOutlet private var recordStackLeading: NSLayoutConstraint!
-    @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
+    // MARK: IBOutlets
     @IBOutlet private weak var addBookmarkButton: UIButton!
     @IBOutlet private weak var addButtonSuperview: UIView!
     @IBOutlet private weak var annotationTableView: UITableView!
+    @IBOutlet private var audioPlotGL: EZAudioPlot!
     @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
     @IBOutlet private var bookmarkButtonTrailing: NSLayoutConstraint!
     @IBOutlet private weak var controlView: UIView!
-    @IBOutlet private var scrubSlider: UISlider!
+    @IBOutlet private var filesButton: UIBarButtonItem!
     @IBOutlet private var gradientView: GradientView!
     @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var playStackView: UIStackView!
+    @IBOutlet private var plusButton: UIBarButtonItem!
     @IBOutlet private weak var recordButton: UIButton!
     @IBOutlet private weak var recordingDateLabel: UILabel!
     @IBOutlet private weak var recordingTitleLabel: UILabel!
+    @IBOutlet private var recordStackLeading: NSLayoutConstraint!
+    @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
     @IBOutlet private weak var recordStackView: UIStackView!
+    @IBOutlet private var scrubSlider: UISlider!
+    @IBOutlet private var shareButton: UIBarButtonItem!
     @IBOutlet private weak var spacerHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var stopWatchLabel: UILabel!
     @IBOutlet private weak var waveformView: BorderDrawingView!
 
     // MARK: Private Vars
-    
     private let fileManager = RecordingManager.sharedInstance
     private lazy var gradientManager = GradientManager()
     private lazy var isInitialFirstViewing = true
@@ -90,10 +90,9 @@ class AudioRecordViewController: UIViewController {
     private weak var modalTransitioningDelegate = CustomModalPresentationManager()
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
-
-    private var timer: Timer?
-    var plot: AKNodeOutputPlot?
+    private var plot: AKNodeOutputPlot?
     private var stateManager = StateManager.sharedInstance
+    private var timer: Timer?
 
     // MARK: AudioKit Vars
     var microphone: AKMicrophone!
@@ -113,7 +112,6 @@ class AudioRecordViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(refreshAfterRotate),
                                                name: .UIDeviceOrientationDidChange, object: nil)
         setUpMiscUI()
-
     }
 
     override func viewWillLayoutSubviews() {
@@ -218,11 +216,15 @@ class AudioRecordViewController: UIViewController {
     
     }
     private func showShareAlertSheet() {
-        let alert = UIAlertController(title: AlertConstants.export, message: nil, preferredStyle: .actionSheet)
-        let bookmarks = UIAlertAction(title: AlertConstants.bookmarks, style: .default) { [weak self] _ in
+        let alert = UIAlertController(title: AlertConstants.export,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        let bookmarks = UIAlertAction(title: AlertConstants.bookmarks,
+                                      style: .default) { [weak self] _ in
             self?.exportBookmarks()
         }
-        let recording = UIAlertAction(title: AlertConstants.recording, style: .default) { [weak self] _ in
+        let recording = UIAlertAction(title: AlertConstants.recording,
+                                      style: .default) { [weak self] _ in
             self?.exportRecording()
         }
         let cancel = UIAlertAction(title: AlertConstants.cancel, style: .cancel, handler: nil)
@@ -240,15 +242,17 @@ class AudioRecordViewController: UIViewController {
         let originPath = mediaManager.getDocumentsDirectory().appendingPathComponent(fileName)
         let tempPath = FileManager.default.temporaryDirectory.appendingPathComponent(userName)
         try? FileManager.default.copyItem(at: originPath, to: tempPath)
-        let activityController = UIActivityViewController(activityItems: [tempPath], applicationActivities: nil)
+        let activityController = UIActivityViewController(activityItems: [tempPath],
+                                                          applicationActivities: nil)
         present(activityController, animated: true, completion: nil)
 
     }
 
     private func exportBookmarks() {
         guard let currentRecording = mediaManager.currentRecording else { return }
-        if let stringURL = String.formatBookmarksForExport(recording: currentRecording) {
-            let activityController = UIActivityViewController(activityItems: [stringURL], applicationActivities: nil)
+        if let stringURL = AnnotatedRecording.formatBookmarksForExport(recording: currentRecording) {
+            let activityController = UIActivityViewController(activityItems: [stringURL],
+                                                              applicationActivities: nil)
             present(activityController, animated: true, completion: nil)
         }
     }
@@ -308,7 +312,6 @@ class AudioRecordViewController: UIViewController {
     }
 
     private func roundedTopCornerMask(view: UIView, size: Double ) {
-
         let cornerRadius = CGSize(width: size, height: size)
         let maskPath = UIBezierPath(roundedRect: view.bounds,
                                     byRoundingCorners: [.topLeft, .topRight],
@@ -380,7 +383,6 @@ class AudioRecordViewController: UIViewController {
     }
 
     private func resetPlot() {
-        
         plot?.clear()
         plot?.plotType = .rolling
         plot?.shouldFill = true
@@ -398,7 +400,7 @@ class AudioRecordViewController: UIViewController {
         plot?.shouldMirror = true
         plot?.backgroundColor = .clear
         plot?.color = .white
-        plot?.gain = 10
+        plot?.gain = 3
         plot?.setRollingHistoryLength(200) // 200 Displays 5 sec before scrolling
         audioPlotGL.addSubview(plot!)
         plot?.translatesAutoresizingMaskIntoConstraints = false
@@ -502,7 +504,8 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         try? AudioKit.stop()
         plot?.clear()
         toggleTimer(isOn: false)
-        self.presentAlertWith(title: AlertConstants.save, message: AlertConstants.enterTitle,
+        self.presentAlertWith(title: AlertConstants.save,
+                              message: AlertConstants.enterTitle,
                               placeholder: AlertConstants.newRecording) { [ weak self ] name in
                                 if name != "" {
                                     self?.mediaManager.currentRecording?.userTitle = name
@@ -525,7 +528,9 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
         return true
     }
 
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCellEditingStyle,
+                   forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             mediaManager.currentRecording?.annotations!.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -567,7 +572,8 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
             view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor,
                                            constant: -Constants.tableViewInset).isActive = true
             view.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: Constants.viewSize).isActive = true
+            view.bottomAnchor.constraint(equalTo: tableView.topAnchor,
+                                         constant: Constants.viewSize).isActive = true
             return 1
         }
         if count > 0 {

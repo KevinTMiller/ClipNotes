@@ -93,21 +93,21 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
                    editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
 
         let delete = UITableViewRowAction(style: .destructive,
-                  title: AlertConstants.delete) { [weak self] _, indexPath in
-                    let fileOrFolder = self?.fileManager.filesAndFolders[indexPath.row]
-                    let message = fileOrFolder is Folder ? AlertConstants.folderAreYouSure : AlertConstants.areYouSure
-                    self?.confirmDestructiveAlert(title: AlertConstants.delete,
-                                                  message: message,
-                                                  delete: {
-                                                    tableView.beginUpdates()
-                                                    if let folder = fileOrFolder as? Folder {
-                                                        self?.fileManager.deleteFolder(identifier: folder.systemID)
-                                                    }
-                                                    if let file = fileOrFolder as? AnnotatedRecording {
-                                                        self?.fileManager.deleteFile(identifier: file.fileName)
-                                                    }
-                                                    tableView.deleteRows(at: [indexPath], with: .automatic)
-                                                    tableView.endUpdates()
+                                          title: AlertConstants.delete) { [weak self] _, indexPath in
+        let fileOrFolder = self?.fileManager.filesAndFolders[indexPath.row]
+        let message = fileOrFolder is Folder ? AlertConstants.folderAreYouSure : AlertConstants.areYouSure
+        self?.confirmDestructiveAlert(title: AlertConstants.delete,
+                                      message: message,
+                                      delete: {
+                                        tableView.beginUpdates()
+                                        if let folder = fileOrFolder as? Folder {
+                                            self?.fileManager.deleteFolder(identifier: folder.systemID)
+                                        }
+                                        if let file = fileOrFolder as? AnnotatedRecording {
+                                            self?.fileManager.deleteFile(identifier: file.fileName)
+                                        }
+                                        tableView.deleteRows(at: [indexPath], with: .automatic)
+                                        tableView.endUpdates()
                     })
         }
 
