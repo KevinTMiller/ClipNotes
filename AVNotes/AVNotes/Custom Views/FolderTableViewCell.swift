@@ -9,9 +9,9 @@
 import UIKit
 
 class FolderTableViewCell: UITableViewCell {
-    
-    @IBOutlet private weak var folderTitleLabel: UILabel!
+
     @IBOutlet private weak var fileCountLabel: UILabel!
+    @IBOutlet private weak var folderTitleLabel: UILabel!
 
     func populateWith(title: String, icon: String) {
         folderTitleLabel.text = title

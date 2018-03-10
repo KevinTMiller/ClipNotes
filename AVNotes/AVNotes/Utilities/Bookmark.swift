@@ -8,10 +8,10 @@
 import Foundation
 
 struct Bookmark: Codable {
+    var dateStamp: Date
+    var noteText: String
     var title: String
     var timeStamp: Double
-    var noteText: String
-    var dateStamp: Date
 
     init(title: String, timestamp: Double, noteText: String) {
         self.title = title

@@ -17,13 +17,13 @@ enum MediaType: Int, Codable {
 }
 
 struct AnnotatedRecording: Codable {
+    var annotations: [Bookmark]?
+    let date: Date
     var duration: Double
-    var userTitle: String
     var fileName: String
     var folderID: String
-    var annotations: [Bookmark]?
     var mediaType: MediaType
-    let date: Date
+    var userTitle: String
 
     init(duration: Double, userTitle: String, fileName: String, mediaType: MediaType) {
         self.duration = duration

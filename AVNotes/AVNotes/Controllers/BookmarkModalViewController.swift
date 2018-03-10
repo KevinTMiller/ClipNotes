@@ -86,8 +86,8 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
             let bookmarkNumber = String((currentRecording.annotations?.count ?? 0) + 1)
 
             bookmarkTimeStamp = timeStamp
-            bookmarkModalTitle.text = Constants.newBookmark + "\(timeString)"
-            bookmarkTitleTextField.text = Constants.bookmark + "\(bookmarkNumber)"
+            bookmarkModalTitle.text = Constants.newBookmark + " \(timeString)"
+            bookmarkTitleTextField.text = Constants.bookmark + " \(bookmarkNumber)"
             bookmarkTextView.text = ""
     }
 
@@ -139,7 +139,6 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
         if currentBookmark != nil {
             currentBookmark!.noteText = textView.text
         }
-
         return true
     }
 

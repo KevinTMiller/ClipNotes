@@ -13,16 +13,16 @@ class StateManager: NSObject {
     enum CurrentState {
         case error
         case initialize
+        case paused
+        case playing
+        case playingPaused
+        case playingStopped
         case prepareToPlay
         case prepareToRecord
         case readyToPlay
         case readyToRecord
         case recording
-        case playing
-        case playingPaused
-        case playingStopped
         case recordingPaused
-        case paused
     }
 
     static let sharedInstance = StateManager()

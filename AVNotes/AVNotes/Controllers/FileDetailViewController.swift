@@ -57,15 +57,15 @@ extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
                    editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .destructive,
                                           title: AlertConstants.delete) { [weak self] _, indexPath in
-                                            self?.confirmDestructiveAlert(title: AlertConstants.delete,
-                                                                          message: AlertConstants.areYouSure,
-                                                                          delete: {
-                                                                            tableView.beginUpdates()
-                                                                            if let file = self?.recordings[indexPath.row - 1] {
-                                                                                self?.fileManager.deleteFile(identifier: file.fileName)
-                                                                            }
-                                                                            tableView.deleteRows(at: [indexPath], with: .automatic)
-                                                                            tableView.endUpdates()
+            self?.confirmDestructiveAlert(title: AlertConstants.delete,
+                                          message: AlertConstants.areYouSure,
+                                          delete: {
+                                            tableView.beginUpdates()
+                                            if let file = self?.recordings[indexPath.row - 1] {
+                                                self?.fileManager.deleteFile(identifier: file.fileName)
+                                            }
+                                            tableView.deleteRows(at: [indexPath], with: .automatic)
+                                            tableView.endUpdates()
                                             })
         }
 

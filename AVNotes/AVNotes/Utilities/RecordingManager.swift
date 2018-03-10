@@ -11,11 +11,16 @@ import MobileCoreServices
 import UIKit
 
 struct Folder: Codable {
-    var userTitle: String
     var systemID: String
+    var userTitle: String
 }
 
 class RecordingManager: NSObject {
+
+    enum Constants {
+        static let folderJSON = "folders.json"
+        static let recordingJSON = "recordings.json"
+    }
 
     static let sharedInstance = RecordingManager()
 
@@ -62,7 +67,7 @@ class RecordingManager: NSObject {
     }
 
     func addFolder(title: String) {
-        let folder = Folder(userTitle: title, systemID: String.uniqueFileName(suffix: nil))
+        let folder = Folder(systemID: String.uniqueFileName(suffix: nil), userTitle: title)
         folderList.append(folder)
         saveFiles()
     }
@@ -90,10 +95,10 @@ class RecordingManager: NSObject {
 
     func loadFiles() {
         do {
-            try recordingArray = Disk.retrieve("recordings.json",
+            try recordingArray = Disk.retrieve(Constants.recordingJSON,
                                                from: .documents,
                                                as: [AnnotatedRecording].self)
-            try folderList = Disk.retrieve("folders.json",
+            try folderList = Disk.retrieve(Constants.folderJSON,
                                            from: .documents,
                                            as: [Folder].self)
         } catch let error {
@@ -126,8 +131,8 @@ class RecordingManager: NSObject {
     func saveFiles() {
         DispatchQueue.global(qos: .userInitiated).async {
             do {
-                try Disk.save(self.recordingArray, to: .documents, as: "recordings.json")
-                try Disk.save(self.folderList, to: .documents, as: "folders.json")
+                try Disk.save(self.recordingArray, to: .documents, as: Constants.recordingJSON)
+                try Disk.save(self.folderList, to: .documents, as: Constants.folderJSON)
             } catch let error {
                 print(error.localizedDescription)
             }
