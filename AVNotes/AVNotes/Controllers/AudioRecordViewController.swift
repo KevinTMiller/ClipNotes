@@ -28,6 +28,7 @@ class AudioRecordViewController: UIViewController {
         static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button." // swiftlint:disable:this line_length
         static let emptyTimeString = "00:00.00"
         static let mainStoryboard = "Main"
+        static let playbackLineWidth: CGFloat = 1 / UIScreen.main.scale
         static let recordAlertMessage = "Start recording before adding a bookmark"
         static let recordAlertTitle = "Press Record"
         static let tableViewInset: CGFloat = 8.0
@@ -77,7 +78,6 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var recordStackView: UIStackView!
     @IBOutlet private var scrubSlider: UISlider!
     @IBOutlet private var shareButton: UIBarButtonItem!
-    @IBOutlet private weak var spacerHeightConstraint: NSLayoutConstraint!
     @IBOutlet private weak var stopWatchLabel: UILabel!
     @IBOutlet private weak var waveformView: BorderDrawingView!
 
@@ -89,6 +89,7 @@ class AudioRecordViewController: UIViewController {
     private lazy var isShowingRecordingView = true
     private let mediaManager = AudioManager.sharedInstance
     private weak var modalTransitioningDelegate = CustomModalPresentationManager()
+    private var playbackLine: UIView?
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
     private var stateManager = StateManager.sharedInstance
@@ -201,6 +202,7 @@ class AudioRecordViewController: UIViewController {
             NSAttributedStringKey.font: UIFont(name: Constants.titleFont, size: 18)!]
         navigationController?.navigationBar.titleTextAttributes = navBarAttributes
 
+        createPlaybackLine()
         roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
         addButtonSuperview.clipsToBounds = false
         addBookmarkButton.layer.shadowColor = UIColor.black.cgColor
@@ -212,6 +214,19 @@ class AudioRecordViewController: UIViewController {
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
         gradientManager.addManagedView(addBookmarkButton)
+    }
+
+    private func createPlaybackLine() {
+        playbackLine = UIView()
+        waveformView.addSubview(playbackLine!)
+        playbackLine?.backgroundColor = .white
+        playbackLine?.widthAnchor.constraint(equalToConstant: Constants.playbackLineWidth).isActive = true // swiftlint:disable:this line_length
+        playbackLine?.topAnchor.constraint(equalTo: waveformView.topAnchor).isActive = true
+        playbackLine?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
+
+        playbackLine?.translatesAutoresizingMaskIntoConstraints = false
+        playbackLine?.isHidden = false
+        playbackLine?.centerXAnchor.constraint(equalTo: waveformView.centerXAnchor).isActive = true
     }
 
     private func showShareAlertSheet() {
@@ -396,8 +411,19 @@ class AudioRecordViewController: UIViewController {
     private func setSummaryPlot() {
         summaryPlot?.removeFromSuperview()
         summaryPlot = mediaManager.getPlotFromCurrentRecording()
-        summaryPlot!.frame = audioPlot.bounds
         audioPlot.addSubview(summaryPlot!)
+        // Setting the frame or bounds causes misalignment upon rotation
+        // Use autolayout constraints instead
+        summaryPlot?.translatesAutoresizingMaskIntoConstraints = false
+        summaryPlot?.topAnchor.constraint(equalTo: waveformView.topAnchor).isActive = true
+        summaryPlot?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
+        // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
+        // and has a border width of 2.0. 4.0 has a nice seamless look
+        summaryPlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
+                                              constant: 4.0).isActive = true
+        summaryPlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
+                                               constant: -4.0).isActive = true
+
     }
     
     private func setUpAudioPlot() {
@@ -415,8 +441,10 @@ class AudioRecordViewController: UIViewController {
         livePlot?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor).isActive = true
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
-        livePlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor, constant: 4.0).isActive = true
-        livePlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor, constant: -4.0).isActive = true
+        livePlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
+                                          constant: 4.0).isActive = true
+        livePlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
+                                           constant: -4.0).isActive = true
     }
 
     private func switchToPlayStack() {
