@@ -108,9 +108,8 @@ class AudioRecordViewController: UIViewController {
         microphone = AKMicrophone()
         stateManager.viewDelegate = self
         stateManager.currentState = .initialize
+        mediaManager.bookmarkTableViewDelegate = self
         definesPresentationContext = true
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView),
-                                               name: .annotationsDidUpdate, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(refreshAfterRotate),
                                                name: .UIDeviceOrientationDidChange, object: nil)
         setUpMiscUI()
@@ -516,7 +515,23 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     }
 }
 
-extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource {
+extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataSource, UITableViewDelegate {
+
+    func updateBookmarkTableview() {
+        annotationTableView.reloadData()
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            mediaManager.currentRecording?.annotations!.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
@@ -553,14 +568,14 @@ extension AudioRecordViewController: UITableViewDelegate, UITableViewDataSource 
                                            constant: -Constants.tableViewInset).isActive = true
             view.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
             view.bottomAnchor.constraint(equalTo: tableView.topAnchor, constant: Constants.viewSize).isActive = true
-            return 0
+            return 1
         }
         if count > 0 {
             tableView.isScrollEnabled = true
             tableView.backgroundView = nil
             return 1
         }
-        return 0
+        return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

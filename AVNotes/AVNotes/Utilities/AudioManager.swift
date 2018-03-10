@@ -31,7 +31,10 @@ enum AudioManagerError: Error {
     case errorLoadingFile
 }
 
-class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
+class AudioManager: NSObject,
+AVAudioPlayerDelegate,
+AVAudioRecorderDelegate,
+StateManagerModelDelegate {
 
     override init() {
         super.init()
@@ -119,6 +122,7 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
     private var player: AKAudioPlayer!
     private var tracker: AKFrequencyTracker!
     var mixer: AKMixer!
+    weak var bookmarkTableViewDelegate: BookmarkTableViewDelegate?
 
     // MARK: AudioKit funcs
     func setUpAKAudio() {
@@ -155,7 +159,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilePath, settings: audioSettings)
             audioRecorder?.record()
-
             stateManager.currentState = .recording
             print("Recording: \(isRecording)")
         } catch {
@@ -165,8 +168,12 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         }
     }
 
-    func findIndexOfInsertion(timestamp: Double) -> Int? {
+    func findIndexOfInsertion(timestamp: Double) -> Int {
         guard let annotations = currentRecording?.annotations else { return 0 }
+
+        if annotations.count == 1 {
+           if timestamp < annotations[0].timeStamp { return 0 } else { return 1 }
+        }
         var indexCounter = 0
         while (indexCounter + 1) < annotations.count {
             if annotations[indexCounter].timeStamp < timestamp &&
@@ -175,7 +182,7 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             }
             indexCounter += 1
         }
-        return 0
+        return annotations.count
     }
 
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
@@ -184,17 +191,14 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         // Find the index of the bookmark with the next smallest time stamp
         // and insert after
         let index = findIndexOfInsertion(timestamp: timestamp)
-        if let index = index {
             currentRecording?.annotations?.insert(bookmark, at: index)
-        } else {
-            currentRecording?.annotations?.append(bookmark)
-        }
-        if let index =
-            fileManager.recordingArray.index(where: {$0.fileName == currentRecording?.fileName}) {
-            fileManager.recordingArray[index] = currentRecording!
+
+        if let recordingIndex =
+            fileManager.recordingArray.index(where: { $0.fileName == currentRecording?.fileName }) {
+            fileManager.recordingArray[recordingIndex] = currentRecording!
         }
         fileManager.saveFiles()
-       NotificationCenter.default.post(name: .annotationsDidUpdate, object: nil)
+        bookmarkTableViewDelegate?.updateBookmarkTableview()
     }
 
     func editBookmark(indexPath: IndexPath, title: String, text: String) {
@@ -222,8 +226,7 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
             }
         }
     }
-
-
+  
     func switchToRecord() {
         setBlankRecording()
         stateManager.currentState = .prepareToRecord
@@ -346,7 +349,6 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         fileManager.saveFiles()
         let lastRecording = defaults.value(forKey: Constants.lastRecordingKey) as? Int ?? 1
         defaults.set(lastRecording + 1, forKey: Constants.lastRecordingKey)
-//        setBlankRecording()
     }
 
     // .currentTime on AVAudioRecorder returns 0 when stopped.  Must turn the path into
@@ -382,6 +384,4 @@ class AudioManager: NSObject, AVAudioRecorderDelegate, AVAudioPlayerDelegate {
         }
     }
 }
-extension AudioManager: StateManagerModelDelegate {
 
-}
