@@ -14,26 +14,31 @@ class BorderDrawingView: UIView {
         static let cornerRadius: CGFloat = 20.0
         static let inset: CGFloat = 3.0
         static let lineWidth: CGFloat = 2.0
+        static let centerLineWidth: CGFloat = 3.0
+        static let onePixel: CGFloat = 1 / UIScreen.main.scale
+        static let trailingPosition: CGFloat = 0.94
     }
 
     var centerLine: UIBezierPath!
-    var path: UIBezierPath!
+    var borderPath: UIBezierPath!
+    var trailingLine: UIBezierPath!
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         drawRoundedRect()
         drawCenterLine()
         UIColor.white.setStroke()
-        centerLine.lineWidth = Constants.lineWidth
-        path.lineWidth = Constants.lineWidth
-        path.lineJoinStyle = .round
-        path.stroke()
+        centerLine.lineWidth = Constants.centerLineWidth
+        borderPath.lineWidth = Constants.lineWidth
+        borderPath.lineJoinStyle = .round
+        borderPath.stroke()
         centerLine.stroke()
+        makeViewMask()
     }
 
     func drawRoundedRect() {
     let rect = self.bounds.insetBy(dx: Constants.inset, dy: Constants.inset)
-    path = UIBezierPath(roundedRect: rect, cornerRadius: Constants.cornerRadius)
+    borderPath = UIBezierPath(roundedRect: rect, cornerRadius: Constants.cornerRadius)
     }
 
     func drawCenterLine() {
@@ -42,9 +47,27 @@ class BorderDrawingView: UIView {
         centerLine.addLine(to: CGPoint(x: bounds.maxX - 2.0, y: bounds.height / 2.0))
     }
 
+    func drawTrailingLine() {
+        let rect = self.bounds.insetBy(dx: Constants.inset, dy: Constants.inset)
+        trailingLine = UIBezierPath()
+        trailingLine.move(to: CGPoint(x: rect.maxX * Constants.trailingPosition,
+                                      y: rect.minY))
+        trailingLine.addLine(to: CGPoint(x: rect.maxX * Constants.trailingPosition,
+                                         y: rect.maxY))
+    }
+
+    func makeViewMask() {
+        let rect = self.bounds.insetBy(dx: Constants.inset, dy: Constants.inset)
+        let maskPath = UIBezierPath(roundedRect: rect,
+                                    cornerRadius: Constants.cornerRadius)
+        let mask = CAShapeLayer()
+        mask.path = maskPath.cgPath
+        layer.mask = mask
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.clipsToBounds = false
-        layer.masksToBounds = false
+        self.clipsToBounds = true
+        layer.masksToBounds = true
     }
 }
