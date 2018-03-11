@@ -167,7 +167,7 @@
                                 <rect key="frame" x="0.0" y="-100" width="375" height="824"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQx-qj-YCw" userLabel="waveform view" customClass="BorderDrawingView" customModule="AVNotes" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQx-qj-YCw" userLabel="waveform view" customClass="BorderDrawingView" customModule="AVNotes" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="289.66666666666669"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raW-1b-yBP" customClass="EZAudioPlot">
@@ -848,10 +848,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="folderTitle" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x1k-xp-cMy">
-                                                    <rect key="frame" x="73" y="25" width="200" height="20"/>
+                                                    <rect key="frame" x="73" y="25" width="279" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="2d2-E7-3dK"/>
-                                                        <constraint firstAttribute="width" constant="200" id="q2J-pe-jwJ"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -873,6 +872,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="B6V-Ay-tWd" firstAttribute="centerY" secondItem="6QP-Yi-TmZ" secondAttribute="centerY" constant="2" id="IIy-YY-QEj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="x1k-xp-cMy" secondAttribute="trailing" constant="8" id="Pnp-IA-OTV"/>
                                                 <constraint firstItem="B6V-Ay-tWd" firstAttribute="centerX" secondItem="6QP-Yi-TmZ" secondAttribute="centerX" id="cqx-mR-sKW"/>
                                                 <constraint firstItem="x1k-xp-cMy" firstAttribute="centerY" secondItem="H4v-PD-DBG" secondAttribute="centerY" id="emo-DR-3dI"/>
                                                 <constraint firstItem="6QP-Yi-TmZ" firstAttribute="centerY" secondItem="H4v-PD-DBG" secondAttribute="centerY" id="iQE-5O-Nyo"/>

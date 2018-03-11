@@ -92,6 +92,7 @@ class AudioRecordViewController: UIViewController {
     private let mediaManager = AudioManager.sharedInstance
     private weak var modalTransitioningDelegate = CustomModalPresentationManager()
     private var playbackLine: UIView?
+    private var playbackLineCenter: NSLayoutConstraint?
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
     private var stateManager = StateManager.sharedInstance
@@ -216,6 +217,10 @@ class AudioRecordViewController: UIViewController {
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
         gradientManager.addManagedView(addBookmarkButton)
+
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self,
+                                                          action: #selector(waveformDidPan))
+        waveformView.addGestureRecognizer(panGestureRecognizer)
     }
 
     private func createPlaybackLine() {
@@ -227,10 +232,10 @@ class AudioRecordViewController: UIViewController {
                                            constant: Constants.insetConstant).isActive = true
         playbackLine?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor,
                                               constant: -Constants.insetConstant).isActive = true
-
+        playbackLineCenter = playbackLine?.centerXAnchor.constraint(equalTo: waveformView.leadingAnchor) // swiftlint:disable:this line_length
+        playbackLineCenter?.isActive = true
         playbackLine?.translatesAutoresizingMaskIntoConstraints = false
         playbackLine?.isHidden = false
-        playbackLine?.centerXAnchor.constraint(equalTo: waveformView.centerXAnchor).isActive = true
     }
 
     private func showShareAlertSheet() {
@@ -319,6 +324,31 @@ class AudioRecordViewController: UIViewController {
                         self?.addBookmarkButton.layer.opacity = active ? 1.0 : 0.33
         }, completion: nil)
     }
+    
+    @objc
+    private func waveformDidPan(sender: UIPanGestureRecognizer) {
+        guard stateManager.isPlayMode else { return }
+        guard let end = mediaManager.currentRecording?.duration else { return }
+        let offset = sender.location(in: waveformView).x
+        let seconds = end / Double(waveformView.bounds.maxX / offset)
+        let skipTime = seconds - mediaManager.currentTimeInterval
+        mediaManager.skipFixedTime(time: skipTime)
+        if timer == nil {
+            updateTimerLabel()
+        }
+    }
+
+    private func movePlaybackLine(value: Double) {
+        let waveformViewMax = Float(waveformView.bounds.maxX)
+        let maxSeconds = scrubSlider.maximumValue
+        let offset: Float
+        if value > 0 {
+            offset = waveformViewMax / (maxSeconds / Float(value))
+        } else {
+            offset = 0
+        }
+        playbackLineCenter?.constant = CGFloat(offset)
+    }
 
     @objc
     private func refreshAfterRotate() {
@@ -380,6 +410,7 @@ class AudioRecordViewController: UIViewController {
         if scrubSlider.isEnabled {
             let value = mediaManager.currentTimeInterval
             scrubSlider.setValue(Float(value), animated: false)
+            movePlaybackLine(value: value)
         }
     }
     
@@ -447,7 +478,7 @@ class AudioRecordViewController: UIViewController {
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
         livePlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
-                                          constant: Constants.insetConstant).isActive = true
+                                           constant: Constants.insetConstant).isActive = true 
         let trailing = waveformView.bounds.width * Constants.trailingInset
         livePlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
                                             constant: -trailing).isActive = true

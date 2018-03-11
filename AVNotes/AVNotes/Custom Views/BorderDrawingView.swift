@@ -33,6 +33,7 @@ class BorderDrawingView: UIView {
         borderPath.lineJoinStyle = .round
         borderPath.stroke()
         centerLine.stroke()
+        makeViewMask()
     }
 
     func drawRoundedRect() {
@@ -53,6 +54,15 @@ class BorderDrawingView: UIView {
                                       y: rect.minY))
         trailingLine.addLine(to: CGPoint(x: rect.maxX * Constants.trailingPosition,
                                          y: rect.maxY))
+    }
+
+    func makeViewMask() {
+        let rect = self.bounds.insetBy(dx: Constants.inset, dy: Constants.inset)
+        let maskPath = UIBezierPath(roundedRect: rect,
+                                    cornerRadius: Constants.cornerRadius)
+        let mask = CAShapeLayer()
+        mask.path = maskPath.cgPath
+        layer.mask = mask
     }
 
     override func layoutSubviews() {
