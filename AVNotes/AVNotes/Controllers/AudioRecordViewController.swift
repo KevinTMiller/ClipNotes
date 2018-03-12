@@ -33,7 +33,7 @@ class AudioRecordViewController: UIViewController {
         static let recordAlertMessage = "Start recording before adding a bookmark"
         static let recordAlertTitle = "Press Record"
         static let trailingInset: CGFloat = 0.06
-        static let tableViewInset: CGFloat = 8.0
+        static let tableViewInset: CGFloat = 16.0
         static let timerInterval = 0.03
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
@@ -299,7 +299,7 @@ class AudioRecordViewController: UIViewController {
         guard let duration = mediaManager.currentRecording?.duration else { return }
         scrubSlider.minimumValue = 0.0
         scrubSlider.maximumValue = Float(duration)
-        let timeString = String.stringFrom(timeInterval: duration)
+        let timeString = String.shortStringFrom(timeInterval: duration)
         let image = UIImage.imageFromString(string: timeString)
         let zeroImage = UIImage.imageFromString(string: Constants.zeroString)
         scrubSlider.maximumValueImage = image

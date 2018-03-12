@@ -364,8 +364,8 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Rks-zM-6Rp" userLabel="Label stack view">
-                                        <rect key="frame" x="5" y="0.0" width="365" height="51"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Rks-zM-6Rp" userLabel="Label stack view">
+                                        <rect key="frame" x="5" y="0.0" width="365" height="55"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="00:00.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0UE-KP-Dkr">
                                                 <rect key="frame" x="0.0" y="0.0" width="365" height="30"/>
@@ -374,7 +374,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="nwG-qx-OB4">
-                                                <rect key="frame" x="20" y="30" width="325" height="21"/>
+                                                <rect key="frame" x="20" y="34" width="325" height="21"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Recording 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KR6-Lf-E9G">
                                                         <rect key="frame" x="0.0" y="0.0" width="144.66666666666666" height="21"/>
@@ -425,52 +425,46 @@
                                 <color key="sectionIndexColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="annotationCell" rowHeight="48" id="rqs-mz-HfB" customClass="BookmarkTableViewCell" customModule="AVNotes" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="48"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="annotationCell" rowHeight="56" id="rqs-mz-HfB" customClass="BookmarkTableViewCell" customModule="AVNotes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rqs-mz-HfB" id="1h1-3d-tZ2">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="RdU-gc-lhE">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="67"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ntl-ch-2Q2">
+                                                    <rect key="frame" x="16" y="4" width="343" height="8"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ntl-ch-2Q2">
-                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Juz-zK-NmL">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="299.66666666666669" height="21"/>
-                                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                                                    <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqg-WM-6qW">
-                                                                    <rect key="frame" x="299.66666666666669" y="0.0" width="43.333333333333314" height="21"/>
-                                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                                                    <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the bookmark text this is where the user's bookmark is going to be." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gY-Ec-8kH">
-                                                            <rect key="frame" x="0.0" y="21" width="343" height="46"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="15"/>
-                                                            <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="0.84669306506849318" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Juz-zK-NmL">
+                                                            <rect key="frame" x="0.0" y="0.0" width="299.66666666666669" height="8"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                            <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
-                                                            <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqg-WM-6qW">
+                                                            <rect key="frame" x="299.66666666666669" y="0.0" width="43.333333333333314" height="8"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                            <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="Ntl-ch-2Q2" firstAttribute="width" secondItem="RdU-gc-lhE" secondAttribute="width" id="7uU-og-Wvj"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="TW7-Pd-sZ9"/>
-                                                    </constraints>
                                                 </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the bookmark text this is where the user's bookmark is going to be." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gY-Ec-8kH">
+                                                    <rect key="frame" x="16" y="16" width="343" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="15"/>
+                                                    <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="0.84669306506849318" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="RdU-gc-lhE" firstAttribute="leading" secondItem="1h1-3d-tZ2" secondAttribute="leading" constant="16" id="FU1-8A-zm9"/>
-                                                <constraint firstAttribute="trailing" secondItem="RdU-gc-lhE" secondAttribute="trailing" constant="16" id="epR-DK-Tib"/>
-                                                <constraint firstItem="RdU-gc-lhE" firstAttribute="top" secondItem="1h1-3d-tZ2" secondAttribute="top" id="lHY-ae-Afa"/>
-                                                <constraint firstAttribute="bottom" secondItem="RdU-gc-lhE" secondAttribute="bottom" id="tLz-Nd-qEA"/>
+                                                <constraint firstAttribute="trailing" secondItem="8gY-Ec-8kH" secondAttribute="trailing" constant="16" id="D0v-Ai-pIu"/>
+                                                <constraint firstItem="8gY-Ec-8kH" firstAttribute="top" secondItem="Ntl-ch-2Q2" secondAttribute="bottom" constant="4" id="Mlj-0Z-tTI"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ntl-ch-2Q2" secondAttribute="trailing" constant="16" id="apY-iV-4Ha"/>
+                                                <constraint firstItem="8gY-Ec-8kH" firstAttribute="leading" secondItem="1h1-3d-tZ2" secondAttribute="leading" constant="16" id="cdH-j7-sEe"/>
+                                                <constraint firstItem="Ntl-ch-2Q2" firstAttribute="leading" secondItem="1h1-3d-tZ2" secondAttribute="leading" constant="16" id="gi1-36-nqZ"/>
+                                                <constraint firstAttribute="bottom" secondItem="8gY-Ec-8kH" secondAttribute="bottom" constant="4" id="vpS-pV-W3U"/>
+                                                <constraint firstItem="Ntl-ch-2Q2" firstAttribute="top" secondItem="1h1-3d-tZ2" secondAttribute="top" constant="4" id="zl4-bN-OhB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -713,7 +707,7 @@
                                                         <constraint firstItem="SaQ-ew-Wu5" firstAttribute="centerX" secondItem="hGb-MA-Z8T" secondAttribute="centerX" id="bt9-at-YCe"/>
                                                         <constraint firstItem="SaQ-ew-Wu5" firstAttribute="centerY" secondItem="hGb-MA-Z8T" secondAttribute="centerY" constant="2" id="kwZ-x7-n7K"/>
                                                         <constraint firstItem="hGb-MA-Z8T" firstAttribute="leading" secondItem="oSS-eb-Nel" secondAttribute="leading" constant="16" id="n8T-eW-zfd"/>
-                                                        <constraint firstItem="gPA-et-pK9" firstAttribute="trailing" secondItem="oSS-eb-Nel" secondAttribute="trailingMargin" id="pc1-pk-YX8"/>
+                                                        <constraint firstItem="gPA-et-pK9" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oSS-eb-Nel" secondAttribute="trailingMargin" id="pc1-pk-YX8"/>
                                                         <constraint firstItem="gPA-et-pK9" firstAttribute="centerY" secondItem="oSS-eb-Nel" secondAttribute="centerY" id="qzh-jr-fNp"/>
                                                         <constraint firstItem="gPA-et-pK9" firstAttribute="leading" secondItem="oSS-eb-Nel" secondAttribute="leading" constant="72" id="rDj-Sb-mjW"/>
                                                         <constraint firstItem="gPA-et-pK9" firstAttribute="top" secondItem="oSS-eb-Nel" secondAttribute="topMargin" constant="14" id="riR-OK-8o4"/>
@@ -765,7 +759,7 @@
                                                     <constraints>
                                                         <constraint firstItem="Vqf-rg-lyu" firstAttribute="leading" secondItem="UPz-48-9r1" secondAttribute="leading" constant="16" id="15J-HR-Mhc"/>
                                                         <constraint firstAttribute="bottom" secondItem="Vqf-rg-lyu" secondAttribute="bottom" constant="8" id="BXi-jT-etR"/>
-                                                        <constraint firstItem="TNJ-al-Pyg" firstAttribute="top" secondItem="UPz-48-9r1" secondAttribute="topMargin" constant="8" id="Bpm-aB-oVW"/>
+                                                        <constraint firstItem="TNJ-al-Pyg" firstAttribute="top" secondItem="UPz-48-9r1" secondAttribute="top" constant="19" id="Bpm-aB-oVW"/>
                                                         <constraint firstAttribute="trailingMargin" secondItem="TNJ-al-Pyg" secondAttribute="trailing" constant="16" id="KoN-EI-z3O"/>
                                                         <constraint firstItem="TNJ-al-Pyg" firstAttribute="leading" secondItem="UPz-48-9r1" secondAttribute="leading" constant="16" id="PUo-pY-zt9"/>
                                                         <constraint firstAttribute="trailing" secondItem="Vqf-rg-lyu" secondAttribute="trailing" constant="16" id="TNq-9P-dU2"/>

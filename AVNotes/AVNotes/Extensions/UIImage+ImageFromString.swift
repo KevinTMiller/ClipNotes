@@ -21,7 +21,7 @@ extension UIImage {
         label.text = string
         label.font = UIFont.systemFont(ofSize: LabelSpecs.fontSize, weight: .light)
         label.textColor = UIColor.white
-        label.textAlignment = .center
+        label.textAlignment = .left
         label.adjustsFontSizeToFitWidth = false
         UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0.0)
         label.layer.render(in: UIGraphicsGetCurrentContext()!)
