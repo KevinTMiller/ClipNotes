@@ -38,6 +38,7 @@ class AudioRecordViewController: UIViewController {
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
         static let viewSize: CGFloat = 150.0
+        static let zeroString = "00:00"
     }
 
     enum AlertConstants {
@@ -300,7 +301,7 @@ class AudioRecordViewController: UIViewController {
         scrubSlider.maximumValue = Float(duration)
         let timeString = String.stringFrom(timeInterval: duration)
         let image = UIImage.imageFromString(string: timeString)
-        let zeroImage = UIImage.imageFromString(string: Constants.emptyTimeString)
+        let zeroImage = UIImage.imageFromString(string: Constants.zeroString)
         scrubSlider.maximumValueImage = image
         scrubSlider.minimumValueImage = zeroImage
     }
@@ -406,7 +407,7 @@ class AudioRecordViewController: UIViewController {
     
     @objc
     private func updateTimerLabel() {
-        stopWatchLabel.text = mediaManager.currentTimeString ?? Constants.emptyTimeString
+        stopWatchLabel.text = mediaManager.stopWatchTimeString ?? Constants.emptyTimeString
         if scrubSlider.isEnabled {
             let value = mediaManager.currentTimeInterval
             scrubSlider.setValue(Float(value), animated: false)
@@ -420,13 +421,13 @@ class AudioRecordViewController: UIViewController {
     }
 
     @objc
-    private func updateUIInfo() {
+    private func updateRecordingInfo() {
         if let currentRecording = mediaManager.currentRecording {
             recordingTitleLabel.text = currentRecording.userTitle
             recordingDateLabel.text = DateFormatter.localizedString(from: currentRecording.date,
                                                                     dateStyle: .short,
                                                                     timeStyle: .none)
-            stopWatchLabel.text = String.stringFrom(timeInterval: currentRecording.duration)
+            stopWatchLabel.text = String.stopwatchStringFrom(timeInterval: currentRecording.duration)
             updateTableView()
         }
     }
@@ -455,7 +456,7 @@ class AudioRecordViewController: UIViewController {
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
                 summaryPlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
-                                              constant: Constants.insetConstant).isActive = true
+                                                      constant: Constants.insetConstant).isActive = true
         let trailing = waveformView.bounds.width * Constants.trailingInset
         summaryPlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
                                                constant: -trailing).isActive = true
@@ -482,7 +483,6 @@ class AudioRecordViewController: UIViewController {
         let trailing = waveformView.bounds.width * Constants.trailingInset
         livePlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
                                             constant: -trailing).isActive = true
-
     }
 
     private func switchToPlayStack() {
@@ -522,7 +522,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
 
     func finishRecording() {
         updateButtons()
-        updateUIInfo()
+        updateRecordingInfo()
         livePlot?.clear()
         toggleSlider(isOn: false)
     }
@@ -537,7 +537,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     func prepareToPlay() {
         updateButtons()
         scrubSlider.value = 0.0
-        updateUIInfo()
+        updateRecordingInfo()
         livePlot?.clear()
         setSummaryPlot()
         toggleSlider(isOn: true)
@@ -546,14 +546,14 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     }
 
     func initialSetup() {
-        updateUIInfo()
+        updateRecordingInfo()
         setUpAudioPlot()
         toggleSlider(isOn: false)
         switchToRecordStack()
     }
 
     func prepareToRecord() {
-        updateUIInfo()
+        updateRecordingInfo()
         updateButtons()
         resetPlot()
         toggleSlider(isOn: false)
@@ -587,7 +587,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
                                 }
                                 self?.presentAlert(title: AlertConstants.success,
                                                    message: AlertConstants.recordingSaved)
-                                self?.updateUIInfo()
+                                self?.updateRecordingInfo()
                                 self?.stateManager.currentState = .prepareToPlay
         }
     }
