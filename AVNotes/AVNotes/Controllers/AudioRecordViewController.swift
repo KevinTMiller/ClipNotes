@@ -213,10 +213,11 @@ class AudioRecordViewController: UIViewController {
         addBookmarkButton.layer.masksToBounds = false
         addBookmarkButton.layer.shadowRadius = 2.0
         addBookmarkButton.layer.shadowOpacity = 0.25
-        addBookmarkButton.layer.cornerRadius = addBookmarkButton.frame.width / 2
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
         gradientManager.addManagedView(addBookmarkButton)
+        addBookmarkButton.layer.cornerRadius = addBookmarkButton.frame.width / 2
+        addBookmarkButton.clipsToBounds = true
 
         let panGestureRecognizer = UIPanGestureRecognizer(target: self,
                                                           action: #selector(waveformDidPan))
