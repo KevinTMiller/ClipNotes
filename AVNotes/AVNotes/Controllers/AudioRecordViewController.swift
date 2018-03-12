@@ -153,7 +153,7 @@ class AudioRecordViewController: UIViewController {
     @IBAction func skipBackDidTouch(_ sender: Any) {
         mediaManager.skipFixedTime(time: -10.0)
         if timer == nil {
-            updateTimerLabel()
+            updateTimerDependentUI()
         }
     }
 
@@ -161,14 +161,14 @@ class AudioRecordViewController: UIViewController {
         let value = Double(sender.value)
         mediaManager.skipTo(timeInterval: value)
         if timer == nil {
-            updateTimerLabel()
+            updateTimerDependentUI()
         }
     }
 
     @IBAction func skipForwardDidTouch(_ sender: UIButton) {
         mediaManager.skipFixedTime(time: 10.0)
         if timer == nil {
-            updateTimerLabel()
+            updateTimerDependentUI()
         }
     }
 
@@ -334,7 +334,7 @@ class AudioRecordViewController: UIViewController {
         let skipTime = seconds - mediaManager.currentTimeInterval
         mediaManager.skipFixedTime(time: skipTime)
         if timer == nil {
-            updateTimerLabel()
+            updateTimerDependentUI()
         }
     }
 
@@ -394,7 +394,7 @@ class AudioRecordViewController: UIViewController {
     private func toggleTimer(isOn: Bool) {
         if isOn {
             timer = Timer.scheduledTimer(timeInterval: Constants.timerInterval,
-                                         target: self, selector: #selector(self.updateTimerLabel),
+                                         target: self, selector: #selector(self.updateTimerDependentUI),
                                          userInfo: nil, repeats: true)
             let runLoop = RunLoop.current
             runLoop.add(timer!, forMode: .UITrackingRunLoopMode)
@@ -405,7 +405,7 @@ class AudioRecordViewController: UIViewController {
     }
     
     @objc
-    private func updateTimerLabel() {
+    private func updateTimerDependentUI() {
         stopWatchLabel.text = mediaManager.currentTimeString ?? Constants.emptyTimeString
         if scrubSlider.isEnabled {
             let value = mediaManager.currentTimeInterval
@@ -509,11 +509,19 @@ class AudioRecordViewController: UIViewController {
 extension AudioRecordViewController: StateManagerViewDelegate {
 
     func updateButtons() {
-        shareButton.isEnabled = stateManager.canShare
-        playPauseButton.isSelected = stateManager.isPlaying
-        recordButton.isSelected = stateManager.isRecording
-        plusButton.isEnabled = stateManager.canAnnotate
-        filesButton.isEnabled = stateManager.canViewFiles
+        if stateManager.isRecordMode {
+            playbackLineCenter?.constant = 0.0
+        }
+        UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
+            self.view.layoutIfNeeded()
+            self.playbackLine?.isHidden = self.stateManager.isRecordMode
+            self.shareButton.isEnabled = self.stateManager.canShare
+            self.playPauseButton.isSelected = self.stateManager.isPlaying
+            self.recordButton.isSelected = self.stateManager.isRecording
+            self.plusButton.isEnabled = self.stateManager.canAnnotate
+            self.filesButton.isEnabled = self.stateManager.canViewFiles
+        })
+
     }
 
     func errorAlert(_ error: Error) {
@@ -691,10 +699,13 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
                 switch stateManager.currentState {
                 case .playing, .playingPaused, .playingStopped:
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
-                default:
+                case .readyToPlay:
                     mediaManager.playAudio()
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
+                default:
+                    return
             }
+            if timer == nil { updateTimerDependentUI() }
         }
     }
-}
+} // swiftlint:disable:this file_length
