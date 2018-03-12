@@ -419,7 +419,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" verticalCompressionResistancePriority="500" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ydp-xj-2i5">
-                                <rect key="frame" x="0.0" y="494.66666666666657" width="375" height="229.33333333333331"/>
+                                <rect key="frame" x="0.0" y="502.66666666666657" width="375" height="221.33333333333331"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <color key="sectionIndexColor" red="0.60000002379999995" green="0.60000002379999995" blue="0.60000002379999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -486,7 +486,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TsU-fO-3Xc" userLabel="HeaderView">
-                                <rect key="frame" x="0.0" y="424.66666666666663" width="375" height="70"/>
+                                <rect key="frame" x="0.0" y="432.66666666666663" width="375" height="70"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hX-3x-7kE">
                                         <rect key="frame" x="305" y="8" width="60" height="60"/>
@@ -544,7 +544,7 @@
                             <constraint firstItem="XQx-qj-YCw" firstAttribute="width" secondItem="sqQ-Gs-taK" secondAttribute="width" id="65K-eI-one"/>
                             <constraint firstItem="TsU-fO-3Xc" firstAttribute="trailing" secondItem="3Xs-vR-rnW" secondAttribute="trailing" id="8OY-Ty-bhe"/>
                             <constraint firstItem="XsD-lQ-ekE" firstAttribute="top" secondItem="3Xs-vR-rnW" secondAttribute="top" constant="-100" id="A1K-VU-7xN"/>
-                            <constraint firstItem="TsU-fO-3Xc" firstAttribute="top" secondItem="sqQ-Gs-taK" secondAttribute="bottom" id="Ajv-ph-TBJ"/>
+                            <constraint firstItem="TsU-fO-3Xc" firstAttribute="top" secondItem="sqQ-Gs-taK" secondAttribute="bottom" constant="8" id="Ajv-ph-TBJ"/>
                             <constraint firstItem="sqQ-Gs-taK" firstAttribute="bottom" secondItem="3Xs-vR-rnW" secondAttribute="bottom" id="ApO-b8-e8b"/>
                             <constraint firstItem="XQx-qj-YCw" firstAttribute="centerX" secondItem="sqQ-Gs-taK" secondAttribute="centerX" id="CE2-iD-PJD"/>
                             <constraint firstItem="TsU-fO-3Xc" firstAttribute="leading" secondItem="3Xs-vR-rnW" secondAttribute="centerX" constant="5" id="Cre-N3-B6c"/>
