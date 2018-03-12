@@ -47,9 +47,7 @@ class StateManager: NSObject {
     
     var isRecordMode: Bool {
         switch currentState {
-        case .recording:
-            return true
-        case .recordingPaused:
+        case .recording, .recordingPaused, .readyToRecord, .prepareToRecord:
             return true
         default:
             return false
