@@ -39,6 +39,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
             var userTitle = text
             if text == "" { userTitle = AlertConstants.newFolder }
             self?.fileManager.addFolder(title: userTitle)
+            self?.fileTableView.reloadData()
         }
     }
 
