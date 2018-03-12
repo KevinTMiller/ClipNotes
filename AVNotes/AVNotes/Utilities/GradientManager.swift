@@ -47,9 +47,13 @@ class GradientManager: NSObject {
     }
 
     func addManagedView(_ view: UIView) {
-        guard let colors = gradientDictionary[keyDictionary[0]] else { return }
+        guard let colors = gradientDictionary[keyDictionary.first!] else { return }
         let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
+        gradient.bounds = CGRect(x: 0,
+                                 y: 0,
+                                 width: view.bounds.width,
+                                 height: view.bounds.height)
+        gradient.position = view.center
         gradient.colors = colors
         view.layer.addSublayer(gradient)
         gradientLayers.append(gradient)
