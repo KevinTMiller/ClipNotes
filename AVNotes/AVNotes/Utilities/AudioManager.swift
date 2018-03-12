@@ -65,6 +65,10 @@ StateManagerModelDelegate {
         return audioPlayer.isPlaying
     }
 
+    public var stopWatchTimeString: String? {
+        return String.stopwatchStringFrom(timeInterval: currentTimeInterval)
+    }
+
     public var currentTimeString: String? {
         return String.stringFrom(timeInterval: currentTimeInterval)
         }
