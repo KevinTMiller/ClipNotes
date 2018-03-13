@@ -25,19 +25,23 @@ class AudioRecordViewController: UIViewController {
         static let animationDuation = 0.33
         static let bookmarkModal = "bookmarkModal"
         static let cellIdentifier = "annotationCell"
+        static let cornerRadius: CGFloat = 10.0
         static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button." // swiftlint:disable:this line_length
         static let emptyTimeString = "00:00.00"
         static let insetConstant: CGFloat = 3.0
         static let mainStoryboard = "Main"
+        static let onePixel: CGFloat = 1 / UIScreen.main.scale
         static let playbackLineWidth: CGFloat = 1 / UIScreen.main.scale
         static let recordAlertMessage = "Start recording before adding a bookmark"
         static let recordAlertTitle = "Press Record"
+        static let textColor: UIColor = UIColor(red:0.08, green:0.07, blue:0.35, alpha:1.0)
         static let trailingInset: CGFloat = 0.06
-        static let tableViewInset: CGFloat = 8.0
+        static let tableViewInset: CGFloat = 16.0
         static let timerInterval = 0.03
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
         static let viewSize: CGFloat = 150.0
+        static let zeroString = "00:00"
     }
 
     enum AlertConstants {
@@ -64,27 +68,23 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var addButtonSuperview: UIView!
     @IBOutlet private weak var annotationTableView: UITableView!
     @IBOutlet private var audioPlot: EZAudioPlot!
-    @IBOutlet private var bookmarkButtonCenter: NSLayoutConstraint!
-    @IBOutlet private var bookmarkButtonTrailing: NSLayoutConstraint!
     @IBOutlet private weak var controlView: UIView!
     @IBOutlet private var filesButton: UIBarButtonItem!
     @IBOutlet private var gradientView: GradientView!
+    @IBOutlet var pauseButton: UIButton!
     @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var playStackView: UIStackView!
     @IBOutlet private var plusButton: UIBarButtonItem!
     @IBOutlet private weak var recordButton: UIButton!
-    @IBOutlet private weak var recordingDateLabel: UILabel!
-    @IBOutlet private weak var recordingTitleLabel: UILabel!
     @IBOutlet private var recordStackLeading: NSLayoutConstraint!
     @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
     @IBOutlet private weak var recordStackView: UIStackView!
     @IBOutlet private var scrubSlider: UISlider!
-    @IBOutlet private var shareButton: UIBarButtonItem!
+    @IBOutlet private var shareButton: UIButton!
     @IBOutlet private weak var stopWatchLabel: UILabel!
     @IBOutlet private weak var waveformView: BorderDrawingView!
 
     // MARK: Private Vars
-    private var isButtonCenter = false
     private let fileManager = RecordingManager.sharedInstance
     private lazy var gradientManager = GradientManager()
     private lazy var isInitialFirstViewing = true
@@ -138,7 +138,11 @@ class AudioRecordViewController: UIViewController {
     }
 
     // MARK: IBActions
-    @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
+    @IBAction func pauseButtonDidTouch(_ sender: UIButton) {
+        stateManager.toggleRecordingPause(sender: sender)
+    }
+
+    @IBAction func shareButtonTapped(_ sender: UIButton) {
         showShareAlertSheet()
     }
 
@@ -189,11 +193,6 @@ class AudioRecordViewController: UIViewController {
     // MARK: UI Funcs
     private func setUpMiscUI() {
 
-        NSLayoutConstraint.deactivate([bookmarkButtonCenter])
-        NSLayoutConstraint.activate([bookmarkButtonTrailing])
-
-        addBookmarkButton.layer.opacity = 0.33
-
         playStackLeading =
             playStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 5.0)
         playStackTrailing =
@@ -207,17 +206,18 @@ class AudioRecordViewController: UIViewController {
 
         createPlaybackLine()
         roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
+
         addButtonSuperview.clipsToBounds = false
-        addBookmarkButton.layer.shadowColor = UIColor.black.cgColor
-        addBookmarkButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        addBookmarkButton.layer.masksToBounds = false
-        addBookmarkButton.layer.shadowRadius = 2.0
-        addBookmarkButton.layer.shadowOpacity = 0.25
+
+        addBookmarkButton.layer.cornerRadius = Constants.cornerRadius
+        addBookmarkButton.layer.borderColor = Constants.textColor.cgColor
+        addBookmarkButton.layer.borderWidth = Constants.onePixel
+        addBookmarkButton.isEnabled = false
+
+        pauseButton.isEnabled = false
+
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
-        gradientManager.addManagedView(addBookmarkButton)
-        addBookmarkButton.layer.cornerRadius = addBookmarkButton.frame.width / 2.0
-        addBookmarkButton.clipsToBounds = true
 
         let panGestureRecognizer = UIPanGestureRecognizer(target: self,
                                                           action: #selector(waveformDidPan))
@@ -299,30 +299,20 @@ class AudioRecordViewController: UIViewController {
         guard let duration = mediaManager.currentRecording?.duration else { return }
         scrubSlider.minimumValue = 0.0
         scrubSlider.maximumValue = Float(duration)
-        let timeString = String.stringFrom(timeInterval: duration)
+        let timeString = String.shortStringFrom(timeInterval: duration)
         let image = UIImage.imageFromString(string: timeString)
-        let zeroImage = UIImage.imageFromString(string: Constants.emptyTimeString)
+        let zeroImage = UIImage.imageFromString(string: Constants.zeroString)
         scrubSlider.maximumValueImage = image
         scrubSlider.minimumValueImage = zeroImage
     }
 
-    private func animateFab(active: Bool) {
-        if active {
-            NSLayoutConstraint.deactivate([bookmarkButtonTrailing])
-            NSLayoutConstraint.activate([bookmarkButtonCenter])
-            isButtonCenter = true
-        } else {
-            NSLayoutConstraint.deactivate([bookmarkButtonCenter])
-            NSLayoutConstraint.activate([bookmarkButtonTrailing])
-            isButtonCenter = false
-        }
+    private func activateFab(active: Bool) {
         UIView.animate(withDuration: 0.33,
                        delay: 0.0,
                        options: .curveEaseOut,
                        animations: { [weak self] in
-                        self?.view.layoutIfNeeded()
                         self?.addBookmarkButton.isEnabled = active
-                        self?.addBookmarkButton.layer.opacity = active ? 1.0 : 0.33
+                        self?.addBookmarkButton.layer.opacity = active ? 1.0 : 0.25
         }, completion: nil)
     }
     
@@ -356,7 +346,7 @@ class AudioRecordViewController: UIViewController {
         let orientation = UIDevice.current.orientation
         if orientation.isLandscape || orientation.isPortrait {
             roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
-            animateFab(active: isButtonCenter)
+            activateFab(active: stateManager.allowsAnnotation())
         }
     }
 
@@ -407,7 +397,7 @@ class AudioRecordViewController: UIViewController {
     
     @objc
     private func updateTimerDependentUI() {
-        stopWatchLabel.text = mediaManager.currentTimeString ?? Constants.emptyTimeString
+        stopWatchLabel.text = mediaManager.stopWatchTimeString ?? Constants.emptyTimeString
         if scrubSlider.isEnabled {
             let value = mediaManager.currentTimeInterval
             scrubSlider.setValue(Float(value), animated: false)
@@ -421,13 +411,10 @@ class AudioRecordViewController: UIViewController {
     }
 
     @objc
-    private func updateUIInfo() {
+    private func updateRecordingInfo() {
         if let currentRecording = mediaManager.currentRecording {
-            recordingTitleLabel.text = currentRecording.userTitle
-            recordingDateLabel.text = DateFormatter.localizedString(from: currentRecording.date,
-                                                                    dateStyle: .short,
-                                                                    timeStyle: .none)
-            stopWatchLabel.text = String.stringFrom(timeInterval: currentRecording.duration)
+            self.title = currentRecording.userTitle
+            stopWatchLabel.text = String.stopwatchStringFrom(timeInterval: currentRecording.duration)
             updateTableView()
         }
     }
@@ -456,7 +443,7 @@ class AudioRecordViewController: UIViewController {
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
                 summaryPlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
-                                              constant: Constants.insetConstant).isActive = true
+                                                      constant: Constants.insetConstant).isActive = true
         let trailing = waveformView.bounds.width * Constants.trailingInset
         summaryPlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
                                                constant: -trailing).isActive = true
@@ -483,7 +470,6 @@ class AudioRecordViewController: UIViewController {
         let trailing = waveformView.bounds.width * Constants.trailingInset
         livePlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
                                             constant: -trailing).isActive = true
-
     }
 
     private func switchToPlayStack() {
@@ -515,14 +501,13 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         }
         UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
+            self.activateFab(active: self.stateManager.canAnnotate)
             self.playbackLine?.isHidden = self.stateManager.isRecordMode
-            self.shareButton.isEnabled = self.stateManager.canShare
+            self.shareButton.isHidden = !self.stateManager.canShare
             self.playPauseButton.isSelected = self.stateManager.isPlaying
-            self.recordButton.isSelected = self.stateManager.isRecording
-            self.plusButton.isEnabled = self.stateManager.canAnnotate
+            self.plusButton.isEnabled = self.stateManager.isPlayMode
             self.filesButton.isEnabled = self.stateManager.canViewFiles
         })
-
     }
 
     func errorAlert(_ error: Error) {
@@ -531,7 +516,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
 
     func finishRecording() {
         updateButtons()
-        updateUIInfo()
+        updateRecordingInfo()
         livePlot?.clear()
         toggleSlider(isOn: false)
     }
@@ -539,47 +524,54 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     func startRecording() {
         try? AudioKit.start()
         updateButtons()
+        recordButton.isEnabled = false
+        pauseButton.isEnabled = true
         toggleTimer(isOn: true)
-        animateFab(active: true)
     }
 
     func prepareToPlay() {
         updateButtons()
         scrubSlider.value = 0.0
-        updateUIInfo()
+        movePlaybackLine(value: 0.0)
+        updateRecordingInfo()
         livePlot?.clear()
         setSummaryPlot()
         toggleSlider(isOn: true)
-        animateFab(active: true)
         switchToPlayStack()
     }
 
     func initialSetup() {
-        updateUIInfo()
+        updateRecordingInfo()
         setUpAudioPlot()
         toggleSlider(isOn: false)
         switchToRecordStack()
     }
 
     func prepareToRecord() {
-        updateUIInfo()
+        updateRecordingInfo()
         updateButtons()
         resetPlot()
         toggleSlider(isOn: false)
         switchToRecordStack()
+        recordButton.isEnabled = true
     }
 
     func playAudio() {
         toggleTimer(isOn: true)
-        animateFab(active: true)
+        updateButtons()
     }
 
     func pauseRecording() {
         try? AudioKit.stop()
+        pauseButton.isEnabled = false
+        recordButton.isEnabled = true
         toggleTimer(isOn: false)
+        updateButtons()
     }
 
     func resumeRecording() {
+        recordButton.isEnabled = false
+        pauseButton.isEnabled = true
         try? AudioKit.start()
         toggleTimer(isOn: true)
     }
@@ -596,7 +588,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
                                 }
                                 self?.presentAlert(title: AlertConstants.success,
                                                    message: AlertConstants.recordingSaved)
-                                self?.updateUIInfo()
+                                self?.updateRecordingInfo()
                                 self?.stateManager.currentState = .prepareToPlay
         }
     }
@@ -638,6 +630,7 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
             let view = UIView(frame:CGRect())
             let label = UILabel(frame: CGRect())
             label.text = Constants.emptyTableText
+            label.font = UIFont(name: "OpenSans-Light", size: 16.0)
             label.textColor = .lightGray
             label.textAlignment = .center
             label.numberOfLines = 0
@@ -655,7 +648,8 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
                                           constant: Constants.tableViewInset).isActive = true
             view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor,
                                            constant: -Constants.tableViewInset).isActive = true
-            view.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+            view.topAnchor.constraint(equalTo: tableView.topAnchor,
+                                      constant: Constants.tableViewInset).isActive = true
             view.bottomAnchor.constraint(equalTo: tableView.topAnchor,
                                          constant: Constants.viewSize).isActive = true
             return 1
@@ -702,6 +696,7 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
                 case .readyToPlay:
                     mediaManager.playAudio()
+
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
                 default:
                     return

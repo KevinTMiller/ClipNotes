@@ -65,6 +65,10 @@ StateManagerModelDelegate {
         return audioPlayer.isPlaying
     }
 
+    public var stopWatchTimeString: String? {
+        return String.stopwatchStringFrom(timeInterval: currentTimeInterval)
+    }
+
     public var currentTimeString: String? {
         return String.stringFrom(timeInterval: currentTimeInterval)
         }
@@ -184,6 +188,11 @@ StateManagerModelDelegate {
         }
         return annotations.count
     }
+    func emergencySave() {
+        audioRecorder?.stop()
+        saveRecording(recording: currentRecording!)
+        fileManager.emergencySave()
+    }
 
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
         let timeStampDouble = Double(timestamp)
@@ -256,6 +265,7 @@ StateManagerModelDelegate {
     }
 
     func prepareToRecord(success: (() -> Void), failure: ((Error) -> Void)) {
+        setBlankRecording()
         do {
             audioPlayer = nil
             try setUpRecordingSession()
