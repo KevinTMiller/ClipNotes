@@ -10,9 +10,15 @@ import UIKit
 
 class GradientManager: NSObject {
 
+    enum Constants {
+        static let duration: CFTimeInterval = 10.0
+        static let colorKeyPath = "colors"
+        static let colorChange = "colorChange"
+    }
+
+    private lazy var gradientLayers = [CAGradientLayer]()
     private lazy var managedViews = [UIView]()
     private lazy var index = UserDefaults.standard.value(forKey: "gradient") as? Int ?? 0
-    private lazy var gradientLayer = CAGradientLayer()
     private lazy var keyDictionary = ["Vanusa", "eXpresso", "Red Sunset", "Taran Tado",
                                  "Purple Bliss"]
     private lazy var gradientDictionary: [String: [CGColor]] = [
@@ -32,19 +38,7 @@ class GradientManager: NSObject {
     // Eventually will implement user settings to select gradient
     // that's why using key here. Can refactor to accept a string
     // based on user choice
-    func redrawGradients() {
-        for view in managedViews {
-            let gradient = createCAGradientLayer(for: view)
-            gradient.colors = gradientDictionary[keyDictionary[index]]
 
-            if let button = view as? UIButton,
-                let imageView = button.imageView {
-                button.bringSubview(toFront: imageView)
-            }
-            view.layer.addSublayer(gradient)
-        }
-    }
-    
     func cycleGradient() {
         if index == keyDictionary.count - 1 { index = 0 } else { index += 1 }
         if let colors = gradientDictionary[keyDictionary[index]] {
@@ -53,36 +47,33 @@ class GradientManager: NSObject {
     }
 
     func addManagedView(_ view: UIView) {
+        guard let colors = gradientDictionary[keyDictionary.first!] else { return }
+        let gradient = CAGradientLayer()
+        gradient.bounds = CGRect(x: 0,
+                                 y: 0,
+                                 width: view.bounds.width,
+                                 height: view.bounds.height)
+        gradient.position = view.center
+        gradient.colors = colors
+        view.layer.addSublayer(gradient)
+        gradientLayers.append(gradient)
         managedViews.append(view)
-        let color = gradientDictionary[keyDictionary[0]]
-        updateViewsWithGradient(color!)
-    }
 
-    func createCAGradientLayer(for view: UIView) -> CAGradientLayer {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.bounds = view.bounds
-        gradientLayer.cornerRadius = view.layer.cornerRadius
-        gradientLayer.position = CGPoint(x: view.bounds.width / 2, y: view.bounds.height / 2)
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
-        return gradientLayer
+        if let button = view as? UIButton {
+            button.bringSubview(toFront: button.imageView!)
+        }
     }
 
     private func updateViewsWithGradient(_ colors: [CGColor]) {
-        for view in managedViews {
-            let gradient = createCAGradientLayer(for: view)
-            gradient.colors = colors
 
-            if let view = view as? GradientView {
-                view.gradientLayer.colors = colors
-                view.layer.addSublayer(view.gradientLayer)
-            }
+        let animation = CABasicAnimation(keyPath: Constants.colorKeyPath)
+        animation.duration = Constants.duration
+        animation.toValue = colors
+        animation.fillMode = kCAFillModeForwards
+        animation.isRemovedOnCompletion = false
 
-            if let button = view as? UIButton,
-                let imageView = button.imageView {
-                view.layer.addSublayer(gradient)
-                button.bringSubview(toFront: imageView)
-            }
+        for gradient in gradientLayers {
+            gradient.add(animation, forKey: Constants.colorChange)
         }
     }
 }
