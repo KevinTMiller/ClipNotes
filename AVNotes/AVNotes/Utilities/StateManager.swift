@@ -30,15 +30,26 @@ class StateManager: NSObject {
     weak var modelDelegate: StateManagerModelDelegate!
     weak var viewDelegate: StateManagerViewDelegate!
 
+
     var currentState: CurrentState = .initialize {
         didSet {
             print(currentState)
             performStateChangeAction()
         }
     }
+
+    var needsSave: Bool {
+        switch currentState {
+        case .recording, .recordingPaused:
+            return true
+        default:
+            return false
+        }
+    }
+    
     var isPlayMode: Bool {
         switch currentState {
-        case .playing, .playingPaused, .playingStopped, .readyToPlay:
+        case .playing, .playingPaused, .playingStopped, .readyToPlay, .prepareToPlay:
             return true
         default:
             return false
@@ -64,7 +75,9 @@ class StateManager: NSObject {
 
     var canAnnotate: Bool {
         switch currentState {
-        case .recording:
+        case .readyToRecord,
+             .prepareToRecord,
+             .initialize:
             return false
         default:
             return true
@@ -130,7 +143,8 @@ class StateManager: NSObject {
             })
         case .playingStopped:
             viewDelegate.updateButtons()
-
+        case .playing:
+            viewDelegate.playAudio()
         default:
             return
         }
@@ -177,6 +191,9 @@ class StateManager: NSObject {
         case .playingPaused:
             modelDelegate.resumeAudio()
             sender.isSelected = true
+        case .playingStopped:
+            modelDelegate.playAudio()
+            viewDelegate.playAudio()
         default:
             sender.isSelected = false
         }
@@ -184,7 +201,12 @@ class StateManager: NSObject {
 
     func allowsAnnotation() -> Bool {
         switch currentState {
-        case .recording, .playing, .playingPaused, .recordingPaused, .playingStopped, .readyToPlay:
+        case .recording,
+             .playing,
+             .playingPaused,
+             .recordingPaused,
+             .playingStopped,
+             .readyToPlay:
             return true
         default:
             return false

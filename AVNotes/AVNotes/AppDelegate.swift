@@ -29,6 +29,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        if StateManager.sharedInstance.needsSave {
+            AudioManager.sharedInstance.emergencySave()
+        }
         RecordingManager.sharedInstance.saveFiles()
     }
 }
