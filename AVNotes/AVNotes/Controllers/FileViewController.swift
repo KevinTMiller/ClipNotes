@@ -26,14 +26,22 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     let segueIdentifier = "toFileDetail"
 
     private enum Constants {
+        static let borderRadius: CGFloat = 10.0
         static let fileCell = "fileViewCell"
         static let folderCell = "folderCell"
+        static let onePixel = 1 / UIScreen.main.scale
     }
 
     private let fileManager = RecordingManager.sharedInstance
     private let mediaManager = AudioManager.sharedInstance
+    private let stateManager = StateManager.sharedInstance
 
-    @IBAction func newFolderDidTouch(_ sender: UIBarButtonItem) {
+    @IBAction func newRecordingDidTouch(_ sender: UIButton) {
+        stateManager.currentState = .prepareToRecord
+        navigationController?.popToRootViewController(animated: true)
+    }
+
+    @IBAction func newFolderDidTouch(_ sender: UIButton) {
         self.presentAlertWith(title: AlertConstants.newFolder, message: AlertConstants.enterName,
                               placeholder: AlertConstants.newFolder) { [weak self] text in
             var userTitle = text
@@ -43,6 +51,8 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 
+    @IBOutlet private var newFolderButton: UIButton!
+    @IBOutlet private var newRecordingButton: UIButton!
     @IBOutlet private weak var fileTableView: UITableView!
 
     override func viewDidLoad() {
@@ -51,6 +61,15 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         fileTableView.dragDelegate = self
         fileTableView.dropDelegate = self
         fileTableView.dragInteractionEnabled = true
+
+        newRecordingButton.layer.cornerRadius = Constants.borderRadius
+        newFolderButton.layer.cornerRadius = Constants.borderRadius
+
+        newRecordingButton.layer.borderWidth = Constants.onePixel
+        newFolderButton.layer.borderWidth = Constants.onePixel
+
+        newRecordingButton.layer.borderColor = UIColor.darkGray.cgColor
+        newFolderButton.layer.borderColor = UIColor.darkGray.cgColor
     }
 
     override func viewWillAppear(_ animated: Bool) {

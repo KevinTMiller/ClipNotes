@@ -13,16 +13,21 @@ class FileDetailViewController: UIViewController {
     
     enum Constants {
         static let cellIdentifier = "fileViewCell"
+        static let cornerRadius: CGFloat = 8.0
         static let folderCellIdentifier = "folderCell"
-        static let unwindSegue = "unwindToAudioRecord"
         static let folderLabel = "Files"
         static let folderIcon = "⇧"
+        static let newRecordingText = "New recording in "
+        static let onePixel = 1 / UIScreen.main.scale
+        static let unwindSegue = "unwindToAudioRecord"
     }
 
+    @IBOutlet var newRecordingButton: UIButton!
     var folder: Folder!
     private var recordings: [AnnotatedRecording]! {
         return fileManager.recordingArray.filter({ $0.folderID == folder.systemID })
     }
+    
     private lazy var stateManager = StateManager.sharedInstance
     private lazy var audioManager = AudioManager.sharedInstance
     private lazy var fileManager = RecordingManager.sharedInstance
@@ -30,10 +35,14 @@ class FileDetailViewController: UIViewController {
     
     @IBOutlet private weak var fileDetailTableView: UITableView!
 
-    @IBAction func addDidTouch(_ sender: UIBarButtonItem) {
+    @IBAction func newRecordingDidTouch(_ sender: UIButton) {
         stateManager.currentState = .prepareToRecord
         audioManager.currentRecording?.folderID = folder.systemID
         navigationController?.popToRootViewController(animated: true)
+    }
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        newRecordingButton.titleLabel?.text = Constants.newRecordingText + folder.userTitle
     }
 
     override func viewDidLoad() {
@@ -41,6 +50,10 @@ class FileDetailViewController: UIViewController {
         fileDetailTableView.dragInteractionEnabled = true
         fileDetailTableView.dragDelegate = self
         fileDetailTableView.dropDelegate = self
+        newRecordingButton.layer.cornerRadius = Constants.cornerRadius
+        newRecordingButton.layer.borderWidth = Constants.onePixel
+        newRecordingButton.layer.borderColor = UIColor.darkGray.cgColor
+        newRecordingButton.titleLabel?.textAlignment = .center
     }
 }
 

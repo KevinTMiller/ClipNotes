@@ -11,7 +11,7 @@ import UIKit
 
 extension UIFont {
     
-    func montserrat() -> UIFont {
+    static func montserrat() -> UIFont {
         return UIFont(name: "montserrat.regular.ttf", size: 14.0)!
     }
 }

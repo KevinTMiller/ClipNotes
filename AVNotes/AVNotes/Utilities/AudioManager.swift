@@ -260,6 +260,7 @@ StateManagerModelDelegate {
     }
 
     func prepareToRecord(success: (() -> Void), failure: ((Error) -> Void)) {
+        setBlankRecording()
         do {
             audioPlayer = nil
             try setUpRecordingSession()

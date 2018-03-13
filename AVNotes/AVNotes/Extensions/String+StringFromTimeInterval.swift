@@ -32,4 +32,17 @@ extension String {
             return String(format: "%0.2d:%0.2d.%0.2d", minutes, seconds, millisec)
         }
     }
+
+    static func shortStringFrom(timeInterval: TimeInterval) -> String {
+        let time = Int(timeInterval)
+        let seconds = time % 60
+        let minutes = (time / 60) % 60
+        let hours = (time / 3_600)
+
+        if hours == 0 {
+            return "\(minutes)m\(seconds)s"
+        } else {
+            return "\(hours)h\(minutes)m"
+        }
+    }
 }
