@@ -71,6 +71,7 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var controlView: UIView!
     @IBOutlet private var filesButton: UIBarButtonItem!
     @IBOutlet private var gradientView: GradientView!
+    @IBOutlet var pauseButton: UIButton!
     @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var playStackView: UIStackView!
     @IBOutlet private var plusButton: UIBarButtonItem!
@@ -137,6 +138,10 @@ class AudioRecordViewController: UIViewController {
     }
 
     // MARK: IBActions
+    @IBAction func pauseButtonDidTouch(_ sender: UIButton) {
+        stateManager.toggleRecordingPause(sender: sender)
+    }
+
     @IBAction func shareButtonTapped(_ sender: UIButton) {
         showShareAlertSheet()
     }
@@ -208,6 +213,8 @@ class AudioRecordViewController: UIViewController {
         addBookmarkButton.layer.borderColor = Constants.textColor.cgColor
         addBookmarkButton.layer.borderWidth = Constants.onePixel
         addBookmarkButton.isEnabled = false
+
+        pauseButton.isEnabled = false
 
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
@@ -498,7 +505,6 @@ extension AudioRecordViewController: StateManagerViewDelegate {
             self.playbackLine?.isHidden = self.stateManager.isRecordMode
             self.shareButton.isHidden = !self.stateManager.canShare
             self.playPauseButton.isSelected = self.stateManager.isPlaying
-            self.recordButton.isSelected = self.stateManager.isRecording
             self.plusButton.isEnabled = self.stateManager.isPlayMode
             self.filesButton.isEnabled = self.stateManager.canViewFiles
         })
@@ -518,6 +524,8 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     func startRecording() {
         try? AudioKit.start()
         updateButtons()
+        recordButton.isEnabled = false
+        pauseButton.isEnabled = true
         toggleTimer(isOn: true)
     }
 
@@ -545,6 +553,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         resetPlot()
         toggleSlider(isOn: false)
         switchToRecordStack()
+        recordButton.isEnabled = true
     }
 
     func playAudio() {
@@ -554,10 +563,15 @@ extension AudioRecordViewController: StateManagerViewDelegate {
 
     func pauseRecording() {
         try? AudioKit.stop()
+        pauseButton.isEnabled = false
+        recordButton.isEnabled = true
         toggleTimer(isOn: false)
+        updateButtons()
     }
 
     func resumeRecording() {
+        recordButton.isEnabled = false
+        pauseButton.isEnabled = true
         try? AudioKit.start()
         toggleTimer(isOn: true)
     }
