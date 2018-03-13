@@ -29,6 +29,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>montserrat.regular.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>Montserrat-Medium.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

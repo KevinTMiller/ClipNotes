@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,6 +15,12 @@
     <customFonts key="customFonts">
         <array key="HiraginoKakuGothic.ttc">
             <string>HiraginoSans-W3</string>
+        </array>
+        <array key="Montserrat-Medium.otf">
+            <string>Montserrat-Medium</string>
+        </array>
+        <array key="OpenSans-Light.ttf">
+            <string>OpenSans-Light</string>
         </array>
         <array key="montserrat.regular.ttf">
             <string>Montserrat-Regular</string>
@@ -372,28 +379,9 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="nwG-qx-OB4">
-                                                <rect key="frame" x="20" y="-387.66666666666669" width="325" height="0.0"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="New Recording 1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KR6-Lf-E9G">
-                                                        <rect key="frame" x="0.0" y="0.0" width="144.66666666666666" height="0.0"/>
-                                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="12/15/17" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fYI-Gf-J4I">
-                                                        <rect key="frame" x="256.33333333333331" y="0.0" width="68.666666666666686" height="0.0"/>
-                                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                                        <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                            </stackView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="0UE-KP-Dkr" firstAttribute="width" secondItem="Rks-zM-6Rp" secondAttribute="width" id="JNP-a5-D1F"/>
-                                            <constraint firstItem="nwG-qx-OB4" firstAttribute="leading" secondItem="Rks-zM-6Rp" secondAttribute="leading" constant="20" id="L4Z-U0-aFp"/>
-                                            <constraint firstAttribute="trailing" secondItem="nwG-qx-OB4" secondAttribute="trailing" constant="20" id="pXD-SO-lU9"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -431,25 +419,25 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ntl-ch-2Q2">
-                                                    <rect key="frame" x="16" y="4" width="343" height="8"/>
+                                                    <rect key="frame" x="16" y="4" width="343" height="3"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Juz-zK-NmL">
-                                                            <rect key="frame" x="0.0" y="0.0" width="299.66666666666669" height="8"/>
-                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="304.33333333333331" height="3"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                             <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tqg-WM-6qW">
-                                                            <rect key="frame" x="299.66666666666669" y="0.0" width="43.333333333333314" height="8"/>
-                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                            <rect key="frame" x="304.33333333333331" y="0.0" width="38.666666666666686" height="3"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                             <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is the bookmark text this is where the user's bookmark is going to be." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8gY-Ec-8kH">
-                                                    <rect key="frame" x="16" y="16" width="343" height="36"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="15"/>
+                                                    <rect key="frame" x="16" y="11" width="343" height="41"/>
+                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="15"/>
                                                     <color key="textColor" red="0.078431372549019607" green="0.074509803921568626" blue="0.34901960784313724" alpha="0.84669306506849318" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
@@ -480,64 +468,50 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TsU-fO-3Xc" userLabel="HeaderView">
                                 <rect key="frame" x="0.0" y="432.66666666666663" width="375" height="70"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hX-3x-7kE">
-                                        <rect key="frame" x="157.66666666666666" y="8" width="60" height="60"/>
-                                        <color key="backgroundColor" red="0.13224950432777405" green="0.97018426656723022" blue="0.049383766949176788" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="mT1-yn-fa4"/>
-                                            <constraint firstAttribute="height" constant="60" id="oKZ-hp-8dK"/>
-                                        </constraints>
-                                        <size key="titleShadowOffset" width="5" height="5"/>
-                                        <state key="normal" image="ic_bookmark_border_white_48pt">
-                                            <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="10"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="addButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="N3t-TW-z2V"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPV-DQ-FJr">
-                                        <rect key="frame" x="315" y="23" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="BnA-pU-1gQ"/>
-                                            <constraint firstAttribute="width" constant="30" id="XbG-ko-LZU"/>
-                                        </constraints>
-                                        <color key="tintColor" red="1" green="0.64152018229166663" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Button" image="ic_share_48pt"/>
-                                        <connections>
-                                            <action selector="shareButtonTapped:" destination="YLd-EO-8NF" eventType="touchUpInside" id="4Vs-er-Y9M"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="wxV-XJ-srA">
+                                        <rect key="frame" x="60" y="16" width="255" height="38"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hX-3x-7kE">
+                                                <rect key="frame" x="0.0" y="0.0" width="255" height="38"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
+                                                <size key="titleShadowOffset" width="5" height="5"/>
+                                                <state key="normal" title="New Bookmark">
+                                                    <color key="titleColor" red="0.078431372550000003" green="0.074509803920000006" blue="0.34901960780000002" alpha="0.84669306509999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="addButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="N3t-TW-z2V"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPV-DQ-FJr">
+                                                <rect key="frame" x="-60" y="0.0" width="38" height="38"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="DPV-DQ-FJr" secondAttribute="height" multiplier="1:1" id="IMO-Ba-rcs"/>
+                                                </constraints>
+                                                <color key="tintColor" red="1" green="0.64152018229166663" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Button" image="ic_share_48pt"/>
+                                                <connections>
+                                                    <action selector="shareButtonTapped:" destination="YLd-EO-8NF" eventType="touchUpInside" id="4Vs-er-Y9M"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="1hX-3x-7kE" firstAttribute="centerY" secondItem="TsU-fO-3Xc" secondAttribute="centerY" id="1BU-8f-Jh8"/>
-                                    <constraint firstItem="DPV-DQ-FJr" firstAttribute="top" secondItem="TsU-fO-3Xc" secondAttribute="top" constant="23" id="8iB-p8-Pox"/>
+                                    <constraint firstAttribute="bottom" secondItem="wxV-XJ-srA" secondAttribute="bottom" constant="16" id="2mU-af-dmv"/>
+                                    <constraint firstAttribute="trailing" secondItem="wxV-XJ-srA" secondAttribute="trailing" constant="60" id="DDT-yp-x3i"/>
                                     <constraint firstAttribute="height" constant="70" id="P9I-tc-9Zx"/>
-                                    <constraint firstItem="1hX-3x-7kE" firstAttribute="centerX" secondItem="TsU-fO-3Xc" secondAttribute="centerX" id="Uhv-IK-dfz"/>
-                                    <constraint firstItem="1hX-3x-7kE" firstAttribute="top" secondItem="TsU-fO-3Xc" secondAttribute="top" constant="8" id="aSi-vj-wwM"/>
-                                    <constraint firstAttribute="bottom" secondItem="1hX-3x-7kE" secondAttribute="bottom" constant="2" id="jBd-5j-YVB"/>
-                                    <constraint firstItem="1hX-3x-7kE" firstAttribute="centerX" secondItem="TsU-fO-3Xc" secondAttribute="centerX" id="kcW-7p-Huf"/>
-                                    <constraint firstItem="DPV-DQ-FJr" firstAttribute="trailing" secondItem="TsU-fO-3Xc" secondAttribute="trailing" constant="-30" id="mVc-Ob-Lus"/>
-                                    <constraint firstItem="1hX-3x-7kE" firstAttribute="centerX" secondItem="TsU-fO-3Xc" secondAttribute="centerX" id="rE0-mc-lzU"/>
+                                    <constraint firstItem="wxV-XJ-srA" firstAttribute="top" secondItem="TsU-fO-3Xc" secondAttribute="top" constant="16" id="nXr-r4-VM7"/>
+                                    <constraint firstItem="wxV-XJ-srA" firstAttribute="leading" secondItem="TsU-fO-3Xc" secondAttribute="leading" constant="60" id="rVX-d5-I22"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="1BU-8f-Jh8"/>
-                                        <exclude reference="Uhv-IK-dfz"/>
-                                        <exclude reference="rE0-mc-lzU"/>
-                                    </mask>
-                                </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="P9I-tc-9Zx"/>
-                                        <include reference="1BU-8f-Jh8"/>
-                                        <exclude reference="Uhv-IK-dfz"/>
-                                        <exclude reference="rE0-mc-lzU"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -649,8 +623,6 @@
                         <outlet property="recordStackLeading" destination="oxW-rs-0fb" id="kJz-qi-bQv"/>
                         <outlet property="recordStackTrailing" destination="CD7-7l-4KJ" id="esn-sF-9EG"/>
                         <outlet property="recordStackView" destination="5Ik-Pd-laN" id="Xmw-oj-DEM"/>
-                        <outlet property="recordingDateLabel" destination="fYI-Gf-J4I" id="w3H-c7-yQ0"/>
-                        <outlet property="recordingTitleLabel" destination="KR6-Lf-E9G" id="Q8m-n2-BCN"/>
                         <outlet property="scrubSlider" destination="S4F-to-qwf" id="dbQ-pL-mRg"/>
                         <outlet property="shareButton" destination="DPV-DQ-FJr" id="p2R-R9-jRj"/>
                         <outlet property="stopWatchLabel" destination="0UE-KP-Dkr" id="EBk-yF-tX7"/>
@@ -678,7 +650,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MYh-BK-coc">
                                                 <rect key="frame" x="16" y="8" width="163.66666666666666" height="44"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                 <state key="normal" title="New Folder">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -689,7 +661,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNW-mJ-aLE">
                                                 <rect key="frame" x="195.66666666666663" y="8" width="163.33333333333337" height="44"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                 <state key="normal" title="New Recording">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
@@ -737,7 +709,7 @@
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="folderTitle" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPA-et-pK9">
                                                             <rect key="frame" x="72" y="24.666666666666671" width="262" height="20.333333333333329"/>
-                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -771,20 +743,20 @@
                                                             <rect key="frame" x="16" y="42.666666666666664" width="343" height="21"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01/17/18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sfo-FY-Rjy">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="58.666666666666664" height="21"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="66" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="16"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeF-9i-yu2">
-                                                                    <rect key="frame" x="128.66666666666666" y="0.0" width="94" height="21"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                                                    <rect key="frame" x="131" y="0.0" width="94" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="16"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="53:42" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rKW-ho-snF">
-                                                                    <rect key="frame" x="300.66666666666669" y="0.0" width="42.333333333333314" height="21"/>
-                                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                                                    <rect key="frame" x="302.33333333333331" y="0.0" width="40.666666666666686" height="21"/>
+                                                                    <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="16"/>
                                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
@@ -792,7 +764,7 @@
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording 1234" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNJ-al-Pyg">
                                                             <rect key="frame" x="16" y="19" width="328" height="19.666666666666671"/>
-                                                            <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                                            <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -871,7 +843,7 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dUn-xC-wTX">
                                         <rect key="frame" x="16" y="8" width="343" height="44"/>
-                                        <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
+                                        <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                         <state key="normal" title="New recording in Folder Title Here">
                                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -905,7 +877,7 @@
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="2d2-E7-3dK"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -946,30 +918,30 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recording 1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bK-bz-Ahs">
-                                                    <rect key="frame" x="16" y="19" width="343" height="21"/>
-                                                    <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                    <rect key="frame" x="16" y="19" width="343" height="19.666666666666671"/>
+                                                    <fontDescription key="fontDescription" name="Montserrat-Medium" family="Montserrat" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="u8W-pt-u6r">
-                                                    <rect key="frame" x="16" y="43.333333333333336" width="328" height="20.333333333333336"/>
+                                                    <rect key="frame" x="16" y="42" width="328" height="21.666666666666671"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01/17/18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Q3-bc-p68">
-                                                            <rect key="frame" x="0.0" y="0.0" width="61.666666666666664" height="20.333333333333332"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="66" height="21.666666666666668"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="16"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Bookmarks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NSr-XZ-38H">
-                                                            <rect key="frame" x="118.66666666666666" y="0.0" width="99" height="20.333333333333332"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <rect key="frame" x="123.33333333333334" y="0.0" width="94" height="21.666666666666668"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="16"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="53:42" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ksf-GV-E1t">
-                                                            <rect key="frame" x="283.33333333333331" y="0.0" width="44.666666666666686" height="20.333333333333332"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <rect key="frame" x="287.33333333333331" y="0.0" width="40.666666666666686" height="21.666666666666668"/>
+                                                            <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="16"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -1050,7 +1022,6 @@
     </scenes>
     <resources>
         <image name="Bitmap" width="57" height="57"/>
-        <image name="ic_bookmark_border_white_48pt" width="48" height="48"/>
         <image name="ic_folder_48pt" width="48" height="48"/>
         <image name="ic_forward_10_white_48pt" width="48" height="48"/>
         <image name="ic_pause_circle_filled_white_48pt" width="48" height="48"/>

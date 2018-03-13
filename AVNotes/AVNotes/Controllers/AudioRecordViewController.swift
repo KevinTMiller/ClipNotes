@@ -25,13 +25,16 @@ class AudioRecordViewController: UIViewController {
         static let animationDuation = 0.33
         static let bookmarkModal = "bookmarkModal"
         static let cellIdentifier = "annotationCell"
+        static let cornerRadius: CGFloat = 10.0
         static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button." // swiftlint:disable:this line_length
         static let emptyTimeString = "00:00.00"
         static let insetConstant: CGFloat = 3.0
         static let mainStoryboard = "Main"
+        static let onePixel: CGFloat = 1 / UIScreen.main.scale
         static let playbackLineWidth: CGFloat = 1 / UIScreen.main.scale
         static let recordAlertMessage = "Start recording before adding a bookmark"
         static let recordAlertTitle = "Press Record"
+        static let textColor: UIColor = UIColor(red:0.08, green:0.07, blue:0.35, alpha:1.0)
         static let trailingInset: CGFloat = 0.06
         static let tableViewInset: CGFloat = 16.0
         static let timerInterval = 0.03
@@ -72,8 +75,6 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var playStackView: UIStackView!
     @IBOutlet private var plusButton: UIBarButtonItem!
     @IBOutlet private weak var recordButton: UIButton!
-    @IBOutlet private weak var recordingDateLabel: UILabel!
-    @IBOutlet private weak var recordingTitleLabel: UILabel!
     @IBOutlet private var recordStackLeading: NSLayoutConstraint!
     @IBOutlet private var recordStackTrailing: NSLayoutConstraint!
     @IBOutlet private weak var recordStackView: UIStackView!
@@ -187,8 +188,6 @@ class AudioRecordViewController: UIViewController {
     // MARK: UI Funcs
     private func setUpMiscUI() {
 
-
-
         playStackLeading =
             playStackView.leadingAnchor.constraint(equalTo: controlView.leadingAnchor, constant: 5.0)
         playStackTrailing =
@@ -202,18 +201,16 @@ class AudioRecordViewController: UIViewController {
 
         createPlaybackLine()
         roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
+
         addButtonSuperview.clipsToBounds = false
-        addBookmarkButton.layer.opacity = 0.33
-        addBookmarkButton.layer.shadowColor = UIColor.clear.cgColor
-        addBookmarkButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
-        addBookmarkButton.layer.masksToBounds = false
-        addBookmarkButton.layer.shadowRadius = 2.0
-        addBookmarkButton.layer.shadowOpacity = 0.25
-        addBookmarkButton.layer.cornerRadius = addBookmarkButton.frame.width / 2
+
+        addBookmarkButton.layer.cornerRadius = Constants.cornerRadius
+        addBookmarkButton.layer.borderColor = Constants.textColor.cgColor
+        addBookmarkButton.layer.borderWidth = Constants.onePixel
         addBookmarkButton.isEnabled = false
+
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
-        gradientManager.addManagedView(addBookmarkButton)
 
         let panGestureRecognizer = UIPanGestureRecognizer(target: self,
                                                           action: #selector(waveformDidPan))
@@ -413,10 +410,6 @@ class AudioRecordViewController: UIViewController {
     private func updateRecordingInfo() {
         if let currentRecording = mediaManager.currentRecording {
             self.title = currentRecording.userTitle
-            //recordingTitleLabel.text = currentRecording.userTitle
-            recordingDateLabel.text = DateFormatter.localizedString(from: currentRecording.date,
-                                                                    dateStyle: .short,
-                                                                    timeStyle: .none)
             stopWatchLabel.text = String.stopwatchStringFrom(timeInterval: currentRecording.duration)
             updateTableView()
         }
@@ -643,7 +636,8 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
                                           constant: Constants.tableViewInset).isActive = true
             view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor,
                                            constant: -Constants.tableViewInset).isActive = true
-            view.topAnchor.constraint(equalTo: tableView.topAnchor).isActive = true
+            view.topAnchor.constraint(equalTo: tableView.topAnchor,
+                                      constant: Constants.tableViewInset).isActive = true
             view.bottomAnchor.constraint(equalTo: tableView.topAnchor,
                                          constant: Constants.viewSize).isActive = true
             return 1
