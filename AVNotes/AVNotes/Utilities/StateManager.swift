@@ -49,7 +49,7 @@ class StateManager: NSObject {
     
     var isPlayMode: Bool {
         switch currentState {
-        case .playing, .playingPaused, .playingStopped, .readyToPlay:
+        case .playing, .playingPaused, .playingStopped, .readyToPlay, .prepareToPlay:
             return true
         default:
             return false
