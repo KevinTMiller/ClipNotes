@@ -11,10 +11,11 @@ import UIKit
 class BorderDrawingView: UIView {
 
     enum Constants {
-        static let cornerRadius: CGFloat = 20.0
-        static let inset: CGFloat = 3.0
-        static let lineWidth: CGFloat = 2.0
         static let centerLineWidth: CGFloat = 3.0
+        static let cornerRadius: CGFloat = 20.0
+        static let inset: CGFloat = 2.0
+        static let lineWidth: CGFloat = 3.0
+        static let maskInset: CGFloat = 1.0
         static let onePixel: CGFloat = 1 / UIScreen.main.scale
         static let trailingPosition: CGFloat = 0.94
     }
@@ -33,7 +34,6 @@ class BorderDrawingView: UIView {
         borderPath.lineJoinStyle = .round
         borderPath.stroke()
         centerLine.stroke()
-        makeViewMask()
     }
 
     func drawRoundedRect() {
@@ -57,7 +57,7 @@ class BorderDrawingView: UIView {
     }
 
     func makeViewMask() {
-        let rect = self.bounds.insetBy(dx: Constants.inset, dy: Constants.inset)
+        let rect = self.bounds.insetBy(dx: Constants.maskInset, dy: Constants.maskInset)
         let maskPath = UIBezierPath(roundedRect: rect,
                                     cornerRadius: Constants.cornerRadius)
         let mask = CAShapeLayer()
@@ -67,7 +67,9 @@ class BorderDrawingView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        makeViewMask()
         self.clipsToBounds = true
         layer.masksToBounds = true
+
     }
 }
