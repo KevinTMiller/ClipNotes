@@ -23,6 +23,7 @@ protocol StateManagerViewDelegate: AnyObject {
 }
 
 protocol StateManagerModelDelegate: AnyObject {
+    func emergencySave()
     func pauseAudio()
     func pauseRecording()
     func playAudio()

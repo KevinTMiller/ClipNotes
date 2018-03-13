@@ -188,6 +188,11 @@ StateManagerModelDelegate {
         }
         return annotations.count
     }
+    func emergencySave() {
+        audioRecorder?.stop()
+        saveRecording(recording: currentRecording!)
+        fileManager.emergencySave()
+    }
 
     func addAnnotation(title: String, text: String, timestamp: TimeInterval) {
         let timeStampDouble = Double(timestamp)

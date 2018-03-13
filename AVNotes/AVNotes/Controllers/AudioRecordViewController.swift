@@ -300,15 +300,12 @@ class AudioRecordViewController: UIViewController {
     }
 
     private func activateFab(active: Bool) {
-
         UIView.animate(withDuration: 0.33,
                        delay: 0.0,
                        options: .curveEaseOut,
                        animations: { [weak self] in
-                        self?.view.layoutIfNeeded()
                         self?.addBookmarkButton.isEnabled = active
-                        self?.addBookmarkButton.layer.opacity = active ? 1.0 : 0.33
-                        self?.addBookmarkButton.layer.shadowColor =  active ? UIColor.black.cgColor : UIColor.clear.cgColor
+                        self?.addBookmarkButton.layer.opacity = active ? 1.0 : 0.25
         }, completion: nil)
     }
     
@@ -497,6 +494,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         }
         UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
+            self.activateFab(active: self.stateManager.canAnnotate)
             self.playbackLine?.isHidden = self.stateManager.isRecordMode
             self.shareButton.isHidden = !self.stateManager.canShare
             self.playPauseButton.isSelected = self.stateManager.isPlaying
@@ -521,7 +519,6 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         try? AudioKit.start()
         updateButtons()
         toggleTimer(isOn: true)
-        activateFab(active: true)
     }
 
     func prepareToPlay() {
@@ -531,7 +528,6 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         livePlot?.clear()
         setSummaryPlot()
         toggleSlider(isOn: true)
-        activateFab(active: true)
         switchToPlayStack()
     }
 
@@ -552,7 +548,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
 
     func playAudio() {
         toggleTimer(isOn: true)
-        activateFab(active: true)
+        updateButtons()
     }
 
     func pauseRecording() {
@@ -619,6 +615,7 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
             let view = UIView(frame:CGRect())
             let label = UILabel(frame: CGRect())
             label.text = Constants.emptyTableText
+            label.font = UIFont(name: "OpenSans-Light", size: 16.0)
             label.textColor = .lightGray
             label.textAlignment = .center
             label.numberOfLines = 0
@@ -684,6 +681,7 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
                 case .readyToPlay:
                     mediaManager.playAudio()
+
                     mediaManager.skipTo(timeInterval: bookmark.timeStamp)
                 default:
                     return

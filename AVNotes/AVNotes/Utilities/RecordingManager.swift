@@ -127,6 +127,14 @@ class RecordingManager: NSObject {
         let dragItem = UIDragItem(itemProvider: itemProvider)
         return [dragItem]
     }
+    func emergencySave() {
+        do {
+            try Disk.save(self.recordingArray, to: .documents, as: Constants.recordingJSON)
+            try Disk.save(self.folderList, to: .documents, as: Constants.folderJSON)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
 
     func saveFiles() {
         DispatchQueue.global(qos: .userInitiated).async {
