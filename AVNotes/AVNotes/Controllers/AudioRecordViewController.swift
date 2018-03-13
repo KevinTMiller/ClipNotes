@@ -499,7 +499,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
             self.shareButton.isHidden = !self.stateManager.canShare
             self.playPauseButton.isSelected = self.stateManager.isPlaying
             self.recordButton.isSelected = self.stateManager.isRecording
-            self.plusButton.isEnabled = self.stateManager.canAnnotate
+            self.plusButton.isEnabled = self.stateManager.isPlayMode
             self.filesButton.isEnabled = self.stateManager.canViewFiles
         })
     }
@@ -524,6 +524,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     func prepareToPlay() {
         updateButtons()
         scrubSlider.value = 0.0
+        movePlaybackLine(value: 0.0)
         updateRecordingInfo()
         livePlot?.clear()
         setSummaryPlot()
