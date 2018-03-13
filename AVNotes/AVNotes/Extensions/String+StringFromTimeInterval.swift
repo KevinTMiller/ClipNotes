@@ -39,10 +39,10 @@ extension String {
         let minutes = (time / 60) % 60
         let hours = (time / 3_600)
 
-        if minutes < 60 {
-            return "\(minutes)m \(seconds)s"
+        if hours == 0 {
+            return "\(minutes)m\(seconds)s"
         } else {
-            return "\(hours)h \(minutes)m"
+            return "\(hours)h\(minutes)m"
         }
     }
 }
