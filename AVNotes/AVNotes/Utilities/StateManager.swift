@@ -30,7 +30,6 @@ class StateManager: NSObject {
     weak var modelDelegate: StateManagerModelDelegate!
     weak var viewDelegate: StateManagerViewDelegate!
 
-
     var currentState: CurrentState = .initialize {
         didSet {
             print(currentState)
@@ -66,7 +65,8 @@ class StateManager: NSObject {
     }
     var canViewFiles: Bool {
         switch currentState {
-        case .recording:
+        case .recording,
+             .recordingPaused:
             return false
         default:
             return true
@@ -149,21 +149,28 @@ class StateManager: NSObject {
             return
         }
     }
+
+    func toggleRecordingPause(sender: UIButton) {
+        switch currentState {
+        case .recording:
+            modelDelegate.pauseRecording()
+            viewDelegate.pauseRecording()
+//        case .recordingPaused:
+//            modelDelegate.resumeRecording()
+//            viewDelegate.resumeRecording()
+        default:
+            return
+        }
+    }
     
     func toggleRecordingState(sender: UIButton) {
         switch currentState {
         case .readyToRecord:
             modelDelegate.startRecordingAudio()
             viewDelegate.startRecording()
-            sender.isSelected = true
-        case .recording:
-            modelDelegate.pauseRecording()
-            viewDelegate.pauseRecording()
-            sender.isSelected = false
         case .recordingPaused:
             modelDelegate.resumeRecording()
             viewDelegate.resumeRecording()
-            sender.isSelected = true
         default:
             return
         }
