@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>412690594006-8th15g27sv9o0ga1afut8u71013ra8u0.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.412690594006-8th15g27sv9o0ga1afut8u71013ra8u0</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBBh1oFUfwxhZym_e8g2yDDKGad7cTMTrs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>412690594006</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.Kevin-Miller.ClipNotes</string>
+	<key>PROJECT_ID</key>
+	<string>clipnotes-4e5a1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>clipnotes-4e5a1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:412690594006:ios:1b30df2744f2791f</string>
+	<key>DATABASE_URL</key>
+	<string>https://clipnotes-4e5a1.firebaseio.com</string>
+</dict>
+</plist>

@@ -9,6 +9,7 @@
 import AudioKit
 import AudioKitUI
 import AVKit
+import Firebase
 import UIKit
 
 enum Mode {
@@ -71,7 +72,7 @@ class AudioRecordViewController: UIViewController {
     @IBOutlet private weak var controlView: UIView!
     @IBOutlet private var filesButton: UIBarButtonItem!
     @IBOutlet private var gradientView: GradientView!
-    @IBOutlet var pauseButton: UIButton!
+    @IBOutlet private var pauseButton: UIButton!
     @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var playStackView: UIStackView!
     @IBOutlet private var plusButton: UIBarButtonItem!
@@ -268,8 +269,17 @@ class AudioRecordViewController: UIViewController {
         try? FileManager.default.copyItem(at: originPath, to: tempPath)
         let activityController = UIActivityViewController(activityItems: [tempPath],
                                                           applicationActivities: nil)
+        activityController.completionWithItemsHandler = {
+            _, success, _, _ in
+            Analytics.logEvent(AnalyticsConstants.objectExported, parameters: [
+                AnalyticsConstants.typeExported: userName,
+                AnalyticsConstants.exportSuccess: success,
+                AnalyticsConstants.recordingID: currentRecording.fileName,
+                AnalyticsConstants.numberOfBookmarks: currentRecording.annotations?.count ?? 0,
+                AnalyticsConstants.recordingDuration: currentRecording.duration
+            ])
+            }
         present(activityController, animated: true, completion: nil)
-
     }
 
     private func exportBookmarks() {
@@ -277,6 +287,16 @@ class AudioRecordViewController: UIViewController {
         if let stringURL = AnnotatedRecording.formatBookmarksForExport(recording: currentRecording) {
             let activityController = UIActivityViewController(activityItems: [stringURL],
                                                               applicationActivities: nil)
+            activityController.completionWithItemsHandler = {
+                _, success, _, _ in
+                Analytics.logEvent(AnalyticsConstants.objectExported, parameters: [
+                    AnalyticsConstants.typeExported: "Bookmarks",
+                    AnalyticsConstants.exportSuccess: success,
+                    AnalyticsConstants.recordingID: currentRecording.fileName,
+                    AnalyticsConstants.numberOfBookmarks: currentRecording.annotations?.count ?? 0,
+                    AnalyticsConstants.recordingDuration: currentRecording.duration
+                ])
+            }
             present(activityController, animated: true, completion: nil)
         }
     }
@@ -467,7 +487,7 @@ class AudioRecordViewController: UIViewController {
         // Need to inset the view because the border drawing view draws its border inset dx 3.0 dy 3.0
         // and has a border width of 2.0. 4.0 has a nice seamless look
         livePlot?.leadingAnchor.constraint(equalTo: waveformView.leadingAnchor,
-                                           constant: Constants.insetConstant).isActive = true 
+                                           constant: Constants.insetConstant).isActive = true
         let trailing = waveformView.bounds.width * Constants.trailingInset
         livePlot?.trailingAnchor.constraint(equalTo: waveformView.trailingAnchor,
                                             constant: -trailing).isActive = true
