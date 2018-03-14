@@ -469,7 +469,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TsU-fO-3Xc" userLabel="HeaderView">
                                 <rect key="frame" x="0.0" y="372" width="375" height="70"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="wxV-XJ-srA">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="wxV-XJ-srA">
                                         <rect key="frame" x="60" y="16" width="255" height="38"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hX-3x-7kE">
@@ -489,12 +489,12 @@
                                                 </connections>
                                             </button>
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPV-DQ-FJr">
-                                                <rect key="frame" x="-60" y="0.0" width="38" height="38"/>
+                                                <rect key="frame" x="-60" y="0.0" width="25.5" height="38"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="DPV-DQ-FJr" secondAttribute="height" multiplier="1:1" id="IMO-Ba-rcs"/>
+                                                    <constraint firstAttribute="width" secondItem="DPV-DQ-FJr" secondAttribute="height" multiplier="4:6" id="jBT-VN-MQm"/>
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.64152018229166663" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="Button" image="ic_share_48pt"/>
+                                                <state key="normal" title="Button" image="shareIcon"/>
                                                 <connections>
                                                     <action selector="shareButtonTapped:" destination="YLd-EO-8NF" eventType="touchUpInside" id="4Vs-er-Y9M"/>
                                                 </connections>
@@ -1029,6 +1029,6 @@
         <image name="ic_pause_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_play_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_replay_10_white_48pt" width="48" height="48"/>
-        <image name="ic_share_48pt" width="48" height="48"/>
+        <image name="shareIcon" width="714" height="982"/>
     </resources>
 </document>
