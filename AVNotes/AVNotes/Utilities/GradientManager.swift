@@ -11,7 +11,7 @@ import UIKit
 class GradientManager: NSObject {
 
     enum Constants {
-        static let duration: CFTimeInterval = 3.0
+        static let duration: CFTimeInterval = 7.0
         static let colorKeyPath = "colors"
         static let colorChange = "colorChange"
     }
@@ -22,9 +22,11 @@ class GradientManager: NSObject {
     
     private lazy var managedViews = [UIView]()
     private lazy var index = UserDefaults.standard.value(forKey: "gradient") as? Int ?? 0
-    private lazy var keyDictionary = ["Vanusa", "eXpresso", "Red Sunset", "Taran Tado",
+    private lazy var keyDictionary = ["Initial", "Vanusa", "eXpresso", "Red Sunset", "Taran Tado",
                                  "Purple Bliss"]
     private lazy var gradientDictionary: [String: [CGColor]] = [
+        "Initial":       [UIColor(red:0.95, green:0.12, blue:0.15, alpha:1.0).cgColor,
+                          UIColor(red:0.88, green:0.09, blue:0.56, alpha:1.0).cgColor],
         "Vanusa":       [UIColor(red: 0.85, green: 0.27, blue: 0.33, alpha: 1.0).cgColor,
                          UIColor(red: 0.54, green: 0.13, blue: 0.42, alpha: 1.0).cgColor],
         "eXpresso":     [UIColor(red: 0.68, green: 0.33, blue: 0.54, alpha: 1.0).cgColor,
