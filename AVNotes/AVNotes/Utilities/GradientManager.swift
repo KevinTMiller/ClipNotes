@@ -11,12 +11,13 @@ import UIKit
 class GradientManager: NSObject {
 
     enum Constants {
-        static let duration: CFTimeInterval = 10.0
+        static let duration: CFTimeInterval = 3.0
         static let colorKeyPath = "colors"
         static let colorChange = "colorChange"
     }
-
-    private lazy var gradientLayers = [CAGradientLayer]()
+    private var nextColor = [CGColor]()
+    private var currentColor = [CGColor]()
+    private var gradientLayers = [CAGradientLayer]()
     private lazy var managedViews = [UIView]()
     private lazy var index = UserDefaults.standard.value(forKey: "gradient") as? Int ?? 0
     private lazy var keyDictionary = ["Vanusa", "eXpresso", "Red Sunset", "Taran Tado",
@@ -40,12 +41,19 @@ class GradientManager: NSObject {
     // based on user choice
 
     func cycleGradient() {
+        currentColor = gradientDictionary[keyDictionary[index]]!
         if index == keyDictionary.count - 1 { index = 0 } else { index += 1 }
-        if let colors = gradientDictionary[keyDictionary[index]] {
-            updateViewsWithGradient(colors)
+        nextColor = gradientDictionary[keyDictionary[index]]!
+        updateViewsWithGradient()
+    }
+    
+    func redrawGradients() {
+        for i in 0 ..< gradientLayers.count {
+            gradientLayers[i].frame = managedViews[i].bounds
         }
     }
 
+    // May want to add more gradient views later.
     func addManagedView(_ view: UIView) {
         guard let colors = gradientDictionary[keyDictionary.first!] else { return }
         let gradient = CAGradientLayer()
@@ -64,15 +72,15 @@ class GradientManager: NSObject {
         }
     }
 
-    private func updateViewsWithGradient(_ colors: [CGColor]) {
-
-        let animation = CABasicAnimation(keyPath: Constants.colorKeyPath)
-        animation.duration = Constants.duration
-        animation.toValue = colors
-        animation.fillMode = kCAFillModeForwards
-        animation.isRemovedOnCompletion = false
+    private func updateViewsWithGradient() {
 
         for gradient in gradientLayers {
+            let animation = CABasicAnimation(keyPath: Constants.colorKeyPath)
+            animation.duration = Constants.duration
+            animation.fromValue = currentColor
+            animation.toValue = nextColor
+            animation.isRemovedOnCompletion = false
+            animation.fillMode = kCAFillModeForwards
             gradient.add(animation, forKey: Constants.colorChange)
         }
     }

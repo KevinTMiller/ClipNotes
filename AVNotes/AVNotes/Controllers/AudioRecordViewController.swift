@@ -347,6 +347,7 @@ class AudioRecordViewController: UIViewController {
         if orientation.isLandscape || orientation.isPortrait {
             roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
             activateFab(active: stateManager.allowsAnnotation())
+            gradientManager.redrawGradients()
         }
     }
 
