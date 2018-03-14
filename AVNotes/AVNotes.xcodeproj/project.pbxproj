@@ -15,6 +15,7 @@
 		871CE216205830EA0033210C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 871CE215205830E90033210C /* Assets.xcassets */; };
 		871CE21F20583E740033210C /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 871CE21C20583E3F0033210C /* OpenSans-Light.ttf */; };
 		871CE22320583E740033210C /* Montserrat-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 871CE21920583E230033210C /* Montserrat-Medium.otf */; };
+		871CE22B2058BD160033210C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 871CE22A2058BD150033210C /* GoogleService-Info.plist */; };
 		872A66FC1FD7035F00AD6B2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872A66FB1FD7035F00AD6B2C /* AppDelegate.swift */; };
 		872A67011FD7035F00AD6B2C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 872A66FF1FD7035F00AD6B2C /* Main.storyboard */; };
 		872A67061FD7035F00AD6B2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 872A67041FD7035F00AD6B2C /* LaunchScreen.storyboard */; };
@@ -87,6 +88,7 @@
 		871CE215205830E90033210C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		871CE21920583E230033210C /* Montserrat-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Montserrat-Medium.otf"; sourceTree = "<group>"; };
 		871CE21C20583E3F0033210C /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		871CE22A2058BD150033210C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		872A66F81FD7035F00AD6B2C /* AVNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		872A66FB1FD7035F00AD6B2C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		872A67001FD7035F00AD6B2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				872A66FF1FD7035F00AD6B2C /* Main.storyboard */,
 				872A67041FD7035F00AD6B2C /* LaunchScreen.storyboard */,
 				872A67071FD7035F00AD6B2C /* Info.plist */,
+				871CE22A2058BD150033210C /* GoogleService-Info.plist */,
 				871CE215205830E90033210C /* Assets.xcassets */,
 			);
 			path = AVNotes;
@@ -366,6 +369,7 @@
 				872A67061FD7035F00AD6B2C /* LaunchScreen.storyboard in Resources */,
 				8786DDD9204460D600BCC61B /* montserrat.regular.ttf in Resources */,
 				871CE216205830EA0033210C /* Assets.xcassets in Resources */,
+				871CE22B2058BD160033210C /* GoogleService-Info.plist in Resources */,
 				872A67011FD7035F00AD6B2C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,10 +385,14 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-AVNotes/Pods-AVNotes-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Disk/Disk.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Disk.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
