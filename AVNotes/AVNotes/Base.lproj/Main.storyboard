@@ -709,8 +709,8 @@
                                                             <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" ambiguous="YES" text="folderTitle" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPA-et-pK9">
-                                                            <rect key="frame" x="72" y="24.5" width="207" height="20.5"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="folderTitle" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gPA-et-pK9">
+                                                            <rect key="frame" x="72" y="24.5" width="82" height="20.5"/>
                                                             <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -718,14 +718,14 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="hGb-MA-Z8T" firstAttribute="centerY" secondItem="oSS-eb-Nel" secondAttribute="centerY" id="04n-xY-gVL"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="gPA-et-pK9" secondAttribute="trailing" constant="16" id="MUG-PU-YQt"/>
                                                         <constraint firstAttribute="bottomMargin" secondItem="gPA-et-pK9" secondAttribute="bottom" constant="14" id="X9M-fL-Xr6"/>
                                                         <constraint firstItem="SaQ-ew-Wu5" firstAttribute="centerX" secondItem="hGb-MA-Z8T" secondAttribute="centerX" id="bt9-at-YCe"/>
                                                         <constraint firstItem="SaQ-ew-Wu5" firstAttribute="centerY" secondItem="hGb-MA-Z8T" secondAttribute="centerY" constant="2" id="kwZ-x7-n7K"/>
                                                         <constraint firstItem="hGb-MA-Z8T" firstAttribute="leading" secondItem="oSS-eb-Nel" secondAttribute="leading" constant="16" id="n8T-eW-zfd"/>
-                                                        <constraint firstItem="gPA-et-pK9" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oSS-eb-Nel" secondAttribute="trailingMargin" id="pc1-pk-YX8"/>
-                                                        <constraint firstItem="gPA-et-pK9" firstAttribute="centerY" secondItem="oSS-eb-Nel" secondAttribute="centerY" id="qzh-jr-fNp"/>
-                                                        <constraint firstItem="gPA-et-pK9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="oSS-eb-Nel" secondAttribute="leading" id="rDj-Sb-mjW"/>
+                                                        <constraint firstItem="gPA-et-pK9" firstAttribute="leading" secondItem="oSS-eb-Nel" secondAttribute="leading" constant="72" id="nvD-bF-tyz"/>
                                                         <constraint firstItem="gPA-et-pK9" firstAttribute="top" secondItem="oSS-eb-Nel" secondAttribute="topMargin" constant="14" id="riR-OK-8o4"/>
+                                                        <constraint firstItem="gPA-et-pK9" firstAttribute="centerY" secondItem="oSS-eb-Nel" secondAttribute="centerY" id="tPI-gp-Fgm"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <connections>
