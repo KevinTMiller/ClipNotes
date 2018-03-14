@@ -18,6 +18,7 @@ class GradientManager: NSObject {
     private var nextColor = [CGColor]()
     private var currentColor = [CGColor]()
     private var gradientLayers = [CAGradientLayer]()
+    
     private lazy var managedViews = [UIView]()
     private lazy var index = UserDefaults.standard.value(forKey: "gradient") as? Int ?? 0
     private lazy var keyDictionary = ["Vanusa", "eXpresso", "Red Sunset", "Taran Tado",

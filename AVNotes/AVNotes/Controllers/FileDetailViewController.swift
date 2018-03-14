@@ -22,7 +22,7 @@ class FileDetailViewController: UIViewController {
         static let unwindSegue = "unwindToAudioRecord"
     }
 
-    @IBOutlet var newRecordingButton: UIButton!
+    @IBOutlet private var newRecordingButton: UIButton!
     var folder: Folder!
     private var recordings: [AnnotatedRecording]! {
         return fileManager.recordingArray.filter({ $0.folderID == folder.systemID })

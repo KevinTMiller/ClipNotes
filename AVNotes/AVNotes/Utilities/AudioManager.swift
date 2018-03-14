@@ -9,7 +9,21 @@
 import AudioKit
 import AudioKitUI
 import AVKit
+import Firebase
 import UIKit
+
+enum AnalyticsConstants {
+    static let bookmarkCreated = "bookmark_created"
+    static let bookmarkLength = "bookmark_length"
+    static let currentState = "current_state"
+    static let exportSuccess = "export_success"
+    static let recordingDuration = "recording_duration"
+    static let recordingID = "recording_id"
+    static let newRecordingCreated = "new_recording_created"
+    static let numberOfBookmarks = "number_of_bookmarks"
+    static let objectExported = "object_exported"
+    static let typeExported = "type_exported"
+}
 
 enum CurrentState {
     case finishedSuccessfully
@@ -208,6 +222,13 @@ StateManagerModelDelegate {
         }
         fileManager.saveFiles()
         bookmarkTableViewDelegate?.updateBookmarkTableview()
+        guard let currentRecording = currentRecording else { return }
+        Analytics.logEvent(AnalyticsConstants.bookmarkCreated, parameters: [
+            AnalyticsConstants.recordingID: currentRecording.fileName,
+            AnalyticsConstants.bookmarkLength: bookmark.noteText.count,
+            AnalyticsConstants.numberOfBookmarks: currentRecording.annotations?.count ?? 0,
+            AnalyticsConstants.currentState: "\(stateManager.currentState)"
+        ])
     }
 
     func editBookmark(indexPath: IndexPath, title: String, text: String) {
@@ -359,6 +380,12 @@ StateManagerModelDelegate {
         fileManager.saveFiles()
         let lastRecording = defaults.value(forKey: Constants.lastRecordingKey) as? Int ?? 1
         defaults.set(lastRecording + 1, forKey: Constants.lastRecordingKey)
+        guard let currentRecording = currentRecording else { return }
+        Analytics.logEvent(AnalyticsConstants.newRecordingCreated, parameters: [
+            AnalyticsConstants.recordingID: currentRecording.fileName,
+            AnalyticsConstants.recordingDuration: currentRecording.duration,
+            AnalyticsConstants.numberOfBookmarks: currentRecording.annotations?.count ?? 0
+        ])
     }
 
     // .currentTime on AVAudioRecorder returns 0 when stopped.  Must turn the path into

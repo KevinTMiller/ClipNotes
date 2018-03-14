@@ -6,6 +6,7 @@
 //  Copyright © 2017 Kevin Miller. All rights reserved.
 //
 
+import Firebase
 import UIKit
 
 @UIApplicationMain
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         RecordingManager.sharedInstance.loadFiles()
         application.statusBarStyle = .lightContent
+        FirebaseApp.configure()
         return true
     }
 
