@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -1029,6 +1028,6 @@
         <image name="ic_pause_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_play_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_replay_10_white_48pt" width="48" height="48"/>
-        <image name="shareIcon" width="714" height="982"/>
+        <image name="shareIcon" width="56" height="80"/>
     </resources>
 </document>
