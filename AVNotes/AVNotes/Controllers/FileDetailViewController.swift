@@ -140,7 +140,7 @@ extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension FileDetailViewController: UITableViewDragDelegate, UITableViewDropDelegate {
-    
+
     func tableView(_ tableView: UITableView,
                    itemsForBeginning session: UIDragSession,
                    at indexPath: IndexPath) -> [UIDragItem] {
@@ -163,11 +163,14 @@ extension FileDetailViewController: UITableViewDragDelegate, UITableViewDropDele
 
         coordinator.session.loadObjects(ofClass: NSString.self) { items in
             guard let dragStringItem = items[0] as? String else { return }
-            self.fileManager.changeFolderof(sourceItemID: dragStringItem, toFolder: "")
-            tableView.reloadData()
+            if coordinator.destinationIndexPath?.row == 0 {
+                self.fileManager.changeFolderof(sourceItemID: dragStringItem, toFolder: "")
+                tableView.reloadData()
+            }
         }
     }
-
+    // Cannot implement move operation because the recordings in the vc are filtered from the model.
+    // May need to refactor this in the future. For now will just sort by date
     func tableView(_ tableView: UITableView, dragSessionAllowsMoveOperation session: UIDragSession) -> Bool {
         return false
     }
@@ -184,6 +187,7 @@ extension FileDetailViewController: UITableViewDragDelegate, UITableViewDropDele
                     destination == 0 {
                     return UITableViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
                 }
+
             }
         }
         return UITableViewDropProposal(operation: .cancel)

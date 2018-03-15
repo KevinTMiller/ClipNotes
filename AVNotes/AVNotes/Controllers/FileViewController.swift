@@ -228,8 +228,9 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
 
 extension FileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
 
+    // Deactivated move operation for now
     func tableView(_ tableView: UITableView, dragSessionAllowsMoveOperation session: UIDragSession) -> Bool {
-        return true
+        return false
     }
 
     // When returning [], will still allow you to reorder
@@ -248,6 +249,7 @@ extension FileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
                 return UITableViewDropProposal(operation: .cancel)
             } else {
                 if let destination = destinationIndexPath,
+                    destination.row < fileManager.filesAndFolders.count,
                     (fileManager.filesAndFolders[destination.row]) is Folder {
                     return UITableViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
                 }
@@ -255,6 +257,7 @@ extension FileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             }
         } else {
             if let destination = destinationIndexPath,
+                destination.row < fileManager.filesAndFolders.count,
                 (fileManager.filesAndFolders[destination.row]) is Folder {
                 return UITableViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
             }
