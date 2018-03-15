@@ -214,6 +214,7 @@ class AudioRecordViewController: UIViewController {
         addBookmarkButton.layer.borderColor = Constants.textColor.cgColor
         addBookmarkButton.layer.borderWidth = Constants.onePixel
         addBookmarkButton.isEnabled = false
+        shareButton.imageView?.contentMode = .scaleAspectFit
 
         pauseButton.isEnabled = false
 

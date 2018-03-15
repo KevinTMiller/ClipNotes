@@ -27,10 +27,10 @@
                                     <constraint firstAttribute="width" constant="200" id="owl-Ib-IJp"/>
                                 </constraints>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clipnotesLabel" translatesAutoresizingMaskIntoConstraints="NO" id="nd8-Ww-2xV">
-                                <rect key="frame" x="67" y="476" width="240" height="55"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clipnotesLabel-1" translatesAutoresizingMaskIntoConstraints="NO" id="nd8-Ww-2xV">
+                                <rect key="frame" x="87" y="476" width="200" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="d5O-up-pao"/>
+                                    <constraint firstAttribute="width" constant="200" id="d5O-up-pao"/>
                                     <constraint firstAttribute="height" constant="55" id="pqY-27-ewx"/>
                                 </constraints>
                             </imageView>
@@ -56,7 +56,7 @@
     </scenes>
     <resources>
         <image name="backgroundimg" width="1024" height="1366"/>
-        <image name="clipnotesLabel" width="500" height="150"/>
+        <image name="clipnotesLabel-1" width="500" height="150"/>
         <image name="logo9" width="400" height="400"/>
     </resources>
 </document>
