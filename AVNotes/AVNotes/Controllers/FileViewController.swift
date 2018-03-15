@@ -192,44 +192,13 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         return tableView.dequeueReusableCell(withIdentifier: Constants.folderCell)!
     }
-
-    // Files and Folder is a get only computed property - must move the objects
-    // in their own arrays. If an annotated recording, must find the real index
-    // as the files and folders array only shows uncategorized files
-    // Can't have one array because ANY is not Codable and
-    // would be difficult to persist to disk as JSON using DISK
-
-    func tableView(_ tableView: UITableView,
-                   moveRowAt sourceIndexPath: IndexPath,
-                   to destinationIndexPath: IndexPath) {
-        let itemToMove = fileManager.filesAndFolders[sourceIndexPath.row]
-        let itemToReplace = fileManager.filesAndFolders[destinationIndexPath.row]
-
-        if let folder = itemToMove as? Folder {
-            if destinationIndexPath.row >= fileManager.folderList.count {
-                fileManager.folderList.remove(at: sourceIndexPath.row)
-                fileManager.folderList.insert(folder, at: fileManager.folderList.endIndex)
-            } else {
-                fileManager.folderList.remove(at: sourceIndexPath.row)
-                fileManager.folderList.insert(folder, at: destinationIndexPath.row)
-            }
-        }
-        if let file = itemToMove as? AnnotatedRecording,
-            let destination = itemToReplace as? AnnotatedRecording,
-            let adjustedSourceIndex =
-            fileManager.recordingArray.index(where: { $0.fileName == file.fileName }),
-            let adjustedDestinationIndex =
-            fileManager.recordingArray.index(where: { $0.fileName == destination.fileName }) {
-            let removed = fileManager.recordingArray.remove(at: adjustedSourceIndex)
-            fileManager.recordingArray.insert(removed, at: adjustedDestinationIndex)
-        }
-    }
 }
 
 extension FileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
 
+    // Deactivated move operation for now
     func tableView(_ tableView: UITableView, dragSessionAllowsMoveOperation session: UIDragSession) -> Bool {
-        return true
+        return false
     }
 
     // When returning [], will still allow you to reorder
@@ -248,6 +217,7 @@ extension FileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
                 return UITableViewDropProposal(operation: .cancel)
             } else {
                 if let destination = destinationIndexPath,
+                    destination.row < fileManager.filesAndFolders.count,
                     (fileManager.filesAndFolders[destination.row]) is Folder {
                     return UITableViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
                 }
@@ -255,6 +225,7 @@ extension FileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             }
         } else {
             if let destination = destinationIndexPath,
+                destination.row < fileManager.filesAndFolders.count,
                 (fileManager.filesAndFolders[destination.row]) is Folder {
                 return UITableViewDropProposal(operation: .copy, intent: .insertIntoDestinationIndexPath)
             }

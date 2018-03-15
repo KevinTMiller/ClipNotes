@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -488,10 +487,10 @@
                                                     <action selector="addButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="N3t-TW-z2V"/>
                                                 </connections>
                                             </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPV-DQ-FJr">
-                                                <rect key="frame" x="-60" y="0.0" width="25.5" height="38"/>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DPV-DQ-FJr">
+                                                <rect key="frame" x="-60" y="0.0" width="20" height="38"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" secondItem="DPV-DQ-FJr" secondAttribute="height" multiplier="4:6" id="jBT-VN-MQm"/>
+                                                    <constraint firstAttribute="width" constant="20" id="PRz-yb-bEL"/>
                                                 </constraints>
                                                 <color key="tintColor" red="1" green="0.64152018229166663" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Button" image="shareIcon"/>
@@ -1029,6 +1028,6 @@
         <image name="ic_pause_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_play_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_replay_10_white_48pt" width="48" height="48"/>
-        <image name="shareIcon" width="714" height="982"/>
+        <image name="shareIcon" width="56" height="80"/>
     </resources>
 </document>
