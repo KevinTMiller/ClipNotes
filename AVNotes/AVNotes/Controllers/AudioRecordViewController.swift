@@ -27,17 +27,18 @@ class AudioRecordViewController: UIViewController {
         static let bookmarkModal = "bookmarkModal"
         static let cellIdentifier = "annotationCell"
         static let cornerRadius: CGFloat = 10.0
-        static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the add button." // swiftlint:disable:this line_length
+        static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the \"New Bookmark\" button." // swiftlint:disable:this line_length
         static let emptyTimeString = "00:00.00"
         static let insetConstant: CGFloat = 3.0
         static let mainStoryboard = "Main"
         static let onePixel: CGFloat = 1 / UIScreen.main.scale
+        static let placeholderColor = UIColor(red:0.45, green:0.35, blue:0.50, alpha:1.0)
         static let playbackLineWidth: CGFloat = 1 / UIScreen.main.scale
         static let recordAlertMessage = "Start recording before adding a bookmark"
         static let recordAlertTitle = "Press Record"
         static let textColor: UIColor = UIColor(red:0.08, green:0.07, blue:0.35, alpha:1.0)
         static let trailingInset: CGFloat = 0.06
-        static let tableViewInset: CGFloat = 16.0
+        static let tableViewInset: CGFloat = 24.0
         static let timerInterval = 0.03
         static let titleFont = "montserrat"
         static let toFileView = "toFileView"
@@ -107,6 +108,7 @@ class AudioRecordViewController: UIViewController {
     // MARK: Lifecycle functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.layoutIfNeeded() // Fixes unwanted implicit autolayout animations at launch
         AKSettings.audioInputEnabled = true
         microphone = AKMicrophone()
         stateManager.viewDelegate = self
@@ -217,6 +219,8 @@ class AudioRecordViewController: UIViewController {
         shareButton.imageView?.contentMode = .scaleAspectFit
 
         pauseButton.isEnabled = false
+
+        scrubSlider.isContinuous = false
 
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
@@ -420,7 +424,7 @@ class AudioRecordViewController: UIViewController {
     @objc
     private func updateTimerDependentUI() {
         stopWatchLabel.text = mediaManager.stopWatchTimeString ?? Constants.emptyTimeString
-        if scrubSlider.isEnabled {
+        if scrubSlider.isEnabled && !scrubSlider.isTracking {
             let value = mediaManager.currentTimeInterval
             scrubSlider.setValue(Float(value), animated: false)
             movePlaybackLine(value: value)
@@ -608,6 +612,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
                                 if name != "" {
                                     self?.mediaManager.currentRecording?.userTitle = name
                                 }
+                                self?.mediaManager.stopRecordingAudio()
                                 self?.presentAlert(title: AlertConstants.success,
                                                    message: AlertConstants.recordingSaved)
                                 self?.updateRecordingInfo()
@@ -653,7 +658,7 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
             let label = UILabel(frame: CGRect())
             label.text = Constants.emptyTableText
             label.font = UIFont(name: "OpenSans-Light", size: 16.0)
-            label.textColor = .lightGray
+            label.textColor = Constants.placeholderColor
             label.textAlignment = .center
             label.numberOfLines = 0
             label.lineBreakMode = .byWordWrapping

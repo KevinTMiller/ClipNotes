@@ -234,6 +234,7 @@ StateManagerModelDelegate {
     func editBookmark(indexPath: IndexPath, title: String, text: String) {
         currentRecording?.annotations?[indexPath.row].noteText = text
         currentRecording?.annotations?[indexPath.row].title = title
+        bookmarkTableViewDelegate?.updateBookmarkTableview()
     }
 
     func stopRecordingAudio() {
@@ -324,8 +325,11 @@ StateManagerModelDelegate {
         let duration = currentRecording?.duration {
             let newTime = audioPlayer.currentTime + time
             if newTime > duration {
-                audioPlayer.currentTime = duration
-                pauseAudio()
+                if audioPlayer.isPlaying {
+                    audioPlayer.pause()
+                    stateManager.currentState = .playingPaused
+                }
+                audioPlayer.currentTime = Double(Int(duration))
                 return
             }
             if newTime < 0.0 {

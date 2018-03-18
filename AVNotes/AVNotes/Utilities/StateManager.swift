@@ -117,7 +117,6 @@ class StateManager: NSObject {
     }
 
     func performStateChangeAction() {
-
         switch currentState {
         case .initialize:
             modelDelegate.prepareToRecord(success: {
@@ -145,6 +144,8 @@ class StateManager: NSObject {
             viewDelegate.updateButtons()
         case .playing:
             viewDelegate.playAudio()
+        case .playingPaused:
+            viewDelegate.updateButtons()
         default:
             return
         }
@@ -179,8 +180,7 @@ class StateManager: NSObject {
     func endRecording() {
         switch currentState {
         case .recording, .recordingPaused:
-            modelDelegate.stopRecordingAudio()
-            viewDelegate.stopRecording()
+            viewDelegate.stopRecording() // The view delegate will stop the recording as we have to wait for the async alert to get the title.
         default:
             return
         }

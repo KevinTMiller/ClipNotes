@@ -40,8 +40,9 @@ class FileDetailViewController: UIViewController {
         audioManager.currentRecording?.folderID = folder.systemID
         navigationController?.popToRootViewController(animated: true)
     }
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         newRecordingButton.titleLabel?.text = Constants.newRecordingText + folder.userTitle
     }
 
