@@ -11,9 +11,9 @@
 		155278697DE95FE85991CE469BE2935B /* Disk+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F563AE43F6AD618C720F4BB47EAC750C /* Disk+Codable.swift */; };
 		29FEADDF2086FDEA7D5BA87DD23B08C6 /* pb_decode.h in Headers */ = {isa = PBXBuildFile; fileRef = DA96CC4087CBB15EFE2CA2BC5895E648 /* pb_decode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		392F2CF142BAA751AC1BB61D8B757D98 /* pb.h in Headers */ = {isa = PBXBuildFile; fileRef = E1E5ED06537774A2AC6A837667EA5C34 /* pb.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39FB6C02C78E6A01A4116EDD106F9D21 /* Pods-AVNotes-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C8145FD742F41073774F41337A46773 /* Pods-AVNotes-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		39FB6C02C78E6A01A4116EDD106F9D21 /* Pods-AVNotes-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DCA056342AB9C2954F143CB0890BF2E /* Pods-AVNotes-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3A50F5C8ECED9627F2EBD97F61BD376D /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = A002CA23B82BA4861AD489BCA1FDAC8C /* pb_common.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc -fno-objc-arc"; }; };
-		468DFD90B6C4DA2F7CFA0C1C89F1B615 /* nanopb-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 709672BBB17A8A0276DFC74C91A1C7D8 /* nanopb-dummy.m */; };
+		468DFD90B6C4DA2F7CFA0C1C89F1B615 /* nanopb-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E0F16DABA9EB44FE892A2C62459577 /* nanopb-dummy.m */; };
 		541C5362289CC44D4F067D097F231250 /* GTMDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = E6758CA66EF3A5BECFB01F10011E29C1 /* GTMDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54B4D9D1D7107638B4E79C329028CC10 /* Disk+[UIImage].swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE9FF97211CC57B4AB396C594C87093 /* Disk+[UIImage].swift */; };
 		54F580BF4588159D6A61F21D15591805 /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = 3125F843A0A6D5E658CFC8CF52784A68 /* pb_decode.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc -fno-objc-arc"; }; };
@@ -22,24 +22,24 @@
 		6F0B2BE8EB0273B15DD59ADA5CE3912B /* Disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F3C6BAECD4ADD98581B2A7A27FCE4B /* Disk.swift */; };
 		7D97FB7F3945DD0EF2C73D37350FB446 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		806BAA4E00218D70995697C4400BE7A0 /* pb_common.h in Headers */ = {isa = PBXBuildFile; fileRef = EB2DEC3EBCA77AD233C432F5DC9685DA /* pb_common.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		81E4B6988FF26F9249B79C6C8CC667B4 /* GoogleToolboxForMac-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 53ACE13260B70C8A1F2979DBD13ED188 /* GoogleToolboxForMac-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		81E4B6988FF26F9249B79C6C8CC667B4 /* GoogleToolboxForMac-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B5088FBE24B43A66935D9E00D8DC9E4C /* GoogleToolboxForMac-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		87CF22D207D6D38A8FEA9F8C12975BCA /* Disk+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2FEEF2BF76CAF7C4BD5D25110BBF41C /* Disk+UIImage.swift */; };
 		93D51748565CFEB9490FBA7DA993C5C0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		A8F909B39333B28D10A25EFC8F6206AF /* Disk-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 24D55BF6A79AE4743DC6F5E2E66CEA4C /* Disk-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AFB5DF952786BEE60F3F6FE3EFD2CF32 /* Disk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BF8B0CD572B71610F270B6CCCA13E81 /* Disk-dummy.m */; };
+		A8F909B39333B28D10A25EFC8F6206AF /* Disk-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CA48E20232AD33212A6148D891377C8 /* Disk-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AFB5DF952786BEE60F3F6FE3EFD2CF32 /* Disk-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DC8D00AE40E7DB7DFA546374D55C388 /* Disk-dummy.m */; };
 		B389F193C856F168B09FF64C805EAD4D /* Disk+Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE4AEE5CD84F03A6D05B2E83B6D55E6 /* Disk+Errors.swift */; };
 		C90319AD1CBE6A1562D75FCDBEBBA5E0 /* Disk+InternalHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF7D03E104BC39FD0068FA1ADB8DB4A /* Disk+InternalHelpers.swift */; };
 		D2CC2D6DAD0F3D1426794BFA9DF3318B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		D5426D24FACD6E34D5B83FC867EF7EAD /* Disk+Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62D8A38C38000CCEDFFFA572F5DBEDA7 /* Disk+Data.swift */; };
-		DB6442EC0C72E11E3925076744F0CA7F /* Pods-AVNotes-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 080739E3E57C59DB842A2EDE7D7C3978 /* Pods-AVNotes-dummy.m */; };
+		DB6442EC0C72E11E3925076744F0CA7F /* Pods-AVNotes-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3FCDAC25AA9DB2A6F4133A5B9067BC /* Pods-AVNotes-dummy.m */; };
 		DBFECCB0BBE3F11CC41A3C1A8C4879D3 /* GTMNSData+zlib.h in Headers */ = {isa = PBXBuildFile; fileRef = 588FECEDFF7484E109B75D30CA25A238 /* GTMNSData+zlib.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E181395E73163EB702FCE9A21403D67B /* pb_encode.h in Headers */ = {isa = PBXBuildFile; fileRef = E00824719A8B8C6E66EA2ECDD342AD8C /* pb_encode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EEC58E9F92789CE9F44909BFA6592BF4 /* Disk+[Data].swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ED96E265790F1F3F2F98057BB554192 /* Disk+[Data].swift */; };
 		EEF0930DC9A866CA97209104C3BDE95D /* Disk.h in Headers */ = {isa = PBXBuildFile; fileRef = DE837A87E4A87EF1CCD83D75BA3844DA /* Disk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F138D47E78EB875A53715B233BB93CDD /* Disk+VolumeInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EEED7ACCEC85F94132E73E94E686CF /* Disk+VolumeInformation.swift */; };
 		F7D889906DECB078EAAECB9D4A320E9C /* GTMNSData+zlib.m in Sources */ = {isa = PBXBuildFile; fileRef = F3CD2DC606A97AAC8818A7E2D98D7AF9 /* GTMNSData+zlib.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		F9D92BA503505CB48EF4ECF0DDF57686 /* nanopb-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 90AD3B8347ADEEFCA352780E32453CD6 /* nanopb-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FAC3F3CAABA60EF76069431C5BB5032A /* GoogleToolboxForMac-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BB2960F28C7C3BAF5E653F016CB8138E /* GoogleToolboxForMac-dummy.m */; };
+		F9D92BA503505CB48EF4ECF0DDF57686 /* nanopb-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C992223EAF9AA22B6F8DBF3D987DFF7 /* nanopb-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FAC3F3CAABA60EF76069431C5BB5032A /* GoogleToolboxForMac-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2994F3A93D43499DE9568654DE479A57 /* GoogleToolboxForMac-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,66 +67,66 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03940049C82AAB3A07AEBC9826AB2252 /* Pods-AVNotes-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AVNotes-frameworks.sh"; sourceTree = "<group>"; };
-		080739E3E57C59DB842A2EDE7D7C3978 /* Pods-AVNotes-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AVNotes-dummy.m"; sourceTree = "<group>"; };
-		0BF8B0CD572B71610F270B6CCCA13E81 /* Disk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Disk-dummy.m"; sourceTree = "<group>"; };
-		0C8145FD742F41073774F41337A46773 /* Pods-AVNotes-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AVNotes-umbrella.h"; sourceTree = "<group>"; };
+		0EE523D9AFB6BF39EA559B0FA2785A15 /* nanopb.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = nanopb.xcconfig; sourceTree = "<group>"; };
 		15F3C6BAECD4ADD98581B2A7A27FCE4B /* Disk.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Disk.swift; path = Sources/Disk.swift; sourceTree = "<group>"; };
-		1715DEE858913EAAA2AABD1A7215C218 /* Disk-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Disk-prefix.pch"; sourceTree = "<group>"; };
-		24D55BF6A79AE4743DC6F5E2E66CEA4C /* Disk-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Disk-umbrella.h"; sourceTree = "<group>"; };
+		2994F3A93D43499DE9568654DE479A57 /* GoogleToolboxForMac-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GoogleToolboxForMac-dummy.m"; sourceTree = "<group>"; };
+		2DCA056342AB9C2954F143CB0890BF2E /* Pods-AVNotes-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-AVNotes-umbrella.h"; sourceTree = "<group>"; };
 		2ED96E265790F1F3F2F98057BB554192 /* Disk+[Data].swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+[Data].swift"; path = "Sources/Disk+[Data].swift"; sourceTree = "<group>"; };
 		3125F843A0A6D5E658CFC8CF52784A68 /* pb_decode.c */ = {isa = PBXFileReference; includeInIndex = 1; path = pb_decode.c; sourceTree = "<group>"; };
-		3BFA161DA55910ECA11B28FE3A1A8415 /* GoogleToolboxForMac.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = GoogleToolboxForMac.modulemap; sourceTree = "<group>"; };
+		3616836E61D5B11DBF556713D29C4DAD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C269FC5151DE5287C929D08858AB04B /* Pods-AVNotes-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AVNotes-frameworks.sh"; sourceTree = "<group>"; };
+		3DC8D00AE40E7DB7DFA546374D55C388 /* Disk-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Disk-dummy.m"; sourceTree = "<group>"; };
+		3E3FCDAC25AA9DB2A6F4133A5B9067BC /* Pods-AVNotes-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-AVNotes-dummy.m"; sourceTree = "<group>"; };
 		4107602EDD72395576067513F7B40228 /* Firebase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Firebase.h; path = Core/Sources/Firebase.h; sourceTree = "<group>"; };
 		424176FDA139C098098E2EB91B024D73 /* FirebaseNanoPB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseNanoPB.framework; path = Frameworks/FirebaseNanoPB.framework; sourceTree = "<group>"; };
-		5171B4E0AD6D16AF3899CFEB8F3DBBA0 /* nanopb.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = nanopb.xcconfig; sourceTree = "<group>"; };
-		53ACE13260B70C8A1F2979DBD13ED188 /* GoogleToolboxForMac-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GoogleToolboxForMac-umbrella.h"; sourceTree = "<group>"; };
-		56F396523BF59F5FD5BAD76599E204EF /* Pods-AVNotes-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AVNotes-resources.sh"; sourceTree = "<group>"; };
+		4352A45A36AC5755BACFA2028DE2AECA /* nanopb-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-prefix.pch"; sourceTree = "<group>"; };
+		531BBB4F50BC781BDF5407BB7169B38E /* Pods-AVNotes-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AVNotes-acknowledgements.markdown"; sourceTree = "<group>"; };
+		55111E7AE6D31DB32900462DE43C4DF2 /* Pods-AVNotes-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-AVNotes-resources.sh"; sourceTree = "<group>"; };
 		588FECEDFF7484E109B75D30CA25A238 /* GTMNSData+zlib.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "GTMNSData+zlib.h"; path = "Foundation/GTMNSData+zlib.h"; sourceTree = "<group>"; };
-		5CC973B477E262769F2C7B0135B6C16C /* Disk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Disk.xcconfig; sourceTree = "<group>"; };
+		5A34A58D326B03C1C823C051C122B3BC /* Pods-AVNotes.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-AVNotes.modulemap"; sourceTree = "<group>"; };
+		5C992223EAF9AA22B6F8DBF3D987DFF7 /* nanopb-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-umbrella.h"; sourceTree = "<group>"; };
 		5DCC99DDD78543A56A18049AE4521ADC /* FirebaseInstanceID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseInstanceID.framework; path = Frameworks/FirebaseInstanceID.framework; sourceTree = "<group>"; };
-		61ED789157B5EB3683C013DE45BBFF8B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		60900C2094CE9448F598B5474498CD63 /* Pods-AVNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AVNotes.debug.xcconfig"; sourceTree = "<group>"; };
 		62D8A38C38000CCEDFFFA572F5DBEDA7 /* Disk+Data.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+Data.swift"; path = "Sources/Disk+Data.swift"; sourceTree = "<group>"; };
-		63D9D40D312CF37E624243F11916BAFC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		6AE4AEE5CD84F03A6D05B2E83B6D55E6 /* Disk+Errors.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+Errors.swift"; path = "Sources/Disk+Errors.swift"; sourceTree = "<group>"; };
-		709672BBB17A8A0276DFC74C91A1C7D8 /* nanopb-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "nanopb-dummy.m"; sourceTree = "<group>"; };
+		6F7F4B592218AED4B62AC5AA6EE02991 /* Disk.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Disk.xcconfig; sourceTree = "<group>"; };
+		705886FA13D947E125721011E83C7094 /* GoogleToolboxForMac-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GoogleToolboxForMac-prefix.pch"; sourceTree = "<group>"; };
 		76CF00D3C68E3516DEBB954252A56857 /* FirebaseCoreDiagnostics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCoreDiagnostics.framework; path = Frameworks/FirebaseCoreDiagnostics.framework; sourceTree = "<group>"; };
-		7A120F8E975226CE6942FC2F9C18D545 /* Pods-AVNotes-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AVNotes-acknowledgements.plist"; sourceTree = "<group>"; };
-		7BD6123FB996EEFFAFB7FBDA2D8C4657 /* Pods-AVNotes.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-AVNotes.modulemap"; sourceTree = "<group>"; };
 		7E65C29068975B3572F5C783CBA65600 /* Pods_AVNotes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_AVNotes.framework; path = "Pods-AVNotes.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E7F05472F7A8D6A4D67DDE7BA1583C8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		865514A0AB06763CF22755F8FF91BD23 /* Disk+Helpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+Helpers.swift"; path = "Sources/Disk+Helpers.swift"; sourceTree = "<group>"; };
-		8910D7CFE9604A6AF79BDEBB305F91F7 /* nanopb-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-prefix.pch"; sourceTree = "<group>"; };
-		8AB845F635B76E8F6D931D6FCBD4D58B /* nanopb.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = nanopb.modulemap; sourceTree = "<group>"; };
-		90AD3B8347ADEEFCA352780E32453CD6 /* nanopb-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "nanopb-umbrella.h"; sourceTree = "<group>"; };
+		8CA48E20232AD33212A6148D891377C8 /* Disk-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Disk-umbrella.h"; sourceTree = "<group>"; };
+		906F40CD65600FBCA63E934DB9CC88A4 /* Disk-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Disk-prefix.pch"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		93EEED7ACCEC85F94132E73E94E686CF /* Disk+VolumeInformation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+VolumeInformation.swift"; path = "Sources/Disk+VolumeInformation.swift"; sourceTree = "<group>"; };
 		94B601C2064C10138FFC7242E1B877F5 /* nanopb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = nanopb.framework; path = nanopb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		97AE5E87E7E1D57AAA714421BE133E06 /* Disk.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Disk.modulemap; sourceTree = "<group>"; };
+		9ABABB202B7057CEA5697E48AE647D12 /* GoogleToolboxForMac.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GoogleToolboxForMac.xcconfig; sourceTree = "<group>"; };
 		A002CA23B82BA4861AD489BCA1FDAC8C /* pb_common.c */ = {isa = PBXFileReference; includeInIndex = 1; path = pb_common.c; sourceTree = "<group>"; };
+		A136DE737571EC11E7FA6522989B8894 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2FEEF2BF76CAF7C4BD5D25110BBF41C /* Disk+UIImage.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+UIImage.swift"; path = "Sources/Disk+UIImage.swift"; sourceTree = "<group>"; };
 		AAF7D03E104BC39FD0068FA1ADB8DB4A /* Disk+InternalHelpers.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+InternalHelpers.swift"; path = "Sources/Disk+InternalHelpers.swift"; sourceTree = "<group>"; };
-		B4328B81EEAC2BCD570C6FB8FC30223E /* Pods-AVNotes-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-AVNotes-acknowledgements.markdown"; sourceTree = "<group>"; };
-		BB2960F28C7C3BAF5E653F016CB8138E /* GoogleToolboxForMac-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "GoogleToolboxForMac-dummy.m"; sourceTree = "<group>"; };
-		C330997500996ADAD1239DA96025E416 /* Disk.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Disk.modulemap; sourceTree = "<group>"; };
+		B01190ECB4D96F6846CFE91AF8E42008 /* Pods-AVNotes-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-AVNotes-acknowledgements.plist"; sourceTree = "<group>"; };
+		B1EC6ACAE377A00F6AE970995630457E /* nanopb.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = nanopb.modulemap; sourceTree = "<group>"; };
+		B5088FBE24B43A66935D9E00D8DC9E4C /* GoogleToolboxForMac-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GoogleToolboxForMac-umbrella.h"; sourceTree = "<group>"; };
 		C465E35BB105A116B99CFA3E134F6C19 /* FirebaseCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseCore.framework; path = Frameworks/FirebaseCore.framework; sourceTree = "<group>"; };
-		C7CEAD73405F6589BD00AADFDF0230A6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB0A5D62A597EA94723267B2704BB1FB /* Pods-AVNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AVNotes.release.xcconfig"; sourceTree = "<group>"; };
 		D4C09AB6118AFC19E0104A48CCAEC8D4 /* Disk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Disk.framework; path = Disk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D79BDDC8FF04AA9EEC35B1BC7F91245A /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = GoogleToolboxForMac.framework; path = GoogleToolboxForMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA96CC4087CBB15EFE2CA2BC5895E648 /* pb_decode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = pb_decode.h; sourceTree = "<group>"; };
-		DE8196075D4A8D330672EB8DC7C08778 /* Pods-AVNotes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AVNotes.debug.xcconfig"; sourceTree = "<group>"; };
 		DE837A87E4A87EF1CCD83D75BA3844DA /* Disk.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Disk.h; path = Sources/Disk.h; sourceTree = "<group>"; };
-		DF7A3A6BAE30220591ECB9C61165F19B /* GoogleToolboxForMac.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = GoogleToolboxForMac.xcconfig; sourceTree = "<group>"; };
 		E00824719A8B8C6E66EA2ECDD342AD8C /* pb_encode.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = pb_encode.h; sourceTree = "<group>"; };
 		E1E5ED06537774A2AC6A837667EA5C34 /* pb.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = pb.h; sourceTree = "<group>"; };
+		E43AAD903C7DF31DF5AEC9B357D513FA /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E6758CA66EF3A5BECFB01F10011E29C1 /* GTMDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		E7C46CE2A0CDB783D97CCF88A8BD5ECA /* GoogleToolboxForMac.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = GoogleToolboxForMac.modulemap; sourceTree = "<group>"; };
+		E7E0F16DABA9EB44FE892A2C62459577 /* nanopb-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "nanopb-dummy.m"; sourceTree = "<group>"; };
 		E8C98C3CA83A822FA021554A2927FED4 /* pb_encode.c */ = {isa = PBXFileReference; includeInIndex = 1; path = pb_encode.c; sourceTree = "<group>"; };
-		E952D132B9EBB895F688E7975B519C8E /* GoogleToolboxForMac-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "GoogleToolboxForMac-prefix.pch"; sourceTree = "<group>"; };
 		EB2DEC3EBCA77AD233C432F5DC9685DA /* pb_common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = pb_common.h; sourceTree = "<group>"; };
 		EDE9FF97211CC57B4AB396C594C87093 /* Disk+[UIImage].swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+[UIImage].swift"; path = "Sources/Disk+[UIImage].swift"; sourceTree = "<group>"; };
+		F0C5D11FB62250DA970921B4FF4C5B6E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3CD2DC606A97AAC8818A7E2D98D7AF9 /* GTMNSData+zlib.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "GTMNSData+zlib.m"; path = "Foundation/GTMNSData+zlib.m"; sourceTree = "<group>"; };
 		F563AE43F6AD618C720F4BB47EAC750C /* Disk+Codable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = "Disk+Codable.swift"; path = "Sources/Disk+Codable.swift"; sourceTree = "<group>"; };
-		FD86EC17200868FA7E39F2854A60DE39 /* Pods-AVNotes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-AVNotes.release.xcconfig"; sourceTree = "<group>"; };
 		FE98B5EF859E1A44F72D4573C53C3C45 /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FirebaseAnalytics.framework; path = Frameworks/FirebaseAnalytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,24 +166,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		01777ABAB7A8819EF1E0D41E2383B8B4 /* Pods-AVNotes */ = {
-			isa = PBXGroup;
-			children = (
-				61ED789157B5EB3683C013DE45BBFF8B /* Info.plist */,
-				7BD6123FB996EEFFAFB7FBDA2D8C4657 /* Pods-AVNotes.modulemap */,
-				B4328B81EEAC2BCD570C6FB8FC30223E /* Pods-AVNotes-acknowledgements.markdown */,
-				7A120F8E975226CE6942FC2F9C18D545 /* Pods-AVNotes-acknowledgements.plist */,
-				080739E3E57C59DB842A2EDE7D7C3978 /* Pods-AVNotes-dummy.m */,
-				03940049C82AAB3A07AEBC9826AB2252 /* Pods-AVNotes-frameworks.sh */,
-				56F396523BF59F5FD5BAD76599E204EF /* Pods-AVNotes-resources.sh */,
-				0C8145FD742F41073774F41337A46773 /* Pods-AVNotes-umbrella.h */,
-				DE8196075D4A8D330672EB8DC7C08778 /* Pods-AVNotes.debug.xcconfig */,
-				FD86EC17200868FA7E39F2854A60DE39 /* Pods-AVNotes.release.xcconfig */,
-			);
-			name = "Pods-AVNotes";
-			path = "Target Support Files/Pods-AVNotes";
-			sourceTree = "<group>";
-		};
 		01EBC05560B163083AB4A194ED284F4A /* encode */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,7 +185,7 @@
 				E00824719A8B8C6E66EA2ECDD342AD8C /* pb_encode.h */,
 				6D466BDD80E8861813ECFEDD4025C310 /* decode */,
 				01EBC05560B163083AB4A194ED284F4A /* encode */,
-				30305EF8DDE2F6A995F03799D87AD7C6 /* Support Files */,
+				1BE28C5E68309DC5D1A901E573BAED43 /* Support Files */,
 			);
 			name = nanopb;
 			path = nanopb;
@@ -226,6 +208,20 @@
 			);
 			name = Firebase;
 			path = Firebase;
+			sourceTree = "<group>";
+		};
+		1BE28C5E68309DC5D1A901E573BAED43 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A136DE737571EC11E7FA6522989B8894 /* Info.plist */,
+				B1EC6ACAE377A00F6AE970995630457E /* nanopb.modulemap */,
+				0EE523D9AFB6BF39EA559B0FA2785A15 /* nanopb.xcconfig */,
+				E7E0F16DABA9EB44FE892A2C62459577 /* nanopb-dummy.m */,
+				4352A45A36AC5755BACFA2028DE2AECA /* nanopb-prefix.pch */,
+				5C992223EAF9AA22B6F8DBF3D987DFF7 /* nanopb-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/nanopb";
 			sourceTree = "<group>";
 		};
 		1F795D02992C833574D314AE2FC6DD23 /* Pods */ = {
@@ -252,20 +248,6 @@
 			path = FirebaseInstanceID;
 			sourceTree = "<group>";
 		};
-		30305EF8DDE2F6A995F03799D87AD7C6 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				C7CEAD73405F6589BD00AADFDF0230A6 /* Info.plist */,
-				8AB845F635B76E8F6D931D6FCBD4D58B /* nanopb.modulemap */,
-				5171B4E0AD6D16AF3899CFEB8F3DBBA0 /* nanopb.xcconfig */,
-				709672BBB17A8A0276DFC74C91A1C7D8 /* nanopb-dummy.m */,
-				8910D7CFE9604A6AF79BDEBB305F91F7 /* nanopb-prefix.pch */,
-				90AD3B8347ADEEFCA352780E32453CD6 /* nanopb-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/nanopb";
-			sourceTree = "<group>";
-		};
 		465BB4F7A799A64FA9BD7F0AE2E89923 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,18 +264,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5943B29C8FEA5EF5C41D1493B346E7AA /* Support Files */ = {
+		59AD27F4BE95C7508CC24E49C22EB6AF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				3BFA161DA55910ECA11B28FE3A1A8415 /* GoogleToolboxForMac.modulemap */,
-				DF7A3A6BAE30220591ECB9C61165F19B /* GoogleToolboxForMac.xcconfig */,
-				BB2960F28C7C3BAF5E653F016CB8138E /* GoogleToolboxForMac-dummy.m */,
-				E952D132B9EBB895F688E7975B519C8E /* GoogleToolboxForMac-prefix.pch */,
-				53ACE13260B70C8A1F2979DBD13ED188 /* GoogleToolboxForMac-umbrella.h */,
-				7E7F05472F7A8D6A4D67DDE7BA1583C8 /* Info.plist */,
+				97AE5E87E7E1D57AAA714421BE133E06 /* Disk.modulemap */,
+				6F7F4B592218AED4B62AC5AA6EE02991 /* Disk.xcconfig */,
+				3DC8D00AE40E7DB7DFA546374D55C388 /* Disk-dummy.m */,
+				906F40CD65600FBCA63E934DB9CC88A4 /* Disk-prefix.pch */,
+				8CA48E20232AD33212A6148D891377C8 /* Disk-umbrella.h */,
+				E43AAD903C7DF31DF5AEC9B357D513FA /* Info.plist */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/GoogleToolboxForMac";
+			path = "../Target Support Files/Disk";
 			sourceTree = "<group>";
 		};
 		5BF4B9B1D5E462C0DC4C95713D94ACC9 /* Products */ = {
@@ -321,7 +303,7 @@
 			children = (
 				8DA1A65C17D6D9EF260A61C72F9955F1 /* Defines */,
 				AA66F80D0D736B91BB9EF28DA63106D5 /* NSData+zlib */,
-				5943B29C8FEA5EF5C41D1493B346E7AA /* Support Files */,
+				A37FC5253C0E35698874F126403B6EB1 /* Support Files */,
 			);
 			name = GoogleToolboxForMac;
 			path = GoogleToolboxForMac;
@@ -356,9 +338,41 @@
 		9F6DA919CB578AC3BC48DDAC690BEB49 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				01777ABAB7A8819EF1E0D41E2383B8B4 /* Pods-AVNotes */,
+				A6B65D62FA3F0BD1B9B23743F55E51C3 /* Pods-AVNotes */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		A37FC5253C0E35698874F126403B6EB1 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E7C46CE2A0CDB783D97CCF88A8BD5ECA /* GoogleToolboxForMac.modulemap */,
+				9ABABB202B7057CEA5697E48AE647D12 /* GoogleToolboxForMac.xcconfig */,
+				2994F3A93D43499DE9568654DE479A57 /* GoogleToolboxForMac-dummy.m */,
+				705886FA13D947E125721011E83C7094 /* GoogleToolboxForMac-prefix.pch */,
+				B5088FBE24B43A66935D9E00D8DC9E4C /* GoogleToolboxForMac-umbrella.h */,
+				3616836E61D5B11DBF556713D29C4DAD /* Info.plist */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/GoogleToolboxForMac";
+			sourceTree = "<group>";
+		};
+		A6B65D62FA3F0BD1B9B23743F55E51C3 /* Pods-AVNotes */ = {
+			isa = PBXGroup;
+			children = (
+				F0C5D11FB62250DA970921B4FF4C5B6E /* Info.plist */,
+				5A34A58D326B03C1C823C051C122B3BC /* Pods-AVNotes.modulemap */,
+				531BBB4F50BC781BDF5407BB7169B38E /* Pods-AVNotes-acknowledgements.markdown */,
+				B01190ECB4D96F6846CFE91AF8E42008 /* Pods-AVNotes-acknowledgements.plist */,
+				3E3FCDAC25AA9DB2A6F4133A5B9067BC /* Pods-AVNotes-dummy.m */,
+				3C269FC5151DE5287C929D08858AB04B /* Pods-AVNotes-frameworks.sh */,
+				55111E7AE6D31DB32900462DE43C4DF2 /* Pods-AVNotes-resources.sh */,
+				2DCA056342AB9C2954F143CB0890BF2E /* Pods-AVNotes-umbrella.h */,
+				60900C2094CE9448F598B5474498CD63 /* Pods-AVNotes.debug.xcconfig */,
+				CB0A5D62A597EA94723267B2704BB1FB /* Pods-AVNotes.release.xcconfig */,
+			);
+			name = "Pods-AVNotes";
+			path = "Target Support Files/Pods-AVNotes";
 			sourceTree = "<group>";
 		};
 		AA66F80D0D736B91BB9EF28DA63106D5 /* NSData+zlib */ = {
@@ -368,20 +382,6 @@
 				F3CD2DC606A97AAC8818A7E2D98D7AF9 /* GTMNSData+zlib.m */,
 			);
 			name = "NSData+zlib";
-			sourceTree = "<group>";
-		};
-		AD32A1D6F5946327103BF96AC332E723 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				C330997500996ADAD1239DA96025E416 /* Disk.modulemap */,
-				5CC973B477E262769F2C7B0135B6C16C /* Disk.xcconfig */,
-				0BF8B0CD572B71610F270B6CCCA13E81 /* Disk-dummy.m */,
-				1715DEE858913EAAA2AABD1A7215C218 /* Disk-prefix.pch */,
-				24D55BF6A79AE4743DC6F5E2E66CEA4C /* Disk-umbrella.h */,
-				63D9D40D312CF37E624243F11916BAFC /* Info.plist */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Disk";
 			sourceTree = "<group>";
 		};
 		AE4AC0387412A0399F880AC26D2B707A /* Disk */ = {
@@ -398,7 +398,7 @@
 				AAF7D03E104BC39FD0068FA1ADB8DB4A /* Disk+InternalHelpers.swift */,
 				A2FEEF2BF76CAF7C4BD5D25110BBF41C /* Disk+UIImage.swift */,
 				93EEED7ACCEC85F94132E73E94E686CF /* Disk+VolumeInformation.swift */,
-				AD32A1D6F5946327103BF96AC332E723 /* Support Files */,
+				59AD27F4BE95C7508CC24E49C22EB6AF /* Support Files */,
 			);
 			name = Disk;
 			path = Disk;
@@ -567,8 +567,8 @@
 		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -661,38 +661,7 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		15C069F155AD7CFEFD1E42E043D24C9F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5171B4E0AD6D16AF3899CFEB8F3DBBA0 /* nanopb.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/nanopb/nanopb-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/nanopb/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/nanopb/nanopb.modulemap";
-				PRODUCT_NAME = nanopb;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		39C5BC78A31CDE101068C530CAC7FA0F /* Debug */ = {
+		13A95306D85E4471AB6BE665B012E60A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -702,10 +671,12 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -713,6 +684,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -741,7 +713,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -752,9 +724,75 @@
 			};
 			name = Debug;
 		};
+		159A343BA8AA4F15DFA56B9092824C4C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60900C2094CE9448F598B5474498CD63 /* Pods-AVNotes.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-AVNotes/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-AVNotes/Pods-AVNotes.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_AVNotes;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		15C069F155AD7CFEFD1E42E043D24C9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0EE523D9AFB6BF39EA559B0FA2785A15 /* nanopb.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/nanopb/nanopb-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/nanopb/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/nanopb/nanopb.modulemap";
+				PRODUCT_NAME = nanopb;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		4FD46B2551582DF47CD95CD77DDF6B34 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF7A3A6BAE30220591ECB9C61165F19B /* GoogleToolboxForMac.xcconfig */;
+			baseConfigurationReference = 9ABABB202B7057CEA5697E48AE647D12 /* GoogleToolboxForMac.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -783,10 +821,11 @@
 			};
 			name = Release;
 		};
-		68082DDCD83CC4CCA0DC98C92B704518 /* Release */ = {
+		7164BB902EB4427D99A77CD5DD552765 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD86EC17200868FA7E39F2854A60DE39 /* Pods-AVNotes.release.xcconfig */;
+			baseConfigurationReference = CB0A5D62A597EA94723267B2704BB1FB /* Pods-AVNotes.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -798,7 +837,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "Target Support Files/Pods-AVNotes/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-AVNotes/Pods-AVNotes.modulemap";
@@ -817,7 +856,7 @@
 			};
 			name = Release;
 		};
-		89C8BB24E37B25BAEEB8FBA01EE05DAF /* Release */ = {
+		8E8333274F4AB64785B04AB5B2A37231 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -827,10 +866,12 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -838,6 +879,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -863,7 +905,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
@@ -874,7 +916,7 @@
 		};
 		9B08F59FF51AFF627CB714A7411CD158 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5171B4E0AD6D16AF3899CFEB8F3DBBA0 /* nanopb.xcconfig */;
+			baseConfigurationReference = 0EE523D9AFB6BF39EA559B0FA2785A15 /* nanopb.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -904,7 +946,7 @@
 		};
 		B4DFD151AC0472657EAF5F6B0D73E9A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5CC973B477E262769F2C7B0135B6C16C /* Disk.xcconfig */;
+			baseConfigurationReference = 6F7F4B592218AED4B62AC5AA6EE02991 /* Disk.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -933,43 +975,9 @@
 			};
 			name = Debug;
 		};
-		CB2AFDA056CB510956F6831F2AD4B3A3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE8196075D4A8D330672EB8DC7C08778 /* Pods-AVNotes.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-AVNotes/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-AVNotes/Pods-AVNotes.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = Pods_AVNotes;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		D19459BBA4D29829D7678D9CDFE01E64 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF7A3A6BAE30220591ECB9C61165F19B /* GoogleToolboxForMac.xcconfig */;
+			baseConfigurationReference = 9ABABB202B7057CEA5697E48AE647D12 /* GoogleToolboxForMac.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -999,7 +1007,7 @@
 		};
 		ED964B7463A146758B68801D25A7409D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5CC973B477E262769F2C7B0135B6C16C /* Disk.xcconfig */;
+			baseConfigurationReference = 6F7F4B592218AED4B62AC5AA6EE02991 /* Disk.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1035,8 +1043,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				39C5BC78A31CDE101068C530CAC7FA0F /* Debug */,
-				89C8BB24E37B25BAEEB8FBA01EE05DAF /* Release */,
+				13A95306D85E4471AB6BE665B012E60A /* Debug */,
+				8E8333274F4AB64785B04AB5B2A37231 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1044,8 +1052,8 @@
 		7948989BEE9E2E209AAAEC8EA9A2E80E /* Build configuration list for PBXNativeTarget "Pods-AVNotes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CB2AFDA056CB510956F6831F2AD4B3A3 /* Debug */,
-				68082DDCD83CC4CCA0DC98C92B704518 /* Release */,
+				159A343BA8AA4F15DFA56B9092824C4C /* Debug */,
+				7164BB902EB4427D99A77CD5DD552765 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

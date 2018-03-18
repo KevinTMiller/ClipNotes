@@ -20,7 +20,7 @@ enum Mode {
 let bookmarkModal = "bookmarkModal"
 let mainStoryboard = "Main"
 
-class AudioRecordViewController: UIViewController {
+class AudioRecordViewController: UIViewController { // swiftlint:disable:this type_body_length
 
     enum Constants {
         static let animationDuation = 0.33

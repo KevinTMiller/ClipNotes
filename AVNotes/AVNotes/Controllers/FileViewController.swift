@@ -14,7 +14,7 @@ enum AlertConstants {
     static let delete = "Delete"
     static let areYouSure =
     "Are you sure you wish to delete this item? This action cannot be undone."
-    static let folderAreYouSure = "Are you sure you wish to delete this folder? All recordings in this folder will also be deleted. This action cannot be undone."
+    static let folderAreYouSure = "Are you sure you wish to delete this folder? All recordings in this folder will also be deleted. This action cannot be undone." // swiftlint:disable:this line_length
     static let editTitle = "Edit Recording Title"
     static let editTitleMessage = "Enter the new title below"
     static let editFolder = "Edit Folder Name"
