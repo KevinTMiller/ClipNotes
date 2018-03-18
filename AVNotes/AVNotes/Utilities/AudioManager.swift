@@ -192,6 +192,11 @@ StateManagerModelDelegate {
         if annotations.count == 1 {
            if timestamp < annotations[0].timeStamp { return 0 } else { return 1 }
         }
+
+        if annotations[0].timeStamp >= timestamp {
+            return 0
+        }
+
         var indexCounter = 0
         while (indexCounter + 1) < annotations.count {
             if annotations[indexCounter].timeStamp < timestamp &&

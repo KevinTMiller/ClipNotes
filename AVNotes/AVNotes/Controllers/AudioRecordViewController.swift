@@ -239,7 +239,7 @@ class AudioRecordViewController: UIViewController {
                                            constant: Constants.insetConstant).isActive = true
         playbackLine?.bottomAnchor.constraint(equalTo: waveformView.bottomAnchor,
                                               constant: -Constants.insetConstant).isActive = true
-        playbackLineCenter = playbackLine?.centerXAnchor.constraint(equalTo: waveformView.leadingAnchor) // swiftlint:disable:this line_length
+        playbackLineCenter = playbackLine?.centerXAnchor.constraint(equalTo: waveformView.leadingAnchor, constant: 0) // swiftlint:disable:this line_length
         playbackLineCenter?.isActive = true
         playbackLine?.translatesAutoresizingMaskIntoConstraints = false
         playbackLine?.isHidden = false
