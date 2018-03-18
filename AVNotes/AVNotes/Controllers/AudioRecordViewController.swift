@@ -358,7 +358,7 @@ class AudioRecordViewController: UIViewController {
         let waveformViewMax = Float(waveformView.bounds.maxX)
         let maxSeconds = scrubSlider.maximumValue
         let offset: Float
-        if value > 0 {
+        if value > 0 && value.isFinite {
             offset = waveformViewMax / (maxSeconds / Float(value))
         } else {
             offset = 0
