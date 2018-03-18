@@ -17,6 +17,7 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
 
     enum Constants {
         static let bookmark = "Bookmark"
+        static let bookmarkPlaceholder = "Enter the text of your new bookmark here."
         static let editBookmark = "Edit Bookmark"
         static let newBookmark = "New Bookmark"
         static let placeholder = "Long press to edit this bookmark's text."

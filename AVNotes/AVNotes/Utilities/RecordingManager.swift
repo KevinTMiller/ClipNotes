@@ -57,6 +57,7 @@ class RecordingManager: NSObject {
     }
 
     func editTitleOf(uniqueID: String, newTitle: String) {
+        guard newTitle.count > 0 else { return }
         if let folderIndex = folderList.index(where: { $0.systemID == uniqueID }) {
             folderList[folderIndex].userTitle = newTitle
         }
