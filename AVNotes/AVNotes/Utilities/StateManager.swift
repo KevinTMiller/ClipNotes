@@ -180,6 +180,8 @@ class StateManager: NSObject {
     func endRecording() {
         switch currentState {
         case .recording, .recordingPaused:
+            modelDelegate.pauseRecording()
+            viewDelegate.pauseRecording()
             viewDelegate.stopRecording() // The view delegate will stop the recording as we have to wait for the async alert to get the title. swiftlint:disable:this line_length
         default:
             return

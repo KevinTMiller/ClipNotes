@@ -188,6 +188,7 @@ StateManagerModelDelegate {
 
     func findIndexOfInsertion(timestamp: Double) -> Int {
         guard let annotations = currentRecording?.annotations else { return 0 }
+        guard annotations.count > 0 else { return 0 }
 
         if annotations.count == 1 {
            if timestamp < annotations[0].timeStamp { return 0 } else { return 1 }
@@ -367,7 +368,7 @@ StateManagerModelDelegate {
     private func finishRecordingAudio(success: Bool, path: URL?, name: String?) {
         if success {
             saveRecording(recording: currentRecording!)
-            stateManager.currentState = .playingStopped
+            stateManager.currentState = .prepareToPlay
         }
     }
 
