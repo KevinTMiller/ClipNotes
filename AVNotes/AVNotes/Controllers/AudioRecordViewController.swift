@@ -603,8 +603,10 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     }
 
     func stopRecording() {
-        try? AudioKit.stop()
-        livePlot?.clear()
+//        DispatchQueue.main.async {
+//            try? AudioKit.stop()
+//            self.livePlot?.clear()
+//        }
         toggleTimer(isOn: false)
         self.presentAlertWith(title: AlertConstants.save,
                               message: AlertConstants.enterTitle,
@@ -616,7 +618,6 @@ extension AudioRecordViewController: StateManagerViewDelegate {
                                 self?.presentAlert(title: AlertConstants.success,
                                                    message: AlertConstants.recordingSaved)
                                 self?.updateRecordingInfo()
-                                self?.stateManager.currentState = .prepareToPlay
         }
     }
 }
