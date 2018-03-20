@@ -26,6 +26,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RecordingManager.sharedInstance.saveFiles()
     }
 
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        switch StateManager.sharedInstance.currentState {
+        case .initialize:
+StateManager.sharedInstance.currentState = .prepareToRecord
+        default:
+            return
+        }
+    }
+
     func applicationDidEnterBackground(_ application: UIApplication) {
         //TODO: Consider adding something here like Insomnia to keep app active in background
     }

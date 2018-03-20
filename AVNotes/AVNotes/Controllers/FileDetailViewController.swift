@@ -22,7 +22,7 @@ class FileDetailViewController: UIViewController {
         static let unwindSegue = "unwindToAudioRecord"
     }
 
-    @IBOutlet private var newRecordingButton: UIButton!
+    @IBOutlet var newRecordingButton: UIButton!
     var folder: Folder!
     private var recordings: [AnnotatedRecording]! {
         return fileManager.recordingArray.filter({ $0.folderID == folder.systemID })
@@ -43,7 +43,7 @@ class FileDetailViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        newRecordingButton.titleLabel?.text = Constants.newRecordingText + folder.userTitle
+        newRecordingButton.setTitle(Constants.newRecordingText + folder.userTitle, for: .normal)
     }
 
     override func viewDidLoad() {

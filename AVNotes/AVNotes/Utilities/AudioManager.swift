@@ -55,6 +55,10 @@ StateManagerModelDelegate {
         super.init()
         self.stateManager = StateManager.sharedInstance
         stateManager.modelDelegate = self
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleInterruption),
+                                               name: .AVAudioSessionInterruption,
+                                               object: AVAudioSession.sharedInstance())
     }
 
     static let sharedInstance = AudioManager()
@@ -170,6 +174,44 @@ StateManagerModelDelegate {
 
     /* Starts recording audio by getting a unique filename and the current documents directory
     // then creating a instance of the AVAudioRecord with the current path and settings. */
+
+    @objc
+    func handleInterruption(_ notification: Notification) {
+        guard let info = notification.userInfo,
+            let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
+            let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
+                return
+        }
+        if type == .began {
+            try? AudioKit.stop()
+            switch stateManager.currentState {
+            case .recording:
+                pauseRecording()
+            case .playing:
+                pauseAudio()
+            default:
+                return
+            }
+        } else if type == .ended {
+            guard let optionsValue =
+                info[AVAudioSessionInterruptionOptionKey] as? UInt else {
+                    return
+            }
+            let options = AVAudioSessionInterruptionOptions(rawValue: optionsValue)
+            if options.contains(.shouldResume) {
+
+                switch stateManager.currentState {
+                case .recordingPaused:
+                    resumeRecording()
+                case .playingPaused:
+                    resumeAudio()
+                default:
+                    return
+                }
+                try? AudioKit.start()
+            }
+        }
+    }
 
     func startRecordingAudio() {
         let filename = currentRecording?.fileName
