@@ -525,11 +525,11 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         if stateManager.isRecordMode {
             playbackLineCenter?.constant = 0.0
         }
+        self.shareButton.isHidden = !self.stateManager.canShare
         UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
             self.activateFab(active: self.stateManager.canAnnotate)
             self.playbackLine?.isHidden = self.stateManager.isRecordMode
-            self.shareButton.isHidden = !self.stateManager.canShare
             self.playPauseButton.isSelected = self.stateManager.isPlaying
             self.plusButton.isEnabled = self.stateManager.isPlayMode
             self.filesButton.isEnabled = self.stateManager.canViewFiles
@@ -588,7 +588,9 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     }
 
     func pauseRecording() {
-        try? AudioKit.stop()
+        DispatchQueue.main.async {
+             try? AudioKit.stop()
+        }
         pauseButton.isEnabled = false
         recordButton.isEnabled = true
         toggleTimer(isOn: false)
@@ -603,10 +605,6 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     }
 
     func stopRecording() {
-//        DispatchQueue.main.async {
-//            try? AudioKit.stop()
-//            self.livePlot?.clear()
-//        }
         toggleTimer(isOn: false)
         self.presentAlertWith(title: AlertConstants.save,
                               message: AlertConstants.enterTitle,

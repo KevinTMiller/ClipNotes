@@ -146,6 +146,8 @@ class StateManager: NSObject {
             viewDelegate.playAudio()
         case .playingPaused:
             viewDelegate.updateButtons()
+        case .recordingPaused:
+            viewDelegate.updateButtons()
         default:
             return
         }
