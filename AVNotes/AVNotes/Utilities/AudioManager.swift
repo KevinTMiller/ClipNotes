@@ -183,9 +183,15 @@ StateManagerModelDelegate {
                 return
         }
         if type == .began {
-            pauseRecording()
             try? AudioKit.stop()
-            stateManager.currentState = .recordingPaused
+            switch stateManager.currentState {
+            case .recording:
+                pauseRecording()
+            case .playing:
+                pauseAudio()
+            default:
+                return
+            }
         } else if type == .ended {
             guard let optionsValue =
                 info[AVAudioSessionInterruptionOptionKey] as? UInt else {
@@ -193,9 +199,16 @@ StateManagerModelDelegate {
             }
             let options = AVAudioSessionInterruptionOptions(rawValue: optionsValue)
             if options.contains(.shouldResume) {
-                resumeRecording()
+
+                switch stateManager.currentState {
+                case .recordingPaused:
+                    resumeRecording()
+                case .playingPaused:
+                    resumeAudio()
+                default:
+                    return
+                }
                 try? AudioKit.start()
-                stateManager.currentState = .recording
             }
         }
     }
