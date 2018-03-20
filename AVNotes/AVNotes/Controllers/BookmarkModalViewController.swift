@@ -140,6 +140,9 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
         if currentBookmark != nil {
             currentBookmark!.noteText = textView.text
         }
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
         return true
     }
 
@@ -147,4 +150,5 @@ class BookmarkModalViewController: UIViewController, UITextFieldDelegate, UIText
         textField.resignFirstResponder()
         return true
     }
+
 }
