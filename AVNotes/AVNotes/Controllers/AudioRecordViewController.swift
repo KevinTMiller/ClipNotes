@@ -138,6 +138,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         setNeedsStatusBarAppearanceUpdate()
         audioPlot.backgroundColor = .clear
         navigationController?.navigationBar.backgroundColor = .clear
+        updateRecordingInfo()
     }
 
     // MARK: IBActions

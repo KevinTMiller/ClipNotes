@@ -96,6 +96,9 @@ extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
                                        placeholder: placeholder,
                                        completion: { [weak self] text in
                                         self?.fileManager.editTitleOf(uniqueID: uniqueID, newTitle: text)
+                                        if self?.audioManager.currentRecording?.fileName == uniqueID {
+                                            self?.audioManager.currentRecording?.fileName = text
+                                        }
                                         tableView.reloadRows(at: [indexPath], with: .automatic )
                 })
             }
