@@ -316,7 +316,7 @@ StateManagerModelDelegate {
         stateManager.currentState = .prepareToPlay
     }
 
-    private func setBlankRecording() {
+    func setBlankRecording() {
         currentRecording = createAnnotatedRecording()
     }
 

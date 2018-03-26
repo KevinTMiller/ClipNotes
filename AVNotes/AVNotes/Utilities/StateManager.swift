@@ -72,6 +72,14 @@ class StateManager: NSObject {
             return true
         }
     }
+    var canDiscard: Bool {
+        switch currentState {
+        case .recordingPaused:
+            return true
+        default:
+            return false
+        }
+    }
 
     var canAnnotate: Bool {
         switch currentState {
@@ -165,6 +173,9 @@ class StateManager: NSObject {
     
     func toggleRecordingState(sender: UIButton) {
         switch currentState {
+        case .recording:
+            modelDelegate.pauseRecording()
+            viewDelegate.pauseRecording()
         case .readyToRecord:
             modelDelegate.startRecordingAudio()
             viewDelegate.startRecording()

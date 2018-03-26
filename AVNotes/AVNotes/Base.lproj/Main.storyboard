@@ -357,31 +357,38 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="5Ik-Pd-laN" userLabel="record stack">
                                         <rect key="frame" x="30" y="68" width="260" height="57"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hG2-7g-4r5">
-                                                <rect key="frame" x="0.0" y="0.0" width="46" height="57"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Me9-Eq-BCf">
+                                                <rect key="frame" x="0.0" y="0.0" width="65" height="57"/>
                                                 <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
-                                                <state key="normal" title="Done">
+                                                <state key="normal" title="Discard">
                                                     <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
+                                                <state key="disabled">
+                                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
-                                                    <action selector="doneButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="St5-8g-9Qw"/>
+                                                    <action selector="discardDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="WfZ-D8-TXb"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WSU-F0-Nfc">
-                                                <rect key="frame" x="101" y="0.0" width="57" height="57"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WSU-F0-Nfc">
+                                                <rect key="frame" x="107.5" y="0.0" width="57" height="57"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="WSU-F0-Nfc" secondAttribute="height" multiplier="1:1" id="Ygj-EH-dD1"/>
                                                 </constraints>
                                                 <state key="normal" image="Bitmap"/>
+                                                <state key="selected" image="stopButton"/>
                                                 <connections>
                                                     <action selector="recordButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="SCD-6t-lYr"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRA-MW-5n8">
-                                                <rect key="frame" x="212" y="0.0" width="48" height="57"/>
-                                                <state key="normal" image="ic_pause_circle_outline_white_48pt"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hG2-7g-4r5">
+                                                <rect key="frame" x="219" y="0.0" width="41" height="57"/>
+                                                <fontDescription key="fontDescription" name="Montserrat-Regular" family="Montserrat" pointSize="17"/>
+                                                <state key="normal" title="Save">
+                                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
                                                 <connections>
-                                                    <action selector="pauseButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="zuY-Sq-Ncf"/>
+                                                    <action selector="saveButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="St5-8g-9Qw"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -624,9 +631,9 @@
                         <outlet property="annotationTableView" destination="Ydp-xj-2i5" id="QUW-Sb-PJh"/>
                         <outlet property="audioPlot" destination="raW-1b-yBP" id="8ld-I2-Ejo"/>
                         <outlet property="controlView" destination="sqQ-Gs-taK" id="D2F-ZV-8xq"/>
+                        <outlet property="discardButton" destination="Me9-Eq-BCf" id="MPy-Rp-rbP"/>
                         <outlet property="filesButton" destination="19D-L6-JfK" id="csF-06-byk"/>
                         <outlet property="gradientView" destination="XsD-lQ-ekE" id="CI5-SN-X74"/>
-                        <outlet property="pauseButton" destination="uRA-MW-5n8" id="OfV-5I-yQY"/>
                         <outlet property="playPauseButton" destination="ZMJ-kw-klq" id="xc5-yI-Zm4"/>
                         <outlet property="playStackView" destination="aiJ-Su-7kR" id="UGE-Rg-L4m"/>
                         <outlet property="plusButton" destination="ybW-R5-qqM" id="aTR-MX-ipr"/>
@@ -1039,5 +1046,6 @@
         <image name="ic_play_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_replay_10_white_48pt" width="48" height="48"/>
         <image name="shareIcon" width="56" height="80"/>
+        <image name="stopButton" width="57" height="57"/>
     </resources>
 </document>
