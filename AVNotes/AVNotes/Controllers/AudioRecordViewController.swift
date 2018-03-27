@@ -47,8 +47,11 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     }
 
     enum AlertConstants {
+        static let areYouSure =
+        "Are you sure you wish to discard this recording? This action cannot be undone."
         static let bookmarks = "Bookmarks"
         static let cancel = "Cancel"
+        static let discard = "Discard"
         static let enterTitle = "Enter a title for this recording"
         static let export = "Export:"
         static let newRecording = "New Recording"
@@ -56,6 +59,8 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         static let recordingSaved = "Your recording has been saved."
         static let save = "Save"
         static let success = "Success"
+
+
     }
 
     enum ImageConstants {
@@ -71,9 +76,9 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     @IBOutlet private weak var annotationTableView: UITableView!
     @IBOutlet private var audioPlot: EZAudioPlot!
     @IBOutlet private weak var controlView: UIView!
+    @IBOutlet private weak var discardButton: UIButton!
     @IBOutlet private var filesButton: UIBarButtonItem!
     @IBOutlet private var gradientView: GradientView!
-    @IBOutlet private var pauseButton: UIButton!
     @IBOutlet private weak var playPauseButton: UIButton!
     @IBOutlet private weak var playStackView: UIStackView!
     @IBOutlet private var plusButton: UIBarButtonItem!
@@ -142,15 +147,16 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     }
 
     // MARK: IBActions
-    @IBAction func pauseButtonDidTouch(_ sender: UIButton) {
-        stateManager.toggleRecordingPause(sender: sender)
+
+    @IBAction func discardDidTouch(_ sender: UIButton) {
+        confirmAndDiscard()
     }
 
     @IBAction func shareButtonTapped(_ sender: UIButton) {
         showShareAlertSheet()
     }
 
-    @IBAction func doneButtonDidTouch(_ sender: UIButton) {
+    @IBAction func saveButtonDidTouch(_ sender: UIButton) {
         stateManager.endRecording()
     }
 
@@ -219,8 +225,6 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         addBookmarkButton.isEnabled = false
         shareButton.imageView?.contentMode = .scaleAspectFit
 
-        pauseButton.isEnabled = false
-
         scrubSlider.isContinuous = false
 
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
@@ -244,6 +248,13 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         playbackLineCenter?.isActive = true
         playbackLine?.translatesAutoresizingMaskIntoConstraints = false
         playbackLine?.isHidden = false
+    }
+
+    private func confirmAndDiscard() {
+        confirmDestructiveAlert(title: AlertConstants.discard, message: AlertConstants.areYouSure) { [weak self] in
+            self?.mediaManager.setBlankRecording()
+            self?.stateManager.currentState = .prepareToRecord
+        }
     }
 
     private func showShareAlertSheet() {
@@ -332,7 +343,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         scrubSlider.minimumValueImage = zeroImage
     }
 
-    private func activateFab(active: Bool) {
+    private func toggleBookmarkButton(active: Bool) {
         UIView.animate(withDuration: 0.33,
                        delay: 0.0,
                        options: .curveEaseOut,
@@ -372,7 +383,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         let orientation = UIDevice.current.orientation
         if orientation.isLandscape || orientation.isPortrait {
             roundedTopCornerMask(view: addButtonSuperview, size: 40.0)
-            activateFab(active: stateManager.allowsAnnotation())
+            toggleBookmarkButton(active: stateManager.allowsAnnotation())
             gradientManager.redrawGradients()
         }
     }
@@ -529,12 +540,19 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         self.shareButton.isHidden = !self.stateManager.canShare
         UIView.animate(withDuration: 0.33, delay: 0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
-            self.activateFab(active: self.stateManager.canAnnotate)
-            self.playbackLine?.isHidden = self.stateManager.isRecordMode
-            self.playPauseButton.isSelected = self.stateManager.isPlaying
-            self.plusButton.isEnabled = self.stateManager.isPlayMode
-            self.filesButton.isEnabled = self.stateManager.canViewFiles
         })
+        toggleBookmarkButton(active: stateManager.canAnnotate)
+        playbackLine?.isHidden = stateManager.isRecordMode
+        playPauseButton.isSelected = stateManager.isPlaying
+        plusButton.isEnabled = stateManager.isPlayMode
+        filesButton.isEnabled = stateManager.canViewFiles
+        discardButton.isEnabled = stateManager.canDiscard
+        UIView.transition(with: recordButton,
+                          duration: 0.33,
+                          options: .transitionCrossDissolve,
+                          animations: { [weak self] in
+            self?.recordButton.isSelected = self!.stateManager.isRecording
+        }, completion: nil)
     }
 
     func errorAlert(_ error: Error) {
@@ -551,8 +569,6 @@ extension AudioRecordViewController: StateManagerViewDelegate {
     func startRecording() {
         try? AudioKit.start()
         updateButtons()
-        recordButton.isEnabled = false
-        pauseButton.isEnabled = true
         toggleTimer(isOn: true)
     }
 
@@ -580,7 +596,6 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         resetPlot()
         toggleSlider(isOn: false)
         switchToRecordStack()
-        recordButton.isEnabled = true
     }
 
     func playAudio() {
@@ -592,15 +607,12 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         DispatchQueue.main.async {
              try? AudioKit.stop()
         }
-        pauseButton.isEnabled = false
-        recordButton.isEnabled = true
         toggleTimer(isOn: false)
         updateButtons()
     }
 
     func resumeRecording() {
-        recordButton.isEnabled = false
-        pauseButton.isEnabled = true
+        updateButtons()
         try? AudioKit.start()
         toggleTimer(isOn: true)
     }
