@@ -377,6 +377,7 @@
                                                 </constraints>
                                                 <state key="normal" image="default"/>
                                                 <state key="selected" image="selected"/>
+                                                <state key="highlighted" image="highlighted"/>
                                                 <connections>
                                                     <action selector="recordButtonDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="SCD-6t-lYr"/>
                                                 </connections>
@@ -1040,6 +1041,7 @@
     </scenes>
     <resources>
         <image name="default" width="56" height="56"/>
+        <image name="highlighted" width="56" height="56"/>
         <image name="ic_folder_48pt" width="48" height="48"/>
         <image name="ic_forward_10_white_48pt" width="48" height="48"/>
         <image name="ic_pause_circle_outline_white_48pt" width="48" height="48"/>
