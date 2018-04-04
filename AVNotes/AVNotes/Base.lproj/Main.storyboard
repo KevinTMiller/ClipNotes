@@ -170,6 +170,90 @@
             </objects>
             <point key="canvasLocation" x="655.20000000000005" y="-1001.2315270935961"/>
         </scene>
+        <!--Skip View Controller-->
+        <scene sceneID="5AY-qW-d29">
+            <objects>
+                <viewController storyboardIdentifier="skipVC" id="YhT-Ki-BOu" customClass="SkipViewController" customModule="AVNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="FRI-s5-88f">
+                        <rect key="frame" x="0.0" y="0.0" width="50" height="150"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Fbe-lE-dEb" userLabel="replay stack">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypc-Gi-HfG">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <state key="normal" image="ic_replay_30_48pt"/>
+                                        <connections>
+                                            <action selector="thirtyBackDidTouch:" destination="YhT-Ki-BOu" eventType="touchUpInside" id="hck-nA-O8e"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xxx-d2-V57">
+                                        <rect key="frame" x="0.0" y="50" width="50" height="50"/>
+                                        <state key="normal" image="ic_replay_10_48pt"/>
+                                        <connections>
+                                            <action selector="tenBackDidTouch:" destination="YhT-Ki-BOu" eventType="touchUpInside" id="BVA-eI-DbO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Enw-68-bis">
+                                        <rect key="frame" x="0.0" y="100" width="50" height="50"/>
+                                        <state key="normal" image="ic_replay_5_48pt-1"/>
+                                        <connections>
+                                            <action selector="fiveBackDidTouch:" destination="YhT-Ki-BOu" eventType="touchUpInside" id="zxs-MP-F2Q"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="zpZ-Vy-9M3" userLabel="forward stack">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="150"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yYP-dl-KmH">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <state key="normal" image="ic_forward_30_48pt"/>
+                                        <connections>
+                                            <action selector="thirtyForwardDidTouch:" destination="YhT-Ki-BOu" eventType="touchUpInside" id="fQl-1v-zFC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UeF-3o-ZZr">
+                                        <rect key="frame" x="0.0" y="50" width="50" height="50"/>
+                                        <state key="normal" image="ic_forward_10_48pt"/>
+                                        <connections>
+                                            <action selector="tenForwardDidTouch:" destination="YhT-Ki-BOu" eventType="touchUpInside" id="s3D-Qd-NmK"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MrK-Il-rR2">
+                                        <rect key="frame" x="0.0" y="100" width="50" height="50"/>
+                                        <state key="normal" image="ic_forward_5_48pt"/>
+                                        <connections>
+                                            <action selector="fiveForwardDidTouch:" destination="YhT-Ki-BOu" eventType="touchUpInside" id="t7r-Jd-O5g"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.75061536815068497" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="zpZ-Vy-9M3" secondAttribute="bottom" id="Egh-Rm-zyp"/>
+                            <constraint firstItem="zpZ-Vy-9M3" firstAttribute="leading" secondItem="FRI-s5-88f" secondAttribute="leading" id="L64-LA-mtJ"/>
+                            <constraint firstItem="zpZ-Vy-9M3" firstAttribute="top" secondItem="FRI-s5-88f" secondAttribute="top" id="RZo-gG-qC9"/>
+                            <constraint firstAttribute="bottom" secondItem="Fbe-lE-dEb" secondAttribute="bottom" id="VyZ-mh-T1m"/>
+                            <constraint firstAttribute="trailing" secondItem="zpZ-Vy-9M3" secondAttribute="trailing" id="W4p-mC-vPF"/>
+                            <constraint firstAttribute="trailing" secondItem="Fbe-lE-dEb" secondAttribute="trailing" id="hot-uV-Q6N"/>
+                            <constraint firstItem="Fbe-lE-dEb" firstAttribute="top" secondItem="FRI-s5-88f" secondAttribute="top" id="jAV-mb-FNp"/>
+                            <constraint firstItem="Fbe-lE-dEb" firstAttribute="leading" secondItem="FRI-s5-88f" secondAttribute="leading" id="jr7-ny-Z3A"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="tqL-9I-qRF"/>
+                    </view>
+                    <size key="freeformSize" width="50" height="150"/>
+                    <connections>
+                        <outlet property="forwardStack" destination="zpZ-Vy-9M3" id="6WA-jO-hxY"/>
+                        <outlet property="replayStack" destination="Fbe-lE-dEb" id="iiS-Tc-RRa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VFP-Uf-WOS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1365" y="-1001.4084507042254"/>
+        </scene>
         <!--AudioBookmarks-->
         <scene sceneID="UgL-aR-Swy">
             <objects>
@@ -324,6 +408,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LYB-ag-vEy">
                                                 <rect key="frame" x="0.0" y="4.5" width="86.5" height="48"/>
+                                                <gestureRecognizers/>
                                                 <state key="normal" image="ic_replay_10_white_48pt"/>
                                                 <connections>
                                                     <action selector="skipBackDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="hAs-DP-Ysr"/>
@@ -338,7 +423,7 @@
                                                     <action selector="playPauseDidTouch:" destination="YLd-EO-8NF" eventType="touchUpInside" id="kwf-RT-fJl"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cu3-o0-XuE">
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cu3-o0-XuE">
                                                 <rect key="frame" x="173.5" y="4.5" width="86.5" height="48"/>
                                                 <state key="normal" image="ic_forward_10_white_48pt"/>
                                                 <connections>
@@ -644,6 +729,8 @@
                         <outlet property="recordStackView" destination="5Ik-Pd-laN" id="Xmw-oj-DEM"/>
                         <outlet property="scrubSlider" destination="S4F-to-qwf" id="dbQ-pL-mRg"/>
                         <outlet property="shareButton" destination="DPV-DQ-FJr" id="p2R-R9-jRj"/>
+                        <outlet property="skipBackButton" destination="LYB-ag-vEy" id="ZXe-rv-6Dw"/>
+                        <outlet property="skipForwardButton" destination="cu3-o0-XuE" id="eEK-9B-NSX"/>
                         <outlet property="stopWatchLabel" destination="0UE-KP-Dkr" id="EBk-yF-tX7"/>
                         <outlet property="waveformView" destination="XQx-qj-YCw" id="LWn-iY-4TD"/>
                     </connections>
@@ -1043,10 +1130,16 @@
         <image name="default" width="56" height="56"/>
         <image name="highlighted" width="56" height="56"/>
         <image name="ic_folder_48pt" width="48" height="48"/>
+        <image name="ic_forward_10_48pt" width="48" height="48"/>
         <image name="ic_forward_10_white_48pt" width="48" height="48"/>
+        <image name="ic_forward_30_48pt" width="48" height="48"/>
+        <image name="ic_forward_5_48pt" width="48" height="48"/>
         <image name="ic_pause_circle_outline_white_48pt" width="48" height="48"/>
         <image name="ic_play_circle_outline_white_48pt" width="48" height="48"/>
+        <image name="ic_replay_10_48pt" width="48" height="48"/>
         <image name="ic_replay_10_white_48pt" width="48" height="48"/>
+        <image name="ic_replay_30_48pt" width="48" height="48"/>
+        <image name="ic_replay_5_48pt-1" width="48" height="48"/>
         <image name="selected" width="56" height="56"/>
         <image name="shareIcon" width="56" height="80"/>
     </resources>

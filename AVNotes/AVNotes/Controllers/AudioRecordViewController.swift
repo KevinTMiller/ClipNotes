@@ -36,6 +36,8 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         static let playbackLineWidth: CGFloat = 1 / UIScreen.main.scale
         static let recordAlertMessage = "Start recording before adding a bookmark"
         static let recordAlertTitle = "Press Record"
+        static let skipVC = "skipVC"
+        static let skipVCHeight: CGFloat = 150
         static let textColor: UIColor = UIColor(red:0.08, green:0.07, blue:0.35, alpha:1.0)
         static let trailingInset: CGFloat = 0.06
         static let tableViewInset: CGFloat = 24.0
@@ -59,8 +61,6 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         static let recordingSaved = "Your recording has been saved."
         static let save = "Save"
         static let success = "Success"
-
-
     }
 
     enum ImageConstants {
@@ -88,6 +88,8 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     @IBOutlet private weak var recordStackView: UIStackView!
     @IBOutlet private var scrubSlider: UISlider!
     @IBOutlet private var shareButton: UIButton!
+    @IBOutlet private weak var skipBackButton: UIButton!
+    @IBOutlet private weak var skipForwardButton: UIButton!
     @IBOutlet private weak var stopWatchLabel: UILabel!
     @IBOutlet private weak var waveformView: BorderDrawingView!
 
@@ -164,7 +166,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         stateManager.togglePlayState(sender: sender)
     }
 
-    @IBAction func skipBackDidTouch(_ sender: Any) {
+    @IBAction func skipBackDidTouch(_ sender: UIButton) {
         mediaManager.skipFixedTime(time: -10.0)
         if timer == nil {
             updateTimerDependentUI()
@@ -229,6 +231,23 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
 
         gradientView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         gradientManager.addManagedView(gradientView)
+        let backGestureRecognizer: UIGestureRecognizer
+        let forwardGestureRecognizer: UIGestureRecognizer
+        if self.traitCollection.forceTouchCapability == .available {
+            backGestureRecognizer = DeepPressGestureRecognizer(target: self,
+                                                           action: #selector(longOrDeepHandler),
+                                                           threshold: 0.75)
+            forwardGestureRecognizer = DeepPressGestureRecognizer(target: self,
+                                                               action: #selector(longOrDeepHandler),
+                                                               threshold: 0.75)
+        } else {
+            backGestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                             action: #selector(longOrDeepHandler))
+            forwardGestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                                 action: #selector(longOrDeepHandler))
+        }
+        skipBackButton.addGestureRecognizer(backGestureRecognizer)
+        skipForwardButton.addGestureRecognizer(forwardGestureRecognizer)
 
         let panGestureRecognizer = UIPanGestureRecognizer(target: self,
                                                           action: #selector(waveformDidPan))
@@ -251,7 +270,8 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     }
 
     private func confirmAndDiscard() {
-        confirmDestructiveAlert(title: AlertConstants.discard, message: AlertConstants.areYouSure) { [weak self] in
+        confirmDestructiveAlert(title: AlertConstants.discard,
+                                message: AlertConstants.areYouSure) { [weak self] in
             self?.mediaManager.setBlankRecording()
             self?.stateManager.currentState = .prepareToRecord
         }
@@ -396,6 +416,28 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         let shape = CAShapeLayer()
         shape.path = maskPath.cgPath
         view.layer.mask = shape
+    }
+
+    @objc
+    private func longOrDeepHandler(sender: UIGestureRecognizer) {
+        guard let skipVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Constants.skipVC) as? SkipViewController else { return } // swiftlint:disable:this line_length
+        skipVC.modalPresentationStyle = .popover
+
+        if let popoverController = skipVC.popoverPresentationController,
+            let view = sender.view {
+            popoverController.delegate = self
+            popoverController.sourceView = view
+            popoverController.sourceRect = view.bounds
+            popoverController.permittedArrowDirections = .down
+            skipVC.preferredContentSize = CGSize(width: view.bounds.width / 2, height: Constants.skipVCHeight)
+        }
+
+        if sender.view?.tag == 0 { // Rewind View
+            skipVC.mode = .reverse
+        } else { // Forward View
+            skipVC.mode = .forward
+        }
+        present(skipVC, animated: true, completion: nil)
     }
 
     @objc
@@ -737,5 +779,12 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
             }
             if timer == nil { updateTimerDependentUI() }
         }
+    }
+}
+
+extension AudioRecordViewController: UIPopoverPresentationControllerDelegate {
+
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
     }
 } // swiftlint:disable:this file_length
