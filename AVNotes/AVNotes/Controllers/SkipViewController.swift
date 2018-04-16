@@ -13,29 +13,56 @@ enum SkipVCMode {
     case reverse
 }
 
+enum SkipValue {
+    static let thirty: Double = 30
+    static let ten: Double = 10 // swiftlint:disable:this identifier_name
+    static let five: Double = 5
+}
+
 class SkipViewController: UIViewController {
 
     var mode: SkipVCMode = .reverse
+    weak var delegate: SkipControllerDelegate?
+    lazy var generator = UISelectionFeedbackGenerator()
+    lazy var confirmGenerator = UINotificationFeedbackGenerator()
+
+    
+
+    @IBAction func touchUpInside(_ sender: HapticButton) {
+        confirmGenerator.notificationOccurred(.success)
+    }
 
     @IBOutlet private weak var forwardStack: UIStackView!
     @IBOutlet private weak var replayStack: UIStackView!
 
-    @IBAction func thirtyBackDidTouch(_ sender: Any) {
+    @IBAction func thirtyBackDidTouch(_ sender: HapticButton) {
+        delegate?.changeSkipValue(SkipValue.thirty, mode: .reverse)
+        dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func tenBackDidTouch(_ sender: UIButton) {
+    @IBAction func tenBackDidTouch(_ sender: HapticButton) {
+        delegate?.changeSkipValue(SkipValue.ten, mode: .reverse)
+        dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func fiveBackDidTouch(_ sender: UIButton) {
+    @IBAction func fiveBackDidTouch(_ sender: HapticButton) {
+        delegate?.changeSkipValue(SkipValue.five, mode: .reverse)
+        dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func thirtyForwardDidTouch(_ sender: UIButton) {
+    @IBAction func thirtyForwardDidTouch(_ sender: HapticButton) {
+        delegate?.changeSkipValue(SkipValue.thirty, mode: .forward)
+        dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func tenForwardDidTouch(_ sender: UIButton) {
+    @IBAction func tenForwardDidTouch(_ sender: HapticButton) {
+        delegate?.changeSkipValue(SkipValue.ten, mode: .forward)
+        dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func fiveForwardDidTouch(_ sender: UIButton) {
+    @IBAction func fiveForwardDidTouch(_ sender: HapticButton) {
+        delegate?.changeSkipValue(SkipValue.five, mode: .forward)
+        dismiss(animated: true, completion: nil)
     }
 
     override func viewWillLayoutSubviews() {
@@ -49,6 +76,4 @@ class SkipViewController: UIViewController {
             replayStack.isHidden = false
         }
     }
-
-
 }

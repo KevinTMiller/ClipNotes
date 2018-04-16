@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+protocol SkipControllerDelegate: AnyObject {
+    func changeSkipValue(_ value: Double, mode: SkipVCMode)
+}

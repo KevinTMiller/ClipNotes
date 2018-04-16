@@ -52,7 +52,7 @@ class GradientManager: NSObject {
     }
     
     func redrawGradients() {
-        for i in 0 ..< gradientLayers.count {
+        for i in 0 ..< gradientLayers.count { //swiftlint:disable:this identifier_name
             gradientLayers[i].frame = managedViews[i].bounds
         }
     }

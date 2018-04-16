@@ -33,14 +33,12 @@ class DeepPressGestureRecognizer: UIGestureRecognizer {
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesEnded(touches, with: event)
-        state = deepPressed ? .ended : .failed
+        state = deepPressed ? .recognized : .failed
         deepPressed = false
     }
 
     private func handleTouch(_ touch: UITouch) {
         if !deepPressed && (touch.force / touch.maximumPossibleForce) >= threshold {
-            state = .began
-
             if vibrateOnDeepPress {
                 let generator = UISelectionFeedbackGenerator()
                 generator.selectionChanged()
@@ -48,5 +46,4 @@ class DeepPressGestureRecognizer: UIGestureRecognizer {
             deepPressed = true
         }
     }
-    
 }

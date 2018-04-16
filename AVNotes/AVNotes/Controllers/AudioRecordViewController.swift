@@ -64,6 +64,12 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     }
 
     enum ImageConstants {
+        static let replay5 = "ic_replay_5_white_48pt"
+        static let replay10 = "ic_replay_10_white_48pt"
+        static let replay30 = "ic_replay_30_white_48pt"
+        static let forward5 = "ic_forward_5_white_48pt"
+        static let forward10 = "ic_forward_10_white_48pt"
+        static let forward30 = "ic_forward_30_white_48pt"
         static let pauseImage = "ic_pause_circle_outline_48pt"
         static let playImage = "ic_play_circle_outline_48pt"
         static let recordImage = "ic_fiber_manual_record_48pt"
@@ -95,6 +101,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
 
     // MARK: Private Vars
     private let fileManager = RecordingManager.sharedInstance
+    private var forwardSkipValue: Double = 10
     private lazy var gradientManager = GradientManager()
     private lazy var isInitialFirstViewing = true
     private lazy var isShowingRecordingView = true
@@ -104,6 +111,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     private var playbackLineCenter: NSLayoutConstraint?
     private var playStackLeading: NSLayoutConstraint?
     private var playStackTrailing: NSLayoutConstraint?
+    private var reverseSkipValue: Double = 10
     private var stateManager = StateManager.sharedInstance
     private var timer: Timer?
 
@@ -167,7 +175,8 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     }
 
     @IBAction func skipBackDidTouch(_ sender: UIButton) {
-        mediaManager.skipFixedTime(time: -10.0)
+
+        mediaManager.skipFixedTime(time: -reverseSkipValue)
         if timer == nil {
             updateTimerDependentUI()
         }
@@ -182,7 +191,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     }
 
     @IBAction func skipForwardDidTouch(_ sender: UIButton) {
-        mediaManager.skipFixedTime(time: 10.0)
+        mediaManager.skipFixedTime(time: forwardSkipValue)
         if timer == nil {
             updateTimerDependentUI()
         }
@@ -235,16 +244,16 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         let forwardGestureRecognizer: UIGestureRecognizer
         if self.traitCollection.forceTouchCapability == .available {
             backGestureRecognizer = DeepPressGestureRecognizer(target: self,
-                                                           action: #selector(longOrDeepHandler),
-                                                           threshold: 0.75)
-            forwardGestureRecognizer = DeepPressGestureRecognizer(target: self,
                                                                action: #selector(longOrDeepHandler),
                                                                threshold: 0.75)
+            forwardGestureRecognizer = DeepPressGestureRecognizer(target: self,
+                                                                  action: #selector(longOrDeepHandler),
+                                                                  threshold: 0.75)
         } else {
             backGestureRecognizer = UILongPressGestureRecognizer(target: self,
-                                                             action: #selector(longOrDeepHandler))
-            forwardGestureRecognizer = UILongPressGestureRecognizer(target: self,
                                                                  action: #selector(longOrDeepHandler))
+            forwardGestureRecognizer = UILongPressGestureRecognizer(target: self,
+                                                                    action: #selector(longOrDeepHandler))
         }
         skipBackButton.addGestureRecognizer(backGestureRecognizer)
         skipForwardButton.addGestureRecognizer(forwardGestureRecognizer)
@@ -376,7 +385,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     @objc
     private func waveformDidPan(sender: UIPanGestureRecognizer) {
         guard stateManager.isPlayMode else { return }
-        guard let end = mediaManager.currentRecording?.duration else { return }
+        guard let end = mediaManager.currentRecording?.duration else { return } // swiftlint:disable:this identifier_name
         let offset = sender.location(in: waveformView).x
         let seconds = end / Double(waveformView.bounds.maxX / offset)
         let skipTime = seconds - mediaManager.currentTimeInterval
@@ -422,6 +431,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
     private func longOrDeepHandler(sender: UIGestureRecognizer) {
         guard let skipVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Constants.skipVC) as? SkipViewController else { return } // swiftlint:disable:this line_length
         skipVC.modalPresentationStyle = .popover
+        skipVC.delegate = self
 
         if let popoverController = skipVC.popoverPresentationController,
             let view = sender.view {
@@ -429,6 +439,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
             popoverController.sourceView = view
             popoverController.sourceRect = view.bounds
             popoverController.permittedArrowDirections = .down
+             
             skipVC.preferredContentSize = CGSize(width: view.bounds.width / 2, height: Constants.skipVCHeight)
         }
 
@@ -778,6 +789,43 @@ extension AudioRecordViewController: BookmarkTableViewDelegate, UITableViewDataS
                     return
             }
             if timer == nil { updateTimerDependentUI() }
+        }
+    }
+}
+
+extension AudioRecordViewController: SkipControllerDelegate {
+    func changeSkipValue(_ value: Double, mode: SkipVCMode) {
+        switch mode {
+        case .forward:
+            forwardSkipValue = value
+            var image: UIImage?
+            switch value {
+            case 30:
+                image = UIImage(named: ImageConstants.forward30)
+            case 10:
+                image = UIImage(named: ImageConstants.forward10)
+            case 5:
+                image = UIImage(named: ImageConstants.forward5)
+            default:
+                image = UIImage()
+            }
+            guard let buttonImage = image else { return }
+            skipForwardButton.setImage(buttonImage, for: .normal)
+        case .reverse:
+            reverseSkipValue = value
+            var image: UIImage?
+            switch value {
+            case 30:
+                image = UIImage(named: ImageConstants.replay30)
+            case 10:
+                image = UIImage(named: ImageConstants.replay10)
+            case 5:
+                image = UIImage(named: ImageConstants.replay5)
+            default:
+                image = UIImage()
+            }
+            guard let buttonImage = image else { return }
+            skipBackButton.setImage(buttonImage, for: .normal)
         }
     }
 }

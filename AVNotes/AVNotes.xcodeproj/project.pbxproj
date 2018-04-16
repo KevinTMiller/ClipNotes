@@ -35,6 +35,7 @@
 		8768D0492053232900D7CABF /* AnnotatedRecording+format.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8768D0482053232900D7CABF /* AnnotatedRecording+format.swift */; };
 		8786DDD9204460D600BCC61B /* montserrat.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8786DDD8204460D500BCC61B /* montserrat.regular.ttf */; };
 		8792186120227A6B00CA19AF /* BorderDrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8792186020227A6B00CA19AF /* BorderDrawingView.swift */; };
+		879BFCDA207D34BF00CA82D0 /* HapticButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 879BFCD9207D34BF00CA82D0 /* HapticButton.swift */; };
 		87B48FA1201257C60056F894 /* FileDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87B48FA0201257C60056F894 /* FileDetailViewController.swift */; };
 		87CE568420486F7000C5DC03 /* UIImage+ImageFromString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE568320486F7000C5DC03 /* UIImage+ImageFromString.swift */; };
 		87CE56872048980400C5DC03 /* UIFont+Montserrat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CE56862048980400C5DC03 /* UIFont+Montserrat.swift */; };
@@ -98,6 +99,7 @@
 		8786DDD8204460D500BCC61B /* montserrat.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = montserrat.regular.ttf; sourceTree = "<group>"; };
 		8786DDDC2045001800BCC61B /* AudioKit For iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "AudioKit For iOS.xcodeproj"; path = "../../../../AudioKit/AudioKit/iOS/AudioKit For iOS.xcodeproj"; sourceTree = "<group>"; };
 		8792186020227A6B00CA19AF /* BorderDrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderDrawingView.swift; sourceTree = "<group>"; };
+		879BFCD9207D34BF00CA82D0 /* HapticButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticButton.swift; sourceTree = "<group>"; };
 		87B48FA0201257C60056F894 /* FileDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDetailViewController.swift; sourceTree = "<group>"; };
 		87CE568320486F7000C5DC03 /* UIImage+ImageFromString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ImageFromString.swift"; sourceTree = "<group>"; };
 		87CE56862048980400C5DC03 /* UIFont+Montserrat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Montserrat.swift"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				8792186020227A6B00CA19AF /* BorderDrawingView.swift */,
 				874EE92B2024E8C500B752A9 /* FolderTableViewCell.swift */,
 				8730DB4E203749C5007068D9 /* BookmarkTableViewCell.swift */,
+				879BFCD9207D34BF00CA82D0 /* HapticButton.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 			files = (
 				87EA619D1FFABE2E00AB7B19 /* String+UniqueFileName.swift in Sources */,
 				87CE56872048980400C5DC03 /* UIFont+Montserrat.swift in Sources */,
+				879BFCDA207D34BF00CA82D0 /* HapticButton.swift in Sources */,
 				871367601FE4558D00545AAA /* RecordingManager.swift in Sources */,
 				871840EF20751FFE00B4FBF0 /* SkipViewController.swift in Sources */,
 				872A67101FD7088A00AD6B2C /* AudioRecordViewController.swift in Sources */,
