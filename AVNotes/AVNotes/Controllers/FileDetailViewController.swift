@@ -22,7 +22,7 @@ class FileDetailViewController: UIViewController {
         static let unwindSegue = "unwindToAudioRecord"
     }
 
-    @IBOutlet var newRecordingButton: UIButton!
+    @IBOutlet var newRecordingButton: UIButton! 
     var folder: Folder!
     private var recordings: [AnnotatedRecording]! {
         return fileManager.recordingArray.filter({ $0.folderID == folder.systemID })
@@ -96,6 +96,9 @@ extension FileDetailViewController: UITableViewDataSource, UITableViewDelegate {
                                        placeholder: placeholder,
                                        completion: { [weak self] text in
                                         self?.fileManager.editTitleOf(uniqueID: uniqueID, newTitle: text)
+                                        if self?.audioManager.currentRecording?.fileName == uniqueID {
+                                            self?.audioManager.currentRecording?.fileName = text
+                                        }
                                         tableView.reloadRows(at: [indexPath], with: .automatic )
                 })
             }

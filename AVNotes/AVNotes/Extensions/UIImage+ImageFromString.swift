@@ -25,7 +25,7 @@ extension UIImage {
         label.adjustsFontSizeToFitWidth = false
         UIGraphicsBeginImageContextWithOptions(label.bounds.size, false, 0.0)
         label.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let img = UIGraphicsGetImageFromCurrentImageContext()!
+        let img = UIGraphicsGetImageFromCurrentImageContext()! // swiftlint:disable:this identifier_name
         UIGraphicsEndImageContext()
         return img
     }

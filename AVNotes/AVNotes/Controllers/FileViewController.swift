@@ -33,7 +33,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
     private let fileManager = RecordingManager.sharedInstance
-    private let mediaManager = AudioManager.sharedInstance
+    private let audioManager = AudioManager.sharedInstance
     private let stateManager = StateManager.sharedInstance
 
     @IBAction func newRecordingDidTouch(_ sender: UIButton) {
@@ -125,6 +125,12 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
                                         }
                                         if let file = fileOrFolder as? AnnotatedRecording {
                                             self?.fileManager.deleteFile(identifier: file.fileName)
+                                            // "Deletes" the current recording in the case that the user deletes swiftlint:disable:this line_length
+                                            // the file in in the fileVC  that is set as the current recording
+                                            if self?.audioManager.currentRecording?.fileName == file.fileName { // swiftlint:disable:this line_length
+                                                self?.audioManager.setBlankRecording()
+                                                self?.stateManager.currentState = .prepareToRecord
+                                            }
                                         }
                                         tableView.deleteRows(at: [indexPath], with: .automatic)
                                         tableView.endUpdates()
@@ -155,8 +161,11 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
                                    message: message,
                                    placeholder: placeholder,
                                    completion: { [weak self] text in
-                self?.fileManager.editTitleOf(uniqueID: uniqueID, newTitle: text)
-                tableView.reloadRows(at: [indexPath], with: .automatic)
+                                    self?.fileManager.editTitleOf(uniqueID: uniqueID, newTitle: text)
+                                    if self?.audioManager.currentRecording?.fileName == uniqueID {
+                                        self?.audioManager.currentRecording?.userTitle = text
+                                    }
+                                    tableView.reloadRows(at: [indexPath], with: .automatic)
             })
         }
         return [delete, edit]
@@ -166,7 +175,7 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
         let selection = fileManager.filesAndFolders[indexPath.row]
 
         if let recording = selection as? AnnotatedRecording {
-            mediaManager.switchToPlay(file: recording)
+            audioManager.switchToPlay(file: recording)
             navigationController?.popToRootViewController(animated: true)
         }
     }
@@ -240,7 +249,7 @@ extension FileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             destinationIndexPath = indexPath
         } else {
             let section = tableView.numberOfSections - 1
-            let row = tableView.numberOfRows(inSection: section)
+            let row = tableView.numberOfRows(inSection: section) // swiftlint:disable:this identifier_name
             destinationIndexPath = IndexPath(row: row, section: section)
         }
         coordinator.session.loadObjects(ofClass: NSString.self) { items in

@@ -176,7 +176,7 @@ StateManagerModelDelegate {
     // then creating a instance of the AVAudioRecord with the current path and settings. */
 
     @objc
-    func handleInterruption(_ notification: Notification) {
+    func handleInterruption(_ notification: Notification) { // swiftlint:disable:this cyclomatic_complexity
         guard let info = notification.userInfo,
             let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,
             let type = AVAudioSessionInterruptionType(rawValue: typeValue) else {
@@ -316,7 +316,7 @@ StateManagerModelDelegate {
         stateManager.currentState = .prepareToPlay
     }
 
-    private func setBlankRecording() {
+    func setBlankRecording() {
         currentRecording = createAnnotatedRecording()
     }
 
@@ -447,7 +447,7 @@ StateManagerModelDelegate {
 
     private func getDuration(recording: AnnotatedRecording) -> Double {
         let path = getDocumentsDirectory()
-        let url = path.appendingPathComponent(recording.fileName)
+        let url = path.appendingPathComponent(recording.fileName) // swiftlint:disable:this identifier_name
         let asset = AVURLAsset(url: url)
         let duration = asset.duration
         return duration.seconds
