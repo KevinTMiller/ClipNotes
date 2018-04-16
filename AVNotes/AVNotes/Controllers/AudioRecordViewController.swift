@@ -547,12 +547,7 @@ extension AudioRecordViewController: StateManagerViewDelegate {
         plusButton.isEnabled = stateManager.isPlayMode
         filesButton.isEnabled = stateManager.canViewFiles
         discardButton.isEnabled = stateManager.canDiscard
-        UIView.transition(with: recordButton,
-                          duration: 0.33,
-                          options: .transitionCrossDissolve,
-                          animations: { [weak self] in
-            self?.recordButton.isSelected = self!.stateManager.isRecording
-        }, completion: nil)
+        recordButton.isSelected = stateManager.isRecording
     }
 
     func errorAlert(_ error: Error) {
