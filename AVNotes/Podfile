@@ -9,5 +9,6 @@ target 'AVNotes' do
 pod 'Disk', '~> 0.3.3'
 pod 'SwiftLint'
 pod 'Firebase/Core'
+pod 'MaterialComponents/FeatureHighlight'
 
 end

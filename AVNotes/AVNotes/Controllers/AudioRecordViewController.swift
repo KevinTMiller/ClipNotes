@@ -10,6 +10,7 @@ import AudioKit
 import AudioKitUI
 import AVKit
 import Firebase
+import MaterialComponents.MaterialFeatureHighlight
 import UIKit
 
 enum Mode {
@@ -29,6 +30,7 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
         static let cornerRadius: CGFloat = 10.0
         static let emptyTableText = "No bookmarks here yet. To create a bookmark, start recording or playback and then press the \"New Bookmark\" button." // swiftlint:disable:this line_length
         static let emptyTimeString = "00:00.00"
+        static let firstViewing = "firstViewing"
         static let insetConstant: CGFloat = 3.0
         static let mainStoryboard = "Main"
         static let onePixel: CGFloat = 1 / UIScreen.main.scale
@@ -137,14 +139,17 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        if isInitialFirstViewing {
-            isInitialFirstViewing = false
+        if let isFirst = UserDefaults.standard.value(forKey: Constants.firstViewing) as? Bool {
+            isInitialFirstViewing = isFirst
         }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         gradientManager.cycleGradient()
+        if isInitialFirstViewing && stateManager.currentState == .readyToPlay {
+                showFeatureTour()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -283,6 +288,23 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
                                 message: AlertConstants.areYouSure) { [weak self] in
             self?.mediaManager.setBlankRecording()
             self?.stateManager.currentState = .prepareToRecord
+        }
+    }
+  
+  
+    private func showFeatureTour() {
+        let highlightController = MDCFeatureHighlightViewController(highlightedView: skipForwardButton, completion: nil)
+        highlightController.titleText = "Skip speed"
+        highlightController.bodyText = "Force press (or long press) to select 5, 10 or 30 second skips."
+        if gradientManager.currentUIColors.count > 1 {
+            highlightController.outerHighlightColor = gradientManager.currentUIColors[0]
+            highlightController.innerHighlightColor = gradientManager.currentUIColors[1]
+            highlightController.titleColor = .white
+            highlightController.bodyColor = .white
+        }
+        
+        present(highlightController, animated: true) {
+            UserDefaults.standard.set(false, forKey: Constants.firstViewing)
         }
     }
 
