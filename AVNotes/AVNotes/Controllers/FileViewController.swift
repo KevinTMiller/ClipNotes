@@ -125,10 +125,9 @@ class FileViewController: UIViewController, UITableViewDelegate, UITableViewData
                                         }
                                         if let file = fileOrFolder as? AnnotatedRecording {
                                             self?.fileManager.deleteFile(identifier: file.fileName)
-
-                                            // "Deletes" the current recording in the case that the user deletes
+                                            // "Deletes" the current recording in the case that the user deletes swiftlint:disable:this line_length
                                             // the file in in the fileVC  that is set as the current recording
-                                            if self?.audioManager.currentRecording?.fileName == file.fileName {
+                                            if self?.audioManager.currentRecording?.fileName == file.fileName { // swiftlint:disable:this line_length
                                                 self?.audioManager.setBlankRecording()
                                                 self?.stateManager.currentState = .prepareToRecord
                                             }
@@ -250,7 +249,7 @@ extension FileViewController: UITableViewDragDelegate, UITableViewDropDelegate {
             destinationIndexPath = indexPath
         } else {
             let section = tableView.numberOfSections - 1
-            let row = tableView.numberOfRows(inSection: section)
+            let row = tableView.numberOfRows(inSection: section) // swiftlint:disable:this identifier_name
             destinationIndexPath = IndexPath(row: row, section: section)
         }
         coordinator.session.loadObjects(ofClass: NSString.self) { items in

@@ -447,7 +447,7 @@ StateManagerModelDelegate {
 
     private func getDuration(recording: AnnotatedRecording) -> Double {
         let path = getDocumentsDirectory()
-        let url = path.appendingPathComponent(recording.fileName)
+        let url = path.appendingPathComponent(recording.fileName) // swiftlint:disable:this identifier_name
         let asset = AVURLAsset(url: url)
         let duration = asset.duration
         return duration.seconds
