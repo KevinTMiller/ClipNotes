@@ -15,7 +15,9 @@ class GradientManager: NSObject {
         static let colorKeyPath = "colors"
         static let colorChange = "colorChange"
     }
-    
+    var currentUIColors: [UIColor] {
+        return currentColor.map { UIColor(cgColor: $0) }
+    }
     private var nextColor = [CGColor]()
     private var currentColor = [CGColor]()
     private var gradientLayers = [CAGradientLayer]()
