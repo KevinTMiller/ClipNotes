@@ -290,7 +290,8 @@ class AudioRecordViewController: UIViewController { // swiftlint:disable:this ty
             self?.stateManager.currentState = .prepareToRecord
         }
     }
-
+  
+  
     private func showFeatureTour() {
         let highlightController = MDCFeatureHighlightViewController(highlightedView: skipForwardButton, completion: nil)
         highlightController.titleText = "Skip speed"
